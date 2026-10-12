@@ -180,6 +180,8 @@ export const education = {
   major: "Computer Engineering",
   description: "국립 한밭대학교 · 컴퓨터공학 전공",
   period: null as string | null,
+  graduation: "2027.02" as string | null, // 졸업 예정
+  gpa: "4.12" as string | null,
   subjects: [
     "Software Development",
     "Computer Vision",

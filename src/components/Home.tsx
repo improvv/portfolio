@@ -441,6 +441,28 @@ function Education() {
             <Phrases text={education.description} />
           </p>
           {education.period && <p>{education.period}</p>}
+          {(education.graduation || education.gpa) && (
+            <dl className="education-facts">
+              {education.graduation && (
+                <div>
+                  <dt>GRADUATION</dt>
+                  <dd>
+                    {education.graduation}
+                    <small>졸업 예정</small>
+                  </dd>
+                </div>
+              )}
+              {education.gpa && (
+                <div>
+                  <dt>GPA</dt>
+                  <dd>
+                    {education.gpa}
+                    <small>전체 평점</small>
+                  </dd>
+                </div>
+              )}
+            </dl>
+          )}
           <div className="study-areas">
             <span className="eyebrow">AREAS OF INTEREST</span>
             {education.subjects.map((subject, i) => (
