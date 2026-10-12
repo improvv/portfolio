@@ -17,6 +17,14 @@ export default function ProjectDetail() {
         </Link>
       </section>
     );
+  // Tech Stack sits after the motivation and role sections.
+  const leadingTitles = ["Problem & Motivation", "My Role"];
+  const leading = project.details.filter((item) =>
+    leadingTitles.includes(item.title),
+  );
+  const trailing = project.details.filter(
+    (item) => !leadingTitles.includes(item.title),
+  );
   const nextProject =
     projects[(projects.indexOf(project) + 1) % projects.length];
   return (
@@ -79,13 +87,9 @@ export default function ProjectDetail() {
           <nav aria-label="프로젝트 상세 목차">
             {[
               "Overview",
-              "Problem & Motivation",
-              "My Role",
-              "Tech Stack",
-              "Architecture",
-              "Key Features",
-              "Challenges & Solutions",
-              "Results",
+              ...leading.map((item) => item.title),
+              ...(project.technologies.length ? ["Tech Stack"] : []),
+              ...trailing.map((item) => item.title),
               ...(project.gallery.length ? ["Gallery"] : []),
               ...(project.storeLink ? ["Download"] : []),
               ...(project.repository ? ["GitHub Repository"] : []),
@@ -107,22 +111,20 @@ export default function ProjectDetail() {
               <Phrases text={project.overview} />
             </p>
           </section>
-          {project.details.slice(0, 2).map((item) => (
+          {leading.map((item) => (
             <DetailSection key={item.title} {...item} />
           ))}
-          <section id="detail-tech-stack">
-            <h2>Tech Stack</h2>
-            <div className="detail-tags">
-              {project.technologies.length ? (
-                project.technologies.map((technology) => (
+          {project.technologies.length > 0 && (
+            <section id="detail-tech-stack">
+              <h2>Tech Stack</h2>
+              <div className="detail-tags">
+                {project.technologies.map((technology) => (
                   <span key={technology}>{technology}</span>
-                ))
-              ) : (
-                <p className="pending-copy">기술 스택 추가 예정</p>
-              )}
-            </div>
-          </section>
-          {project.details.slice(2).map((item) => (
+                ))}
+              </div>
+            </section>
+          )}
+          {trailing.map((item) => (
             <DetailSection key={item.title} {...item} />
           ))}
           {project.gallery.length > 0 && (

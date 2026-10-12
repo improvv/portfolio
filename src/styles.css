@@ -874,7 +874,7 @@ h1:focus {
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 35px;
   border-top: 1px solid var(--ink);
 }
@@ -1982,7 +1982,9 @@ footer[tabindex="-1"]:focus {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 1px;
-  pointer-events: none;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
   box-shadow: 4px 4px 0 var(--red);
 }
 .indicator-arrow {
@@ -2809,4 +2811,26 @@ body {
 }
 .store-badge:hover {
   background: var(--red);
+}
+.section-indicator:hover .indicator-arrow {
+  background: var(--cream);
+  color: var(--ink);
+}
+.section-indicator:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* Skills: three groups */
+@media (max-width: 1000px) and (min-width: 701px) {
+  .skills-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .skills-grid > div:nth-child(2) .skill-group {
+    border-right: 1px solid var(--line);
+  }
+  .skills-grid > div:nth-child(3) .skill-group {
+    padding-left: 17px;
+    border-top: 0;
+  }
 }

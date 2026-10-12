@@ -179,41 +179,22 @@ type DetailTitle =
   | "Challenges & Solutions"
   | "Results";
 
-// 확인된 내용만 덮어쓰고, 나머지는 "추가 예정"으로 둡니다.
-const pendingDetails = (
-  known: Partial<Record<DetailTitle, string | string[]>> = {},
-): ProjectSection[] =>
-  basePendingDetails().map((section) => ({
-    ...section,
-    text: known[section.title as DetailTitle] ?? section.text,
-  }));
-
-const basePendingDetails = (): ProjectSection[] => [
-  {
-    title: "Problem & Motivation",
-    text: "해결하려던 문제, 대상 사용자, 프로젝트를 시작하게 된 계기를 추가할 예정입니다.",
-  },
-  {
-    title: "My Role",
-    text: "팀 구성, 개인 담당 범위, 직접 구현한 기능과 기여 내용을 추가할 예정입니다.",
-  },
-  {
-    title: "Architecture",
-    text: "실제 구현을 확인한 뒤 시스템 구성도, 데이터 흐름과 모듈 간 연결을 추가할 예정입니다.",
-  },
-  {
-    title: "Key Features",
-    text: "구현이 확인된 주요 기능과 실제 동작 화면을 추가할 예정입니다.",
-  },
-  {
-    title: "Challenges & Solutions",
-    text: "발생했던 문제, 검토한 대안, 선택한 해결 방법과 그 근거를 추가할 예정입니다.",
-  },
-  {
-    title: "Results",
-    text: "검증 가능한 결과와 회고를 추가할 예정입니다. 성능 수치와 사용자 반응은 확인된 자료만 기재합니다.",
-  },
+const detailOrder: DetailTitle[] = [
+  "Problem & Motivation",
+  "My Role",
+  "Architecture",
+  "Key Features",
+  "Challenges & Solutions",
+  "Results",
 ];
+
+// 내용이 있는 섹션만 정해진 순서로 표시합니다.
+const projectDetails = (
+  known: Partial<Record<DetailTitle, string | string[]>>,
+): ProjectSection[] =>
+  detailOrder.flatMap((title) =>
+    known[title] ? [{ title, text: known[title] }] : [],
+  );
 
 export const projects: Project[] = [
   {
@@ -240,7 +221,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 트레이너 없이도 스마트폰 하나로 자세를 확인하고 교정할 수 있는 앱을 목표로 했습니다.",
       "My Role": [
@@ -308,7 +289,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "VR에서는 손동작 자체가 입력이 됩니다. 썰기·뒤집기·쌓기처럼 누구에게나 익숙한 요리 동작을 리듬 게임과 결합하면, 별도의 학습 없이도 몸으로 자연스럽게 즐길 수 있는 상호작용을 만들 수 있다고 보았습니다.",
       "My Role": [
@@ -359,7 +340,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "AI로 방화벽 룰을 만들면 작성 속도는 빨라지지만, 문법적으로 맞는 룰도 실제로는 막아야 할 트래픽을 통과시킬 수 있습니다. 정적 검증만 통과한 룰 중 실제 트래픽을 흘려 봐야만 드러나는 오류가 얼마나 되는지, 위험도 기반 적용으로 사람의 검토량을 얼마나 줄이면서 안전성을 지킬 수 있는지를 연구 질문으로 삼았습니다.",
       "My Role": [
@@ -386,6 +367,10 @@ export const projects: Project[] = [
         "한 룰셋에 오류가 여러 개 섞이면 어떤 오류를 어느 검증이 잡았는지 가를 수 없음 → 오류 주입 파일 하나에 오류를 하나만 넣는 원칙을 세움",
         "현재 룰 표현(IR)으로는 응답 트래픽 누락 같은 오류를 표현할 수 없음 → 막히는 이유와 두 가지 해결안을 정리해 팀 논의로 올림",
         "구현이 진행되며 가설이 실제 검증기 동작과 어긋남 → 검증기 결과를 확인해 order 유형 가설을 correlation 기준으로 수정",
+      ],
+      Results: [
+        "스마트홈 시나리오 10종과 11개 유형의 오류 주입 룰셋 15개로 검증 실험용 데이터셋 구축",
+        "시뮬레이터 분석 결과, 포트 오기·범위 경계·출발지와 목적지 뒤바뀜·룰 누락·범위 축소 오류는 정적 검증에서 저위험으로 통과하지만 프로브에서는 실패 — 동적 검증이 필요한 이유를 확인",
       ],
     }),
     gallery: [],
@@ -418,7 +403,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스를 추천하고, 지도와 일정, 도보 경로, 관광지 도착 스탬프로 여행 전 과정을 함께합니다. 2026년 6월부터 프론트엔드를 맡아 개발했고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 하고, 반려견의 크기나 성향까지 고려하기는 더 어렵습니다. 경주를 찾는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 추천받고, 여행하는 동안의 기록까지 남길 수 있도록 하고자 했습니다.",
       "My Role": [
@@ -470,7 +455,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "한밭 자율주행 캠프에서 진행한 프로젝트입니다. 라즈베리파이를 탑재한 소형 자율주행 자동차에 카메라와 라이다를 달고, 캠프 실습 코드를 바탕으로 보행자(노인)를 실시간으로 인식하면 스스로 멈추는 기능을 구현했습니다. 캠프에서 금상을 받았습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "고령 보행자는 차량을 피하는 반응이 느려 교통사고에 더 취약합니다. 자동차가 스스로 보행자를 알아보고 먼저 멈출 수 있다면 사고를 줄일 수 있다고 생각했습니다.",
       "My Role": [
@@ -487,6 +472,11 @@ export const projects: Project[] = [
         "카메라 영상 스트림에서 YOLO로 보행자를 실시간 인식",
         "라이다 거리 측정으로 보행자가 가까워지면 차량 정지",
         "보행자가 사라지면 다시 주행",
+      ],
+      "Challenges & Solutions": [
+        "라즈베리파이에서 YOLO 추론이 느려 보행자를 인식해도 정지가 한 박자 늦음 → 입력 해상도를 낮추고 인식 대상을 사람 클래스로 좁혀 반응 속도를 확보",
+        "라이다 거리값이 순간적으로 튀어 차량이 불필요하게 멈칫함 → 여러 번 측정한 값을 함께 보고 판단하도록 조정",
+        "카메라 인식과 거리 측정이 따로 동작해 판단이 엇갈림 → 보행자 인식과 거리 조건을 모두 만족할 때만 정지하도록 제어 로직을 정리",
       ],
       Results: "한밭 자율주행 캠프에서 금상을 받았습니다.",
     }),
@@ -508,7 +498,7 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "MorseLingo는 웹캠으로 눈 깜빡임을 인식해, 짧게 감으면 점·길게 감으면 선으로 한글 모스부호를 입력하며 연습하는 프로젝트입니다. 장기 목표는 듀오링고처럼 단계별로 배우는 학습 서비스이며, 현재는 macOS에서 동작하는 Python 웹캠 프로토타입입니다. 2026년 10월에 혼자 기획하고 개발했습니다.",
-    details: pendingDetails({
+    details: projectDetails({
       "Problem & Motivation":
         "모스부호는 짧은 신호와 긴 신호만으로 의사를 전달할 수 있는 단순하고 강력한 언어입니다. 눈 깜빡임을 입력으로 삼으면 손을 쓰지 않고도 모스부호를 배우고 전달할 수 있다는 점에 주목해, 한글 모스부호를 눈으로 연습하는 도구를 만들었습니다.",
       "My Role": [
@@ -571,13 +561,6 @@ export const education = {
 
 // 프로젝트 연결은 제공된 정보로 확인되는 경우에만 지정합니다.
 export const skillGroups: SkillGroup[] = [
-  {
-    category: "FRONTEND & LANGUAGE",
-    skills: [
-      { name: "TypeScript", projects: [] },
-      { name: "Java", projects: [] },
-    ],
-  },
   {
     category: "MOBILE DEVELOPMENT",
     skills: [

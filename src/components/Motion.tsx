@@ -67,11 +67,19 @@ export function slowScrollTo(top: number) {
     return;
   }
   const duration = Math.min(2.2, 0.9 + distance / 4000);
-  const cancel = () => activeScroll?.stop();
+  const startedAt = performance.now();
+  const cancel = (event: Event) => {
+    // Trackpad momentum keeps firing small wheel events after the reader
+    // stops scrolling; only a deliberate new scroll should cancel.
+    if (
+      event instanceof WheelEvent &&
+      (performance.now() - startedAt < 500 || Math.abs(event.deltaY) < 4)
+    )
+      return;
+    activeScroll?.stop();
+  };
   const events = ["wheel", "touchstart", "keydown"] as const;
-  events.forEach((e) =>
-    window.addEventListener(e, cancel, { passive: true, once: true }),
-  );
+  events.forEach((e) => window.addEventListener(e, cancel, { passive: true }));
   const controls = animate(from, to, {
     duration,
     ease: [0.65, 0, 0.35, 1],
@@ -132,11 +140,17 @@ export function SectionIndicator() {
     setCurrent((prev) => (prev.number === active.number ? prev : active));
   });
   return (
-    <motion.div
+    <motion.button
+      type="button"
       className="section-indicator"
-      aria-hidden="true"
+      aria-label="맨 위로 이동"
+      tabIndex={percent > 2 ? 0 : -1}
+      onClick={() => slowScrollTo(0)}
+      style={{ pointerEvents: percent > 2 ? "auto" : "none" }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: percent > 2 ? 1 : 0, y: percent > 2 ? 0 : 20 }}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.96 }}
     >
       <motion.span
         className="indicator-arrow"
@@ -155,7 +169,7 @@ export function SectionIndicator() {
         </motion.span>
       </span>
       <span className="indicator-percent">{percent}%</span>
-    </motion.div>
+    </motion.button>
   );
 }
 
