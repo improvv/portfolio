@@ -56,6 +56,8 @@ export interface Research {
   inProgress: boolean;
 }
 export interface BeyondCode {
+  icon: "press" | "band" | "mentor" | "study" | "travel";
+  stamp: string; // 여권 도장처럼 보여 줄 짧은 라벨
   title: string;
   role: string;
   period: string;
@@ -71,7 +73,7 @@ export const profile = {
   portrait: "images/profile.webp" as string | null,
   introduction: "완벽한 시작보다, 꾸준한 개선을 믿습니다.",
   paragraphs: [
-    "처음부터 완벽하게 만들려고 하기보다 일단 만들고 계속 고쳐 나갑니다. 견주여행은 TestFlight로 다섯 번 배포하면서 회차마다 고친 내용을 기록했고, 그렇게 App Store까지 올렸습니다.",
+    "완벽하게 준비될 때까지 기다리기보다, 먼저 만들어 보고 부족한 부분을 채워 가는 편입니다. 견주여행도 여러 차례 베타 테스트를 거치며 고쳐 나간 끝에 App Store에 출시했습니다.",
     "아이디어는 늘 생각하지만, 기준은 실제로 누군가에게 도움이 되느냐입니다. 어르신 건강 알림 앱, 고령 보행자 앞에서 멈추는 자동차, 반려견 보호자를 위한 여행 앱이 그렇게 나왔습니다.",
     "해 보지 않은 분야도 일단 도전합니다. 앱 개발에서 시작해 자율주행, VR 게임, 보안, 경량 딥러닝까지 매번 새로운 것에 부딪히며 배우고 있습니다.",
   ],
@@ -112,18 +114,24 @@ export const experiences: Experience[] = [
 export const beyondCode: BeyondCode[] = [
   // 최신순(종료 시점 기준)
   {
+    icon: "press",
+    stamp: "PRESS",
     title: "THE HERALD",
     role: "영자신문사 기자",
     period: "2025.03 — 2026.08",
     points: ["한·영문 기사 작성", "한·영문 기사 피드백"],
   },
   {
+    icon: "band",
+    stamp: "BASS",
     title: "BLACKSTONE",
     role: "교내 밴드 부회장 · 베이스",
     period: "2025.03 — 2026.08",
     points: [],
   },
   {
+    icon: "mentor",
+    stamp: "MENTOR",
     title: "대전광역시가족센터",
     role: "다문화가족 자녀 맞춤형 교육지원 멘토",
     period: "2025.01 — 2025.12",
@@ -133,12 +141,16 @@ export const beyondCode: BeyondCode[] = [
     ],
   },
   {
+    icon: "study",
+    stamp: "UK",
     title: "UNIVERSITY OF WOLVERHAMPTON",
     role: "영국 어학연수",
     period: "2025.07 — 2025.08",
     points: ["한 달간 영어 수업 수강"],
   },
   {
+    icon: "travel",
+    stamp: "AUSTRALIA",
     title: "AUSTRALIA",
     role: "학생 · 워킹홀리데이",
     period: "2019 — 2021",

@@ -3,8 +3,13 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   ChevronDown,
+  GraduationCap,
+  Guitar,
+  HandHeart,
   Lightbulb,
   Mountain,
+  Newspaper,
+  Plane,
   TrendingUp,
 } from "lucide-react";
 import { useRef, useState } from "react";
@@ -250,6 +255,14 @@ function Portrait({ src }: { src: string }) {
   );
 }
 
+const beyondIcons = {
+  press: Newspaper,
+  band: Guitar,
+  mentor: HandHeart,
+  study: GraduationCap,
+  travel: Plane,
+};
+
 // Decorative icons for the three values in profile.keywords.
 const keywordIcons = [TrendingUp, Lightbulb, Mountain];
 
@@ -457,16 +470,51 @@ function Experience() {
         </div>
       </div>
       <div className="beyond-code">
-        <Reveal className="beyond-heading">
-          <span className="eyebrow">BEYOND CODE</span>
-          <h3>개발 외 활동</h3>
+        <Reveal className="beyond-heading" variant="left">
+          <span className="eyebrow">BEYOND CODE / 개발 외 활동</span>
+          <h3>
+            OFF THE
+            <br />
+            <span className="red-text">KEYBOARD.</span>
+          </h3>
+          <div className="stamp-sheet" aria-hidden="true">
+            {beyondCode.map((item, i) => (
+              <motion.span
+                key={item.title}
+                className={`passport-stamp stamp-${i + 1}`}
+                initial={{ scale: 1.6, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 14,
+                  delay: 0.15 + i * 0.12,
+                }}
+                whileHover={{ scale: 1.08, rotate: 0 }}
+              >
+                <strong>{item.stamp}</strong>
+                <small>{item.period}</small>
+              </motion.span>
+            ))}
+          </div>
         </Reveal>
         <div className="beyond-list">
-          {beyondCode.map((item, index) => (
-            <Reveal key={item.title} variant={index % 2 ? "right" : "up"}>
-              <article className="beyond-item">
-                <span className="beyond-period">{item.period}</span>
-                <div>
+          {beyondCode.map((item, index) => {
+            const Icon = beyondIcons[item.icon];
+            return (
+              <Reveal key={item.title} variant={index % 2 ? "right" : "up"}>
+                <motion.article
+                  className="beyond-item"
+                  whileHover={{ y: -4 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  <div className="beyond-top">
+                    <span className="beyond-icon">
+                      <Icon size={20} strokeWidth={1.6} aria-hidden="true" />
+                    </span>
+                    <span className="beyond-period">{item.period}</span>
+                  </div>
                   <h4>{item.title}</h4>
                   <p className="beyond-role">{item.role}</p>
                   {item.points.length > 0 && (
@@ -478,10 +526,10 @@ function Experience() {
                       ))}
                     </ul>
                   )}
-                </div>
-              </article>
-            </Reveal>
-          ))}
+                </motion.article>
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>
