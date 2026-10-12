@@ -11,8 +11,9 @@ import {
   Newspaper,
   Plane,
   TrendingUp,
+  X,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -411,6 +412,7 @@ function About() {
 }
 
 function Experience() {
+  const [openArticle, setOpenArticle] = useState<Article | null>(null);
   return (
     <section
       id="experience"
@@ -469,6 +471,10 @@ function Experience() {
           ))}
         </div>
       </div>
+      <ArticleModal
+        article={openArticle}
+        onClose={() => setOpenArticle(null)}
+      />
       <div className="beyond-code">
         <Reveal className="beyond-heading" variant="left">
           <span className="eyebrow">BEYOND CODE / 개발 외 활동</span>
@@ -477,27 +483,7 @@ function Experience() {
             <br />
             <span className="red-text">KEYBOARD.</span>
           </h3>
-          <div className="stamp-sheet" aria-hidden="true">
-            {beyondCode.map((item, i) => (
-              <motion.span
-                key={item.title}
-                className={`passport-stamp stamp-${i + 1}`}
-                initial={{ scale: 1.6, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 320,
-                  damping: 14,
-                  delay: 0.15 + i * 0.12,
-                }}
-                whileHover={{ scale: 1.08, rotate: 0 }}
-              >
-                <strong>{item.stamp}</strong>
-                <small>{item.period}</small>
-              </motion.span>
-            ))}
-          </div>
+          <BeyondTimeline />
         </Reveal>
         <div className="beyond-list">
           {beyondCode.map((item, index) => {
@@ -532,16 +518,27 @@ function Experience() {
                       <ol>
                         {item.articles.map((article, n) => (
                           <li key={article.title}>
-                            <span className="article-no">0{n + 1}</span>
-                            <div>
-                              <strong>{article.title}</strong>
-                              <small>
-                                <Phrases text={article.summary} />
-                              </small>
-                            </div>
-                            <span className="article-tag">
-                              {article.section} ’{article.year.slice(2)}
-                            </span>
+                            <button
+                              type="button"
+                              className="article-row"
+                              onClick={() => setOpenArticle(article)}
+                              aria-haspopup="dialog"
+                            >
+                              <span className="article-no">0{n + 1}</span>
+                              <span className="article-text">
+                                <strong>{article.title}</strong>
+                                <small>
+                                  <Phrases text={article.summary} />
+                                </small>
+                              </span>
+                              <span className="article-tag">
+                                {article.section} ’{article.year.slice(2)}
+                              </span>
+                              <span className="article-open">
+                                READ{" "}
+                                <ArrowUpRight size={13} aria-hidden="true" />
+                              </span>
+                            </button>
                           </li>
                         ))}
                       </ol>
@@ -554,6 +551,147 @@ function Experience() {
         </div>
       </div>
     </section>
+  );
+}
+
+// Parses "2025.03 — 2026.08" (or "2025.03 — 현재") into fractional years.
+function parsePeriod(period: string) {
+  const [start, end] = period.split("—").map((part) => part.trim());
+  const toYear = (value: string | undefined, fallback: number) => {
+    const match = value?.match(/(\d{4})(?:\.(\d{2}))?/);
+    if (!match) return fallback;
+    return Number(match[1]) + (match[2] ? (Number(match[2]) - 1) / 12 : 0);
+  };
+  const from = toYear(start, 0);
+  return { from, to: toYear(end, from + 1 / 12) + 1 / 12 };
+}
+
+function BeyondTimeline() {
+  const rows = beyondCode.map((item) => ({
+    item,
+    ...parsePeriod(item.period),
+  }));
+  const first = Math.floor(Math.min(...rows.map((row) => row.from)));
+  const last = Math.ceil(Math.max(...rows.map((row) => row.to)));
+  const years = Array.from({ length: last - first }, (_, i) => first + i);
+  const span = last - first;
+  return (
+    <div className="beyond-timeline">
+      <div className="timeline-years" aria-hidden="true">
+        {years.map((year) => (
+          <span key={year}>’{String(year).slice(2)}</span>
+        ))}
+      </div>
+      <ul>
+        {[...rows]
+          .sort((a, b) => a.from - b.from)
+          .map(({ item, from, to }, i) => (
+            <li key={item.title}>
+              <span className="timeline-label">{item.stamp}</span>
+              <span className="timeline-track">
+                <motion.span
+                  className="timeline-bar"
+                  style={{
+                    left: `${((from - first) / span) * 100}%`,
+                    width: `${Math.max(((to - from) / span) * 100, 2)}%`,
+                  }}
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true, amount: 0.8 }}
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: 0.1 + i * 0.1,
+                  }}
+                />
+              </span>
+              <span className="sr-only">{item.period}</span>
+            </li>
+          ))}
+      </ul>
+    </div>
+  );
+}
+
+type Article = NonNullable<(typeof beyondCode)[number]["articles"]>[number];
+
+function ArticleModal({
+  article,
+  onClose,
+}: {
+  article: Article | null;
+  onClose: () => void;
+}) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!article) return;
+    const previous = document.activeElement as HTMLElement | null;
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", onKey);
+      previous?.focus();
+    };
+  }, [article, onClose]);
+  return (
+    <AnimatePresence>
+      {article && (
+        <motion.div
+          className="article-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label={article.title}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="article-modal-panel"
+            initial={{ y: 40, scale: 0.97 }}
+            animate={{ y: 0, scale: 1 }}
+            exit={{ y: 30, scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 260, damping: 26 }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="article-modal-head">
+              <div>
+                <span className="eyebrow">
+                  THE HERALD · {article.section} · {article.year}
+                </span>
+                <strong>{article.title}</strong>
+              </div>
+              <button
+                ref={closeRef}
+                type="button"
+                className="article-modal-close"
+                onClick={onClose}
+                aria-label="기사 닫기"
+              >
+                <X aria-hidden="true" />
+              </button>
+            </div>
+            <div className="article-modal-body">
+              {article.pages.map((page, i) => (
+                <img
+                  key={page}
+                  src={assetUrl(page)}
+                  alt={`${article.title} ${i + 1}면`}
+                  loading={i === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                />
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

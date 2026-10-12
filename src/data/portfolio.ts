@@ -67,6 +67,7 @@ export interface BeyondCode {
     section: string;
     year: string;
     summary: string;
+    pages: string[]; // 기사 지면 이미지 (창으로 열람)
   }[];
 }
 
@@ -125,7 +126,7 @@ export const beyondCode: BeyondCode[] = [
     title: "THE HERALD",
     role: "영자신문사 기자",
     period: "2025.03 — 2026.08",
-    points: ["한·영문 기사 작성", "한·영문 기사 피드백"],
+    points: [],
     articles: [
       {
         title: "Same AI, Different Results: How Prompts Make the Difference",
@@ -133,12 +134,14 @@ export const beyondCode: BeyondCode[] = [
         year: "2026",
         summary:
           "같은 AI라도 프롬프트에 따라 결과가 달라지는 이유와 역할 지정·예시 제시 등 프롬프트 작성 팁 5가지",
+        pages: [1, 2, 3, 4].map((n) => `articles/cultural-${n}.webp`),
       },
       {
         title: "TOPCIT Regular Assessment",
         section: "CAMPUS",
         year: "2025",
         summary: "학교의 TOPCIT 응시료 전액 지원과 응시자 혜택 소개",
+        pages: ["articles/topcit-1.webp"],
       },
     ],
   },
