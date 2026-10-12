@@ -86,9 +86,9 @@ export default function Contact() {
       <Reveal variant="zoom">
         <div className="contact-intro">
           <p>
-            새로운 문제, 새로운 가능성.
+            채용이나 프로젝트 관련 연락은
             <br />
-            함께 만들어 갈 이야기를 기다립니다.
+            이메일로 부탁드립니다.
           </p>
           <motion.span
             className="asterisk"

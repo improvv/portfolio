@@ -74,7 +74,7 @@ function Hero() {
         <motion.div className="hero-cover" style={{ opacity: coverOpacity }}>
           <div className="cover-meta">
             <span>COMPUTER ENGINEERING</span>
-            <span>대학생 개발자의 기록</span>
+            <span>한밭대학교 컴퓨터공학과</span>
           </div>
           <h1 id="hero-heading" tabIndex={-1}>
             <motion.span
@@ -183,7 +183,7 @@ function Hero() {
         </motion.aside>
       </div>
       <div className="hero-foot">
-        <p>생각을 코드로, 코드를 경험으로.</p>
+        <p>Computer Vision과 앱 개발을 공부합니다.</p>
         <Link to="/#works">
           EXPLORE THE WORK{" "}
           <ArrowDown className="scroll-arrow" size={16} aria-hidden="true" />
@@ -422,9 +422,9 @@ function Experience() {
             <br />& CODE.
           </span>
           <p>
-            기술을 이해하고, 사람과 연결하며,
+            인턴십과 동아리 운영,
             <br />
-            함께 결과를 만들어 갑니다.
+            대외활동 경험입니다.
           </p>
           <ArrowDownRight size={74} strokeWidth={1} aria-hidden="true" />
         </Reveal>
@@ -458,11 +458,7 @@ function Experience() {
       <div className="beyond-code">
         <Reveal className="beyond-heading">
           <span className="eyebrow">BEYOND CODE</span>
-          <h3>
-            언어와 사람 사이에서
-            <br />
-            쌓아 온 경험.
-          </h3>
+          <h3>개발 외 활동</h3>
         </Reveal>
         <div className="beyond-list">
           {beyondCode.map((item, index) => (
@@ -509,8 +505,7 @@ function ResearchSection() {
           <SplitText text="NOTES" className="red-text" delay={0.25} />
         </h2>
         <p className="research-note">
-          지금 가장 깊이 파고 있는 질문들. 수업 팀프로젝트에서 출발해, 직접
-          실험하고 분석하며 답을 찾아가고 있습니다.
+          전공 수업 팀프로젝트로 진행 중인 연구입니다.
         </p>
       </Reveal>
       <div className="research-list">
@@ -578,9 +573,9 @@ function Works() {
         <div className="works-intro">
           <ArrowDownRight size={58} strokeWidth={1.25} aria-hidden="true" />
           <p>
-            아이디어가 실제 경험이 되기까지.
+            캡스톤, 수업, 개인 프로젝트로
             <br />
-            직접 만들고, 부딪히고, 배운 프로젝트들.
+            만든 작업물입니다.
           </p>
           <span>2026 PORTFOLIO / PROJECT ARCHIVE</span>
         </div>
@@ -692,9 +687,7 @@ function Skills() {
           <SplitText text=".TECHNICAL" />{" "}
           <SplitText text="SKILLS" className="red-text" delay={0.3} />
         </h2>
-        <p className="skills-note">
-          숫자보다, 무엇을 만들었는지로 이야기합니다.
-        </p>
+        <p className="skills-note">기술마다 사용한 프로젝트를 연결했습니다.</p>
       </Reveal>
       <div className="skills-grid">
         {skillGroups.map((group, index) => (
