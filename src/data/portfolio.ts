@@ -107,16 +107,23 @@ export const experiences: Experience[] = [
 
 // 개발 외 경험: 영어 소통과 사람을 대하는 경험
 export const beyondCode: BeyondCode[] = [
+  // 최신순(종료 시점 기준)
   {
     title: "THE HERALD",
     role: "영자신문사 기자",
-    period: "2025",
+    period: "2025.03 — 2026.08",
     points: ["한·영문 기사 작성", "한·영문 기사 피드백"],
+  },
+  {
+    title: "BLACKSTONE",
+    role: "교내 밴드 부회장 · 베이스",
+    period: "2025.03 — 2026.08",
+    points: [],
   },
   {
     title: "대전광역시가족센터",
     role: "다문화가족 자녀 맞춤형 교육지원 멘토",
-    period: "2025",
+    period: "2025.01 — 2025.12",
     points: [
       "한국어를 어려워하는 초등학생에게 영어로 한글·수학 지도",
       "영어를 어려워하는 고등학생 영어 지도",
@@ -131,18 +138,12 @@ export const beyondCode: BeyondCode[] = [
   {
     title: "AUSTRALIA",
     role: "학생 · 워킹홀리데이",
-    period: "20세부터",
+    period: "2019 — 2021",
     points: [
       "한인 치킨집에서 일하며 영어 울렁증 극복",
       "일본 레스토랑 웨이트리스",
       "현지 레스토랑 바텐더",
     ],
-  },
-  {
-    title: "BLACKSTONE",
-    role: "교내 밴드 부회장 · 베이스",
-    period: "2025 — 2025.07",
-    points: [],
   },
 ];
 
