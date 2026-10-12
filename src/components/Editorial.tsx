@@ -1,4 +1,4 @@
-import { type PointerEvent, type ReactNode } from "react";
+import { Fragment, type PointerEvent, type ReactNode } from "react";
 import {
   motion,
   useMotionValue,
@@ -25,6 +25,24 @@ export function Reveal({ children, className = "", variant }: RevealProps) {
     <ScrollReveal className={className} variant={variant}>
       {children}
     </ScrollReveal>
+  );
+}
+
+/**
+ * Keeps each sentence or comma-separated clause together so lines break
+ * only at "." or "," boundaries when they fit, instead of mid-phrase.
+ */
+export function Phrases({ text }: { text: string }) {
+  const parts = text.split(/(?<=[.,!?·])\s+/);
+  return (
+    <>
+      {parts.map((part, i) => (
+        <Fragment key={i}>
+          <span className="phrase">{part}</span>
+          {i < parts.length - 1 ? " " : null}
+        </Fragment>
+      ))}
+    </>
   );
 }
 
@@ -120,7 +138,9 @@ export function ProjectCard({
           <span>{project.category}</span>
         </div>
         <h3>{project.title}</h3>
-        <p className="project-description">{project.subtitle}</p>
+        <p className="project-description">
+          <Phrases text={project.subtitle} />
+        </p>
         <div className="project-bottom">
           <span>{project.technologies.join(" / ")}</span>
           <span className="view-link">

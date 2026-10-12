@@ -41,7 +41,7 @@ export const profile = {
   year: "2026",
   university: "국립 한밭대학교",
   major: "컴퓨터공학",
-  portrait: null as string | null, // e.g. 'images/profile.webp'
+  portrait: "images/profile.webp" as string | null,
   introduction: "문제를 발견하고, 코드로 답을 찾아갑니다.",
   paragraphs: [
     "국립 한밭대학교에서 컴퓨터공학을 전공하며 소프트웨어를 만들고 있습니다. 일상 속 문제를 발견하고, 아이디어를 실제로 작동하는 서비스로 옮기는 과정에 관심이 있습니다.",

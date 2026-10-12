@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { assetUrl, projects } from "../data/portfolio";
-import { Reveal, SectionLabel } from "./Editorial";
+import { Phrases, Reveal, SectionLabel } from "./Editorial";
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -34,7 +34,9 @@ export default function ProjectDetail() {
         <span className="red-text">.</span>
       </h1>
       <div className="detail-subtitle">
-        <p>{project.subtitle}</p>
+        <p>
+          <Phrases text={project.subtitle} />
+        </p>
         <span>WK—{project.number} / 2026 PORTFOLIO</span>
       </div>
       <figure className="detail-cover">
@@ -80,7 +82,9 @@ export default function ProjectDetail() {
         <div className="detail-content">
           <section id="detail-overview">
             <h2>Overview</h2>
-            <p>{project.overview}</p>
+            <p>
+              <Phrases text={project.overview} />
+            </p>
           </section>
           {project.details.slice(0, 2).map((item) => (
             <DetailSection key={item.title} {...item} />
@@ -110,7 +114,9 @@ export default function ProjectDetail() {
                       width="1200"
                       height="800"
                     />
-                    <figcaption>{item.caption}</figcaption>
+                    <figcaption>
+                      <Phrases text={item.caption} />
+                    </figcaption>
                   </figure>
                 ))}
               </div>
@@ -154,7 +160,9 @@ function DetailSection({ title, text }: { title: string; text: string }) {
     <section id={`detail-${title.toLowerCase().replaceAll(" ", "-")}`}>
       <Reveal>
         <h2>{title}</h2>
-        <p>{text}</p>
+        <p>
+          <Phrases text={text} />
+        </p>
       </Reveal>
     </section>
   );

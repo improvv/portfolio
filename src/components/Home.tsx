@@ -19,7 +19,7 @@ import {
   projects,
   skillGroups,
 } from "../data/portfolio";
-import { ProjectCard, Reveal, SectionLabel } from "./Editorial";
+import { Phrases, ProjectCard, Reveal, SectionLabel } from "./Editorial";
 import { ScrollLine, SplitText, VelocityMarquee } from "./Motion";
 
 const rise: Variants = {
@@ -181,6 +181,61 @@ function Hero() {
   );
 }
 
+function Portrait({ src }: { src: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const p = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
+  const wordY = useTransform(p, [0, 1], ["35%", "-35%"]);
+  const sunY = useTransform(p, [0, 1], [60, -60]);
+  const sunScale = useTransform(p, [0, 0.5, 1], [0.7, 1, 0.85]);
+  const personY = useTransform(p, [0, 1], [30, -10]);
+  const starRotate = useTransform(scrollYProgress, [0, 1], [-90, 270]);
+  return (
+    <div ref={ref} className="portrait-art">
+      <div className="portrait-halftone" aria-hidden="true" />
+      <motion.span
+        className="portrait-word"
+        aria-hidden="true"
+        style={{ y: wordY }}
+      >
+        SEO
+      </motion.span>
+      <motion.span
+        className="portrait-sun"
+        aria-hidden="true"
+        style={{ y: sunY, scale: sunScale }}
+      />
+      <motion.span
+        className="portrait-star"
+        aria-hidden="true"
+        style={{ rotate: starRotate }}
+      >
+        ✳
+      </motion.span>
+      <motion.img
+        src={src}
+        alt={`${profile.koreanName} 프로필 사진`}
+        loading="lazy"
+        decoding="async"
+        width="800"
+        height="1067"
+        style={{ y: personY }}
+      />
+      <span className="portrait-cross top" aria-hidden="true">
+        +
+      </span>
+      <span className="portrait-stamp" aria-hidden="true">
+        COVER
+        <br />
+        STORY
+      </span>
+    </div>
+  );
+}
+
 function About() {
   return (
     <section
@@ -203,13 +258,7 @@ function About() {
         <Reveal className="portrait-wrap" variant="left">
           <div className="portrait">
             {profile.portrait ? (
-              <img
-                src={assetUrl(profile.portrait)}
-                alt={`${profile.koreanName} 프로필 사진`}
-                loading="lazy"
-                width="600"
-                height="700"
-              />
+              <Portrait src={assetUrl(profile.portrait)} />
             ) : (
               <>
                 <div className="portrait-grid" aria-hidden="true">
@@ -232,9 +281,13 @@ function About() {
         </Reveal>
         <Reveal className="about-copy" variant="right">
           <span className="eyebrow">HELLO, I’M JINJEONG.</span>
-          <h3>{profile.introduction}</h3>
+          <h3>
+            <Phrases text={profile.introduction} />
+          </h3>
           {profile.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
+            <p key={paragraph}>
+              <Phrases text={paragraph} />
+            </p>
           ))}
           <div className="about-keywords">
             {profile.keywords.map((keyword, i) => (
@@ -300,7 +353,9 @@ function Experience() {
                 </div>
                 <h3>{experience.organization}</h3>
                 <h4>{experience.role}</h4>
-                <p>{experience.description}</p>
+                <p>
+                  <Phrases text={experience.description} />
+                </p>
                 <div className="tags">
                   {experience.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
@@ -382,7 +437,9 @@ function Education() {
           <span className="eyebrow">ACADEMIC BACKGROUND</span>
           <h3>{education.institution}</h3>
           <p className="education-major">{education.major}</p>
-          <p>{education.description}</p>
+          <p>
+            <Phrases text={education.description} />
+          </p>
           {education.period && <p>{education.period}</p>}
           <div className="study-areas">
             <span className="eyebrow">AREAS OF INTEREST</span>
@@ -491,7 +548,9 @@ function Activities() {
                 {item.date} / {item.organization}
               </span>
               <h3>{item.title}</h3>
-              <p>{item.description}</p>
+              <p>
+                <Phrases text={item.description} />
+              </p>
             </article>
           ))}
         </div>

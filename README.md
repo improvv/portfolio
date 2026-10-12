@@ -45,7 +45,7 @@ React / TypeScript / Vite 8 / Tailwind CSS 4 / Motion / Lucide React / React Rou
 
 `src/data/portfolio.ts`를 편집합니다. 제공되지 않은 사실은 만들어 넣지 않았습니다.
 
-- `profile`: 소개, 이름, 키워드. `portrait`에 `images/profile.webp`처럼 경로를 넣으면 사진이 표시됩니다.
+- `profile`: 소개, 이름, 키워드. `portrait`는 `images/profile.webp`(배경 투명 PNG를 WebP로 변환)이며, 레이어 배경과 함께 표시됩니다.
 - `experiences`: 기간, 조직, 역할, 활동, 태그. LIKELION 활동 기간은 미입력 상태입니다.
 - `projects`: 프로젝트명, 설명, 기술, 대표 이미지, 상세 내용, 갤러리, 저장소 URL.
 - `education`: 재학 기간, 학습 분야, 자격증. 아직 모르는 값은 `null` 또는 빈 배열로 둡니다.
