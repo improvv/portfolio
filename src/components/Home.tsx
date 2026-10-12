@@ -468,11 +468,15 @@ function Education() {
           </div>
           <div className="certificate-line">
             <span>CERTIFICATIONS</span>
-            <span>
-              {education.certificates.length
-                ? education.certificates.join(" · ")
-                : "자격증 정보 추가 예정"}
-            </span>
+            {education.certificates.length ? (
+              <ul className="certificate-list">
+                {education.certificates.map((certificate) => (
+                  <li key={certificate}>{certificate}</li>
+                ))}
+              </ul>
+            ) : (
+              <span>자격증 정보 추가 예정</span>
+            )}
           </div>
         </Reveal>
       </div>

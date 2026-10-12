@@ -187,7 +187,14 @@ export const education = {
     "Artificial Intelligence",
     "Software Development",
   ],
-  certificates: [] as string[],
+  // 최신 취득순 → 전공 관련도순
+  certificates: [
+    "정보처리기사 (필기 합격)",
+    "리눅스마스터 2급",
+    "네트워크관리사 2급",
+    "컴퓨터활용능력 1급",
+    "한국사능력검정시험 1급",
+  ] as string[],
 };
 
 // 프로젝트 연결은 제공된 정보로 확인되는 경우에만 지정합니다.
