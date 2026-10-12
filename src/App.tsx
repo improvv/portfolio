@@ -6,6 +6,12 @@ import Home from "./components/Home";
 import ProjectDetail from "./components/ProjectDetail";
 import Contact from "./components/Contact";
 import { projects } from "./data/portfolio";
+import {
+  CustomCursor,
+  ScrollDirectionProvider,
+  ScrollProgress,
+  SectionIndicator,
+} from "./components/Motion";
 
 export default function App() {
   const location = useLocation();
@@ -51,33 +57,38 @@ export default function App() {
   }, [location.pathname, location.hash, location.key, reduced]);
 
   return (
-    <div className="site-shell">
-      <a
-        href="#main-content"
-        className="skip-link"
-        onClick={(event) => {
-          event.preventDefault();
-          document.getElementById("main-content")?.focus();
-        }}
-      >
-        본문으로 바로가기
-      </a>
-      <Header />
-      <main id="main-content" tabIndex={-1}>
-        <motion.div
-          key={location.pathname}
-          initial={{ opacity: reduced ? 1 : 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduced ? 0 : 0.2 }}
+    <ScrollDirectionProvider>
+      <ScrollProgress />
+      {location.pathname === "/" && <SectionIndicator />}
+      <CustomCursor />
+      <div className="site-shell">
+        <a
+          href="#main-content"
+          className="skip-link"
+          onClick={(event) => {
+            event.preventDefault();
+            document.getElementById("main-content")?.focus();
+          }}
         >
-          <Routes location={location}>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects/:slug" element={<ProjectDetail />} />
-            <Route path="*" element={<ProjectDetail />} />
-          </Routes>
-        </motion.div>
-      </main>
-      <Contact />
-    </div>
+          본문으로 바로가기
+        </a>
+        <Header />
+        <main id="main-content" tabIndex={-1}>
+          <motion.div
+            key={location.pathname}
+            initial={{ opacity: reduced ? 1 : 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reduced ? 0 : 0.2 }}
+          >
+            <Routes location={location}>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects/:slug" element={<ProjectDetail />} />
+              <Route path="*" element={<ProjectDetail />} />
+            </Routes>
+          </motion.div>
+        </main>
+        <Contact />
+      </div>
+    </ScrollDirectionProvider>
   );
 }

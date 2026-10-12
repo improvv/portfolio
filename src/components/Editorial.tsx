@@ -1,48 +1,30 @@
-import { useRef, type ReactNode } from "react";
+import { type PointerEvent, type ReactNode } from "react";
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
-  useScroll,
+  useSpring,
   useTransform,
 } from "motion/react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { assetUrl, type Project } from "../data/portfolio";
+import { ScrollReveal, useParallax, type RevealVariant } from "./Motion";
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  variant?: RevealVariant;
 };
 
-export function Reveal({ children, className = "" }: RevealProps) {
+export function Reveal({ children, className = "", variant }: RevealProps) {
   const reduced = useReducedMotion();
   // Reduced-motion readers get normal, fully visible document content.
   if (reduced) return <div className={className}>{children}</div>;
-  return <ScrollReveal className={className}>{children}</ScrollReveal>;
-}
-
-function ScrollReveal({ children, className = "" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  // Reversible in either direction; the reading area stays still and opaque.
-  // Motion measures layout offsets, so this transform cannot feed back into itself.
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.14, 0.86, 1],
-    [0.25, 1, 1, 0.25],
-  );
-  const y = useTransform(scrollYProgress, [0, 0.14, 0.86, 1], [24, 0, 0, -24]);
   return (
-    <motion.div
-      ref={ref}
-      className={`scroll-reveal ${className}`}
-      style={{ opacity, y }}
-    >
+    <ScrollReveal className={className} variant={variant}>
       {children}
-    </motion.div>
+    </ScrollReveal>
   );
 }
 
@@ -69,16 +51,53 @@ export function SectionHeading({ children }: { children: ReactNode }) {
   return <h2 className="section-heading">{children}</h2>;
 }
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
+  const { ref, y } = useParallax(40);
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(tiltY, [-0.5, 0.5], [7, -7]), {
+    stiffness: 200,
+    damping: 20,
+  });
+  const rotateY = useSpring(useTransform(tiltX, [-0.5, 0.5], [-9, 9]), {
+    stiffness: 200,
+    damping: 20,
+  });
+  const onMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    tiltX.set((event.clientX - rect.left) / rect.width - 0.5);
+    tiltY.set((event.clientY - rect.top) / rect.height - 0.5);
+  };
+  const onLeave = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
   return (
-    <Reveal className={`project project-${project.number}`}>
+    <Reveal
+      className={`project project-${project.number}`}
+      variant={index % 2 === 0 ? "left" : "right"}
+    >
       <Link
         className="project-link group"
         to={`/projects/${project.id}`}
         aria-label={`${project.title} — 프로젝트 상세 보기`}
       >
-        <div className="project-image">
-          <img
+        <motion.div
+          ref={ref}
+          className="project-image"
+          style={{ rotateX, rotateY, transformPerspective: 900 }}
+          onPointerMove={onMove}
+          onPointerLeave={onLeave}
+        >
+          <motion.img
+            style={{ y, scale: 1.18 }}
             src={assetUrl(project.image)}
             alt={project.imageAlt}
             loading="lazy"
@@ -95,7 +114,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <span className="project-arrow">
             <ArrowUpRight aria-hidden="true" />
           </span>
-        </div>
+        </motion.div>
         <div className="project-meta">
           <span>WK—{project.number}</span>
           <span>{project.category}</span>

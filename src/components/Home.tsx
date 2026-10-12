@@ -1,5 +1,14 @@
 import { ArrowDown, ArrowDownRight, ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  type Variants,
+} from "motion/react";
 import {
   achievements,
   assetUrl,
@@ -11,34 +20,95 @@ import {
   skillGroups,
 } from "../data/portfolio";
 import { ProjectCard, Reveal, SectionLabel } from "./Editorial";
+import { ScrollLine, SplitText, VelocityMarquee } from "./Motion";
+
+const rise: Variants = {
+  hidden: { y: 120, opacity: 0, rotate: 3 },
+  show: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    rotate: 0,
+    transition: {
+      duration: 1,
+      ease: [0.16, 1, 0.3, 1],
+      delay: 0.15 + i * 0.12,
+    },
+  }),
+};
 
 function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const p = useSpring(scrollYProgress, { stiffness: 140, damping: 26 });
+  const firstX = useTransform(p, [0, 1], ["0%", "-22%"]);
+  const surnameX = useTransform(p, [0, 1], ["0%", "18%"]);
+  const lineScale = useTransform(p, [0, 1], [1, 0.86]);
+  const starRotate = useTransform(scrollYProgress, [0, 1], [0, 540]);
+  const indexY = useTransform(p, [0, 1], [0, 160]);
+  const coverOpacity = useTransform(p, [0, 0.9], [1, 0.2]);
+  const animate = reduced ? undefined : "show";
   return (
-    <section id="top" className="hero" aria-labelledby="hero-heading">
+    <section id="top" ref={ref} className="hero" aria-labelledby="hero-heading">
       <div className="hero-edition">
         <span>INDEPENDENT THINKING. PRACTICAL BUILDING.</span>
         <span>VOL. 01 — {profile.year}</span>
       </div>
       <div className="hero-grid">
-        <div className="hero-cover">
+        <motion.div className="hero-cover" style={{ opacity: coverOpacity }}>
           <div className="cover-meta">
             <span>COMPUTER ENGINEERING</span>
             <span>대학생 개발자의 기록</span>
           </div>
           <h1 id="hero-heading" tabIndex={-1}>
-            <span>JINJEONG</span>
-            <span className="surname">
+            <motion.span
+              style={{ x: firstX }}
+              variants={rise}
+              custom={0}
+              initial={reduced ? false : "hidden"}
+              animate={animate}
+            >
+              JINJEONG
+            </motion.span>
+            <motion.span
+              className="surname"
+              style={{ x: surnameX }}
+              variants={rise}
+              custom={1}
+              initial={reduced ? false : "hidden"}
+              animate={animate}
+            >
               SEO
-              <span className="hero-star" aria-hidden="true">
+              <motion.span
+                className="hero-star"
+                aria-hidden="true"
+                style={{ rotate: starRotate }}
+                whileHover={{ scale: 1.3, rotate: 90 }}
+              >
                 ✳
-              </span>
+              </motion.span>
               <span className="hero-year">
                 20
                 <br />
                 26
               </span>
-            </span>
-            <span className="portfolio-line">PORTFOLIO.</span>
+            </motion.span>
+            <motion.span
+              className="portfolio-line"
+              style={{ scaleX: lineScale, originX: 0 }}
+              initial={reduced ? false : { clipPath: "inset(0 100% 0 0)" }}
+              animate={{ clipPath: "inset(0 0% 0 0)" }}
+              transition={{
+                duration: 1.1,
+                ease: [0.76, 0, 0.24, 1],
+                delay: 0.5,
+              }}
+            >
+              PORTFOLIO.
+            </motion.span>
           </h1>
           <div className="cover-bottom">
             <p>
@@ -48,8 +118,15 @@ function Hero() {
             <div className="barcode" aria-hidden="true" />
             <span>NO. 001</span>
           </div>
-        </div>
-        <aside className="hero-index" aria-label="목차">
+        </motion.div>
+        <motion.aside
+          className="hero-index"
+          aria-label="목차"
+          style={{ y: indexY }}
+          initial={reduced ? false : { opacity: 0, x: 60 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
+        >
           <div className="index-top">
             <span>
               AN INDEX OF
@@ -64,12 +141,20 @@ function Hero() {
             CON<span className="cream-text">TENTS.</span>
           </h2>
           <nav aria-label="섹션 목차">
-            {navigation.map((item) => (
-              <Link key={item.id} to={`/#${item.id}`}>
-                <span>{item.number}.</span>
-                <span>{item.title}</span>
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
+            {navigation.map((item, i) => (
+              <motion.div
+                key={item.id}
+                initial={reduced ? false : { opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6 + i * 0.07, duration: 0.5 }}
+                whileHover={{ x: 8 }}
+              >
+                <Link to={`/#${item.id}`}>
+                  <span>{item.number}.</span>
+                  <span>{item.title}</span>
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </Link>
+              </motion.div>
             ))}
           </nav>
           <div className="index-footer">
@@ -82,7 +167,7 @@ function Hero() {
               ↗
             </span>
           </div>
-        </aside>
+        </motion.aside>
       </div>
       <div className="hero-foot">
         <p>생각을 코드로, 코드를 경험으로.</p>
@@ -110,11 +195,12 @@ function About() {
       />
       <Reveal>
         <h2 id="about-heading" className="section-heading">
-          .ABOUT <span className="red-text">ME</span>
+          <SplitText text=".ABOUT" />{" "}
+          <SplitText text="ME" className="red-text" delay={0.2} />
         </h2>
       </Reveal>
       <div className="about-grid">
-        <Reveal className="portrait-wrap">
+        <Reveal className="portrait-wrap" variant="left">
           <div className="portrait">
             {profile.portrait ? (
               <img
@@ -144,7 +230,7 @@ function About() {
             <span>{profile.university}</span>
           </div>
         </Reveal>
-        <Reveal className="about-copy">
+        <Reveal className="about-copy" variant="right">
           <span className="eyebrow">HELLO, I’M JINJEONG.</span>
           <h3>{profile.introduction}</h3>
           {profile.paragraphs.map((paragraph) => (
@@ -182,11 +268,11 @@ function Experience() {
       />
       <Reveal>
         <h2 id="experience-heading" className="section-heading">
-          .EXPERIENCE
+          <SplitText text=".EXPERIENCE" />
         </h2>
       </Reveal>
       <div className="experience-grid">
-        <Reveal className="experience-statement">
+        <Reveal className="experience-statement" variant="zoom">
           <span>
             BETWEEN
             <br />
@@ -201,8 +287,12 @@ function Experience() {
           <ArrowDownRight size={74} strokeWidth={1} aria-hidden="true" />
         </Reveal>
         <div className="timeline">
+          <ScrollLine className="timeline-line" />
           {experiences.map((experience, index) => (
-            <Reveal key={experience.organization}>
+            <Reveal
+              key={experience.organization}
+              variant={index % 2 === 0 ? "right" : "up"}
+            >
               <article className="experience-item">
                 <div className="experience-date">
                   <span>EXP. 0{index + 1}</span>
@@ -239,9 +329,9 @@ function Works() {
       />
       <Reveal className="works-heading-row">
         <h2 id="works-heading" className="section-heading">
-          .SELECTED
+          <SplitText text=".SELECTED" />
           <br />
-          <span className="red-text">WORKS</span>
+          <SplitText text="WORKS" className="red-text" delay={0.25} />
           <sup>(04)</sup>
         </h2>
         <div className="works-intro">
@@ -255,8 +345,8 @@ function Works() {
         </div>
       </Reveal>
       <div className="works-grid">
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
         ))}
       </div>
       <div className="works-end">
@@ -280,15 +370,15 @@ function Education() {
         note="FOUNDATIONS FOR WHAT’S NEXT"
       />
       <div className="education-grid">
-        <Reveal className="education-heading-block">
+        <Reveal className="education-heading-block" variant="left">
           <h2 id="education-heading" className="section-heading">
-            .EDUCATION
+            <SplitText text=".EDUCATION" />
           </h2>
           <div className="education-symbol" aria-hidden="true">
             ↗
           </div>
         </Reveal>
-        <Reveal className="education-details">
+        <Reveal className="education-details" variant="right">
           <span className="eyebrow">ACADEMIC BACKGROUND</span>
           <h3>{education.institution}</h3>
           <p className="education-major">{education.major}</p>
@@ -331,7 +421,8 @@ function Skills() {
       />
       <Reveal>
         <h2 id="skills-heading" className="section-heading">
-          .TECHNICAL <span className="red-text">SKILLS</span>
+          <SplitText text=".TECHNICAL" />{" "}
+          <SplitText text="SKILLS" className="red-text" delay={0.3} />
         </h2>
         <p className="skills-note">
           숫자보다, 무엇을 만들었는지로 이야기합니다.
@@ -339,7 +430,7 @@ function Skills() {
       </Reveal>
       <div className="skills-grid">
         {skillGroups.map((group, index) => (
-          <Reveal key={group.category}>
+          <Reveal key={group.category} variant={index === 1 ? "up" : "zoom"}>
             <article className="skill-group">
               <div className="skill-group-heading">
                 <span className="skill-number">0{index + 1}</span>
@@ -387,9 +478,9 @@ function Activities() {
       />
       <Reveal>
         <h2 id="activities-heading" className="section-heading">
-          .MORE TO
+          <SplitText text=".MORE TO" />
           <br />
-          <span className="red-text">THE STORY.</span>
+          <SplitText text="THE STORY." className="red-text" delay={0.25} />
         </h2>
       </Reveal>
       {achievements.length ? (
@@ -405,7 +496,7 @@ function Activities() {
           ))}
         </div>
       ) : (
-        <Reveal className="activities-empty">
+        <Reveal className="activities-empty" variant="zoom">
           <span className="empty-mark" aria-hidden="true">
             [ + ]
           </span>
@@ -432,12 +523,27 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <VelocityMarquee
+        items={["SOFTWARE DEVELOPMENT", "COMPUTER VISION", "PORTFOLIO 2026"]}
+      />
       <About />
       <Experience />
+      <VelocityMarquee
+        tone="red"
+        baseVelocity={-3}
+        items={[
+          "SELECTED WORKS",
+          "IDEAS INTO PRODUCTS",
+          "BUILD · BREAK · LEARN",
+        ]}
+      />
       <Works />
       <Education />
       <Skills />
       <Activities />
+      <VelocityMarquee
+        items={["LET’S MAKE CONTACT", "THE NEXT CHAPTER", "JINJEONG SEO"]}
+      />
     </>
   );
 }
