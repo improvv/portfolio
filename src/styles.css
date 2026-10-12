@@ -2961,6 +2961,7 @@ body {
   cursor: pointer;
 }
 .article-no {
+  padding-top: 2px;
   font:
     18px/19px Anton,
     sans-serif;
