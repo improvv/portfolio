@@ -108,10 +108,10 @@ export const experiences: Experience[] = [
   },
   {
     organization: "LIKELION",
-    role: "운영진",
-    period: "2026 — 현재",
+    role: "스터디 그룹 운영",
+    period: "2026.03 — 현재",
     description:
-      "멋쟁이사자처럼 운영진으로 활동하며 아이디어톤과 해커톤에 참여했습니다.",
+      "멋쟁이사자처럼에서 스터디 그룹을 운영하며, 아이디어톤과 해커톤에 참여했습니다.",
     tags: ["LEADERSHIP", "HACKATHON", "COLLABORATION"],
   },
 ];
@@ -173,8 +173,8 @@ export const beyondCode: BeyondCode[] = [
     icon: "travel",
     stamp: "AUSTRALIA",
     title: "AUSTRALIA",
-    role: "학생 · 워킹홀리데이",
-    period: "2019 — 2021",
+    role: "워킹홀리데이 · 어학연수",
+    period: "2020.06 — 2023.02",
     points: [],
   },
 ];
@@ -259,7 +259,8 @@ export const projects: Project[] = [
         "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 트레이너 없이도 스마트폰 하나로 자세를 확인하고 교정할 수 있는 앱을 목표로 했습니다.",
       "My Role": [
         "PM — 일정·역할 분담·요구사항 정리 등 프로젝트 운영 총괄",
-        "프론트엔드 담당 — 앱의 모든 화면과 사용자 흐름을 Flutter로 설계·구현",
+        "UI/UX 디자인 — 자세 분석 결과와 맞춤형 운동 피드백 화면 설계",
+        "프론트엔드 담당 — 앱의 모든 화면과 사용자 흐름을 Flutter로 구현",
         "Riverpod 상태 관리, go_router 선언적 라우팅과 인증 가드",
         "온보딩(성별·신체 정보·목표)과 4방향 체형 자동 촬영 플로우",
         "운동 설정·카메라 배치 안내·카운트다운·실시간 HUD·결과 화면으로 이어지는 운동 흐름",
@@ -414,13 +415,14 @@ export const projects: Project[] = [
     number: "04",
     title: "GYEONJU TRAVEL",
     subtitle: "견주여행 — 반려견과 함께 떠나는 경주 여행 코스 추천 앱",
-    category: "MOBILE APP · PM & FRONTEND",
+    category: "TEAM PROJECT · PM & FRONTEND",
     technologies: [
       "React Native",
       "Expo",
       "TypeScript",
       "Expo Router",
       "Kakao Map",
+      "한국관광공사 API",
       "Tmap API",
       "EAS · TestFlight",
     ],
@@ -435,13 +437,14 @@ export const projects: Project[] = [
     },
     repository: null,
     overview:
-      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스 추천, 지도, 일정, 도보 경로, 관광지 도착 스탬프 기능이 있습니다. 2026년 6월부터 프론트엔드를 맡아 개발했고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다.",
+      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스 추천, 지도, 일정, 도보 경로, 관광지 도착 스탬프 기능이 있습니다. 팀 프로젝트로 2026년 6월부터 PM과 프론트엔드를 맡았고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다. 한국관광공사 공모전에도 출품해 진행 중입니다.",
     details: projectDetails({
       "Problem & Motivation":
         "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 하고, 반려견의 크기나 성향까지 고려하기는 더 어렵습니다. 경주를 찾는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 추천받고, 여행하는 동안의 기록까지 남길 수 있도록 하고자 했습니다.",
       "My Role": [
         "PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄",
-        "프론트엔드 단독 개발 — 앱 전체 화면과 사용자 흐름을 React Native(Expo)로 구현 (커밋 116개)",
+        "프론트엔드 개발 — 앱 전체 화면과 사용자 흐름을 React Native(Expo)로 구현 (프론트엔드 저장소 커밋 116개)",
+        "한국관광공사·Kakao Map API 연동",
         "백엔드 API 연동, 액세스 토큰 자동 갱신, 로그인 상태 관리",
         "EAS 빌드, TestFlight 베타 배포, App Store 출시까지 배포 전 과정 관리",
       ],
@@ -480,14 +483,20 @@ export const projects: Project[] = [
     title: "SILVER STOP",
     subtitle: "보행자(노인)를 인식하면 멈추는 AI 자율주행 자동차",
     category: "AUTONOMOUS DRIVING CAMP · 금상",
-    technologies: ["Python", "YOLO", "Raspberry Pi", "LiDAR", "Camera"],
+    technologies: [
+      "Python",
+      "YOLO",
+      "Raspberry Pi",
+      "Ultrasonic Sensor",
+      "Camera",
+    ],
     image: "images/silverstop.svg",
     imageAlt:
       "도로 위 자동차와 보행자 인식 박스를 표현한 자율주행 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "한밭 자율주행 캠프에서 진행한 프로젝트입니다. 라즈베리파이를 탑재한 소형 자율주행 자동차에 카메라와 라이다를 달고, 캠프 실습 코드를 바탕으로 보행자(노인)를 실시간으로 인식하면 스스로 멈추는 기능을 구현했습니다. 캠프에서 금상을 받았습니다.",
+      "한밭 MOBI 자율주행 캠프에서 진행한 팀 프로젝트입니다. 라즈베리파이를 탑재한 소형 자율주행 자동차에서 캠프가 제공한 YOLO 예제를 활용해 보행자(노인)를 인식하고, 카메라 실시간 영상과 초음파 거리 측정을 결합해 자동으로 멈추게 했습니다. 캠프에서 금상을 받았습니다.",
     details: projectDetails({
       "Problem & Motivation":
         "고령 보행자는 차량을 피하는 반응이 느려 교통사고에 취약합니다. 차량이 보행자를 인식하면 먼저 멈추도록 만드는 것을 목표로 했습니다.",
@@ -497,21 +506,21 @@ export const projects: Project[] = [
       ],
       Architecture: [
         "카메라 영상 → YOLO 객체 인식으로 보행자 검출",
-        "라이다로 앞 물체와의 거리 측정",
+        "초음파 센서로 앞 물체와의 거리 측정",
         "보행자가 인식되고 일정 거리 안으로 들어오면 모터를 정지시키는 제어 로직",
         "라즈베리파이에서 인식과 주행 제어를 함께 처리",
       ],
       "Key Features": [
         "카메라 영상 스트림에서 YOLO로 보행자를 실시간 인식",
-        "라이다 거리 측정으로 보행자가 가까워지면 차량 정지",
+        "초음파 거리 측정으로 보행자가 가까워지면 차량 정지",
         "보행자가 사라지면 다시 주행",
       ],
       "Challenges & Solutions": [
         "라즈베리파이에서 YOLO 추론이 느려 보행자를 인식해도 정지가 한 박자 늦음 → 입력 해상도를 낮추고 인식 대상을 사람 클래스로 좁혀 반응 속도를 확보",
-        "라이다 거리값이 순간적으로 튀어 차량이 불필요하게 멈칫함 → 여러 번 측정한 값을 함께 보고 판단하도록 조정",
+        "초음파 거리값이 순간적으로 튀어 차량이 불필요하게 멈칫함 → 여러 번 측정한 값을 함께 보고 판단하도록 조정",
         "카메라 인식과 거리 측정이 따로 동작해 판단이 엇갈림 → 보행자 인식과 거리 조건을 모두 만족할 때만 정지하도록 제어 로직을 정리",
       ],
-      Results: "한밭 자율주행 캠프에서 금상을 받았습니다.",
+      Results: "한밭 MOBI 자율주행 캠프에서 금상을 받았습니다.",
     }),
     gallery: [],
   },
@@ -574,13 +583,16 @@ export const education = {
   major: "Computer Engineering",
   description:
     "국립 한밭대학교 · 컴퓨터공학 전공. Computer Vision, 자연어처리, 사물인터넷, 인간과 컴퓨터 상호작용 수업을 듣고 있습니다.",
-  period: null as string | null,
+  period: "2025.03 — 현재 · 3학년 편입" as string | null,
+  creditBank: "1·2학년 과정은 학점은행제로 이수",
+  toeic: "830",
   graduation: "2027.02" as string | null, // 졸업 예정
   gpa: "4.12 / 4.5" as string | null,
   subjects: [
     "Computer Vision",
-    "Artificial Intelligence",
-    "Software Development",
+    "Object Detection & Tracking",
+    "Human / Animal Behavior Understanding",
+    "Lightweight Deep Learning",
   ],
   // 최신 취득순 → 전공 관련도순
   certificates: [
@@ -644,7 +656,7 @@ export const achievements: Achievement[] = [
   },
   {
     date: "2025.07",
-    event: "한밭 자율주행 캠프",
+    event: "한밭 MOBI 자율주행 캠프",
     title: "Silver Stop",
     result: "금상",
     description: "YOLO로 보행자를 실시간 인식해 멈추는 AI 자동차",

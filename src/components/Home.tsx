@@ -528,18 +528,23 @@ function Experience() {
                   )}
                   {item.articles && (
                     <div className="beyond-articles">
-                      <span className="eyebrow">BYLINE ARTICLES</span>
-                      {item.articles.map((article) => (
-                        <div className="article-clip" key={article.title}>
-                          <span className="article-meta">
-                            {article.section} · {article.year}
-                          </span>
-                          <strong>{article.title}</strong>
-                          <small>
-                            <Phrases text={article.summary} />
-                          </small>
-                        </div>
-                      ))}
+                      <span className="eyebrow">작성 기사</span>
+                      <ol>
+                        {item.articles.map((article, n) => (
+                          <li key={article.title}>
+                            <span className="article-no">0{n + 1}</span>
+                            <div>
+                              <strong>{article.title}</strong>
+                              <small>
+                                <Phrases text={article.summary} />
+                              </small>
+                            </div>
+                            <span className="article-tag">
+                              {article.section} ’{article.year.slice(2)}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
                     </div>
                   )}
                 </motion.article>
@@ -691,9 +696,17 @@ function Education() {
           <p>
             <Phrases text={education.description} />
           </p>
-          {education.period && <p>{education.period}</p>}
           {(education.graduation || education.gpa) && (
             <dl className="education-facts">
+              {education.period && (
+                <div>
+                  <dt>ENROLLED</dt>
+                  <dd>
+                    {education.period}
+                    <small>{education.creditBank}</small>
+                  </dd>
+                </div>
+              )}
               {education.graduation && (
                 <div>
                   <dt>GRADUATION</dt>
@@ -706,6 +719,10 @@ function Education() {
                   <dd>{education.gpa}</dd>
                 </div>
               )}
+              <div>
+                <dt>TOEIC</dt>
+                <dd>{education.toeic}</dd>
+              </div>
             </dl>
           )}
           <div className="study-areas">
