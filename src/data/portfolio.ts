@@ -69,13 +69,13 @@ export const profile = {
   university: "국립 한밭대학교",
   major: "컴퓨터공학",
   portrait: "images/profile.webp" as string | null,
-  introduction: "Computer Vision을 공부하는 컴퓨터공학과 학생입니다.",
+  introduction: "완벽한 시작보다, 꾸준한 개선을 믿습니다.",
   paragraphs: [
-    "국립 한밭대학교 컴퓨터공학과에 재학 중이며, 2027년 2월 졸업 예정입니다.",
-    "관심 분야는 Computer Vision입니다. 자율주행 캠프에서 YOLO로 보행자를 인식해 멈추는 자동차를 만들었고, 지금은 수업 팀프로젝트로 경량 딥러닝 모델(EfficientSAM)을 분석하고 있습니다.",
-    "앱 개발도 하고 있습니다. 캡스톤 프로젝트 BPT의 Flutter 프론트엔드를 맡고 있고, 견주여행은 App Store에 출시했습니다. 호주와 영국에서 지낸 경험이 있고, 영자신문 기자로 활동했습니다.",
+    "처음부터 완벽하게 만들려고 하기보다 일단 만들고 계속 고쳐 나갑니다. 견주여행은 TestFlight로 다섯 번 배포하면서 회차마다 고친 내용을 기록했고, 그렇게 App Store까지 올렸습니다.",
+    "아이디어는 늘 생각하지만, 기준은 실제로 누군가에게 도움이 되느냐입니다. 어르신 건강 알림 앱, 고령 보행자 앞에서 멈추는 자동차, 반려견 보호자를 위한 여행 앱이 그렇게 나왔습니다.",
+    "해 보지 않은 분야도 일단 도전합니다. 앱 개발에서 시작해 자율주행, VR 게임, 보안, 경량 딥러닝까지 매번 새로운 것에 부딪히며 배우고 있습니다.",
   ],
-  keywords: ["COMPUTER VISION", "SOFTWARE DEVELOPMENT", "LEARNING BY BUILDING"],
+  keywords: ["STEADY IMPROVEMENT", "IDEAS THAT HELP", "TAKE THE CHALLENGE"],
 };
 
 export const navigation = [

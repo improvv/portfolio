@@ -3,9 +3,9 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   ChevronDown,
-  CodeXml,
-  Hammer,
-  ScanEye,
+  Lightbulb,
+  Mountain,
+  TrendingUp,
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -250,8 +250,8 @@ function Portrait({ src }: { src: string }) {
   );
 }
 
-// Decorative icons for COMPUTER VISION / SOFTWARE DEVELOPMENT / LEARNING BY BUILDING.
-const keywordIcons = [ScanEye, CodeXml, Hammer];
+// Decorative icons for the three values in profile.keywords.
+const keywordIcons = [TrendingUp, Lightbulb, Mountain];
 
 function StudentCard() {
   const tiltX = useMotionValue(0);
@@ -378,7 +378,7 @@ function About() {
           ))}
           <div className="about-keywords">
             {profile.keywords.map((keyword, i) => {
-              const Icon = keywordIcons[i] ?? Hammer;
+              const Icon = keywordIcons[i] ?? Mountain;
               return (
                 <div key={keyword}>
                   <span>0{i + 1}</span>
