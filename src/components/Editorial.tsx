@@ -125,16 +125,6 @@ export function ProjectCard({
             height="900"
           />
           <span className="project-index">{project.number}</span>
-          {project.logo && (
-            <img
-              className={`project-logo${project.logo.appIcon ? " app-icon" : ""}`}
-              src={assetUrl(project.logo.src)}
-              alt={project.logo.alt}
-              loading="lazy"
-              width="360"
-              height="360"
-            />
-          )}
           <span className="project-arrow">
             <ArrowUpRight aria-hidden="true" />
           </span>

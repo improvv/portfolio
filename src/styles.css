@@ -2767,32 +2767,12 @@ body {
 }
 
 /* ---------- Project logos ---------- */
-.project-image .project-logo {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: clamp(64px, 18%, 104px);
-  height: auto;
-  aspect-ratio: 1;
-  padding: 6px;
-  object-fit: contain;
-  background: var(--cream);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
-  transform: rotate(4deg);
-  filter: none;
-  z-index: 1;
-}
-.project-image .project-logo.app-icon,
 .detail-logo.app-icon {
   padding: 0;
   border-radius: 22%;
   clip-path: inset(0 round 22%);
   box-shadow: none;
   border: 0;
-}
-.project-image .project-logo.app-icon {
-  filter: drop-shadow(4px 4px 0 var(--ink));
 }
 .detail-title-row {
   display: flex;
