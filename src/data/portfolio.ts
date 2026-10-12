@@ -1,6 +1,6 @@
 export interface ProjectSection {
   title: string;
-  text: string;
+  text: string | string[]; // 배열이면 목록으로 표시
 }
 export interface Project {
   id: string;
@@ -179,7 +179,7 @@ type DetailTitle =
 
 // 확인된 내용만 덮어쓰고, 나머지는 "추가 예정"으로 둡니다.
 const pendingDetails = (
-  known: Partial<Record<DetailTitle, string>> = {},
+  known: Partial<Record<DetailTitle, string | string[]>> = {},
 ): ProjectSection[] =>
   basePendingDetails().map((section) => ({
     ...section,
@@ -217,22 +217,68 @@ export const projects: Project[] = [
   {
     id: "ai-posture-correction",
     number: "01",
-    title: "AI POSTURE CORRECTION",
-    subtitle: "BPT — Human Pose Estimation 기반 AI 자세 교정 헬스 앱",
-    category: "CAPSTONE DESIGN",
-    technologies: ["Flutter", "Backend", "AI"],
+    title: "BPT",
+    subtitle:
+      "스마트폰 카메라만으로 운동 자세를 실시간 분석하는 AI 트레이닝 앱",
+    category: "CAPSTONE DESIGN · 3인 팀",
+    technologies: [
+      "Flutter",
+      "Riverpod",
+      "go_router",
+      "Swift",
+      "CoreML",
+      "RTMPose-s",
+      "MotionAGFormer-XS",
+      "Firebase",
+    ],
     image: "images/posture.svg",
     imageAlt: "관절 좌표와 인체 포즈를 표현한 자세 교정 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
-    repository: null,
+    repository: "https://github.com/Hanbat-Personal-Training-AI-Agent/BPT",
     overview:
-      "BPT는 Human Pose Estimation으로 운동 자세를 인식하고, 올바른 자세로 운동할 수 있도록 돕는 AI 헬스 앱입니다. 2026년 한 해 동안 팀으로 진행하는 캡스톤 디자인 프로젝트입니다.",
+      "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
     details: pendingDetails({
       "Problem & Motivation":
-        "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 카메라만으로 자세를 확인할 수 있다면 트레이너 없이도 더 안전하게 운동할 수 있다고 보았습니다.",
+        "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 트레이너 없이도 스마트폰 하나로 자세를 확인하고 교정할 수 있는 앱을 목표로 했습니다.",
+      "My Role": [
+        "프론트엔드 담당 — 앱의 모든 화면과 사용자 흐름을 Flutter로 설계·구현",
+        "Riverpod 상태 관리, go_router 선언적 라우팅과 인증 가드",
+        "온보딩(성별·신체 정보·목표)과 4방향 체형 자동 촬영 플로우",
+        "운동 설정·카메라 배치 안내·카운트다운·실시간 HUD·결과 화면으로 이어지는 운동 흐름",
+        "리포트(운동량·분석 탭), 운동 기록 캘린더, 내정보·계정 관리 화면",
+        "회원가입·로그인·계정 찾기 등 백엔드 API 연동과 토큰 갱신",
+        "저장소 전체 커밋 126개 중 71개 작성 (2026.10 기준)",
+      ],
+      Architecture: [
+        "Flutter UI — 운동 선택, 목표 설정, 운동 진행 화면, 반복 수·세트 HUD, 리포트",
+        "iOS 네이티브(Swift/CoreML) — 카메라 프레임 수집, RTMPose-s 2D 관절 추정, 운동별 평가기",
+        "연결 — PlatformView로 네이티브 카메라 화면을 임베드하고, MethodChannel로 추론 결과(status·rep·done)를 Flutter에 전달",
+        "데이터 — Firebase 인증, 운동 기록 저장·조회와 기간별 통계 집계",
+        "Feature-First 폴더 구조에 Riverpod 단방향 상태 관리를 적용해, UI 위젯이 데이터 로직을 직접 호출하지 않고 Provider로 필요한 상태만 받도록 분리",
+      ],
+      "Key Features": [
+        "스쿼트·벤치프레스·데드리프트·바벨로우·푸쉬업·랫풀다운 6종 운동의 실시간 자세 분석",
+        "반복 횟수와 세트 진행률을 보여주는 운동 HUD",
+        "가이드 조건을 만족하면 정면·양쪽 사선·뒷면 4장을 자동으로 찍는 체형 촬영",
+        "운동 전 종목별 카메라 배치 안내와 3·2·1 카운트다운",
+        "캐릭터 ‘코리’의 실시간 음성 피드백 (ElevenLabs TTS)",
+        "운동량·자주 나온 실수를 집계하는 리포트와 운동 기록 캘린더",
+      ],
+      "Challenges & Solutions": [
+        "잘못된 카메라 각도로 운동을 시작하면 분석이 부정확해짐 → 시작 버튼을 눌러도 바로 추론으로 넘어가지 않고, 종목별 카메라 배치 안내를 확인해야 운동 화면으로 이동하도록 흐름을 설계",
+        "로그인 상태에서 액세스 토큰이 만료되면 요청이 실패함 → 만료 시 리프레시 토큰으로 자동 갱신한 뒤 실패한 요청을 다시 보내도록 처리",
+        "체형 촬영 중 코리 음성이 같은 안내를 쉬지 않고 반복함 → 안내 반복 조건을 조정해 필요한 순간에만 말하도록 수정",
+        "체형 촬영 후 전송 대기 페이지에서 흐름이 끊김 → 대기 페이지를 없애고 로딩 화면에서 자동 전송하도록 단순화",
+      ],
+      Results: [
+        "캡스톤 디자인 I을 1차 마일스톤으로 마치고, 캡스톤 디자인 II에서 고도화 진행 중",
+        "macOS 프로토타입 기준 추론·후처리 평균 12.73ms (RTMPose-s 2.56ms, MotionAGFormer-XS 7.93ms) — 팀 AI 파이프라인 측정값",
+        "다음 단계: MotionAGFormer-XS 3D 자세 추정의 iOS 연결, Android 실시간 추론 지원",
+      ],
     }),
     gallery: [],
   },
+
   {
     id: "rhythm-mama",
     number: "02",
@@ -373,6 +419,7 @@ export const skillGroups: SkillGroup[] = [
     category: "MOBILE DEVELOPMENT",
     skills: [
       { name: "Flutter", projects: ["ai-posture-correction"] },
+      { name: "Riverpod", projects: ["ai-posture-correction"] },
       { name: "React Native", projects: ["pet-travel"] },
     ],
   },

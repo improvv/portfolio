@@ -66,7 +66,7 @@ export default function ProjectDetail() {
               "Key Features",
               "Challenges & Solutions",
               "Results",
-              "Gallery",
+              ...(project.gallery.length ? ["Gallery"] : []),
               "GitHub Repository",
             ].map((title, i) => (
               <Link
@@ -104,9 +104,9 @@ export default function ProjectDetail() {
           {project.details.slice(2).map((item) => (
             <DetailSection key={item.title} {...item} />
           ))}
-          <section id="detail-gallery">
-            <h2>Gallery</h2>
-            {project.gallery.length ? (
+          {project.gallery.length > 0 && (
+            <section id="detail-gallery">
+              <h2>Gallery</h2>
               <div className="gallery">
                 {project.gallery.map((item) => (
                   <figure key={item.src}>
@@ -124,13 +124,8 @@ export default function ProjectDetail() {
                   </figure>
                 ))}
               </div>
-            ) : (
-              <div className="gallery-placeholder">
-                <span>SCREENSHOTS / COMING SOON</span>
-                <p>실제 프로젝트 스크린샷과 시연 이미지를 추가할 예정입니다.</p>
-              </div>
-            )}
-          </section>
+            </section>
+          )}
           <section id="detail-github-repository">
             <h2>GitHub Repository</h2>
             {project.repository ? (
@@ -159,14 +154,30 @@ export default function ProjectDetail() {
   );
 }
 
-function DetailSection({ title, text }: { title: string; text: string }) {
+function DetailSection({
+  title,
+  text,
+}: {
+  title: string;
+  text: string | string[];
+}) {
   return (
     <section id={`detail-${title.toLowerCase().replaceAll(" ", "-")}`}>
       <Reveal>
         <h2>{title}</h2>
-        <p>
-          <Phrases text={text} />
-        </p>
+        {Array.isArray(text) ? (
+          <ul className="detail-list">
+            {text.map((item) => (
+              <li key={item}>
+                <Phrases text={item} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>
+            <Phrases text={text} />
+          </p>
+        )}
       </Reveal>
     </section>
   );
