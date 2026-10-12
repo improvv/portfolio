@@ -28,7 +28,7 @@ export interface Experience {
 }
 export interface SkillGroup {
   category: string;
-  skills: { name: string; projects: string[] }[];
+  skills: { name: string; projects: string[]; url?: string }[];
 }
 export interface Achievement {
   date: string;
@@ -581,7 +581,11 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "TOOLS & INTERACTIVE",
     skills: [
-      { name: "Git / GitHub", projects: [] },
+      {
+        name: "Git / GitHub",
+        projects: [],
+        url: "https://github.com/improvv",
+      },
       { name: "Notion", projects: [] },
       { name: "Unity", projects: ["rhythm-mama"] },
     ],

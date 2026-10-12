@@ -706,7 +706,21 @@ function Skills() {
               </div>
               {group.skills.map((skill) => (
                 <div className="skill" key={skill.name}>
-                  <h4>{skill.name}</h4>
+                  <h4>
+                    {skill.url ? (
+                      <a
+                        className="skill-link"
+                        href={skill.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {skill.name}
+                        <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    ) : (
+                      skill.name
+                    )}
+                  </h4>
                   {skill.projects.length > 0 && (
                     <div>
                       {skill.projects.map((id) => {
