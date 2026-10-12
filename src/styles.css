@@ -2731,7 +2731,8 @@ body {
   padding: 0;
   list-style: none;
 }
-.now-studying a {
+.now-studying a,
+.course-row {
   display: grid;
   grid-template-columns: 26px 1fr auto;
   gap: 10px;

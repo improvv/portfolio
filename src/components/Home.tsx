@@ -618,14 +618,24 @@ function Education() {
             <ul>
               {education.currentCourses.map((course, i) => (
                 <li key={course.name}>
-                  <Link to={course.link}>
-                    <span className="course-index">0{i + 1}</span>
-                    <span className="course-name">
-                      {course.name}
-                      <small>{course.en}</small>
-                    </span>
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                  </Link>
+                  {course.link ? (
+                    <Link to={course.link}>
+                      <span className="course-index">0{i + 1}</span>
+                      <span className="course-name">
+                        {course.name}
+                        <small>{course.en}</small>
+                      </span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                    </Link>
+                  ) : (
+                    <div className="course-row">
+                      <span className="course-index">0{i + 1}</span>
+                      <span className="course-name">
+                        {course.name}
+                        <small>{course.en}</small>
+                      </span>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

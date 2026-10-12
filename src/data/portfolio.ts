@@ -316,7 +316,12 @@ export const education = {
   ],
   // 2026년 2학기 수강 중인 전공 과목과 연결된 연구·프로젝트
   currentCourses: [
-    { name: "사물인터넷", en: "INTERNET OF THINGS", link: "/#research" },
+    { name: "컴퓨터 비전", en: "COMPUTER VISION", link: null },
+    {
+      name: "사물인터넷",
+      en: "INTERNET OF THINGS",
+      link: "/#research" as string | null,
+    },
     {
       name: "자연어처리",
       en: "NATURAL LANGUAGE PROCESSING",
