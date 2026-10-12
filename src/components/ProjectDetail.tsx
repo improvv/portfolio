@@ -47,11 +47,9 @@ export default function ProjectDetail() {
           height="900"
           fetchPriority="high"
         />
-        <figcaption>
-          {project.imageIsPlaceholder
-            ? "CONCEPT ART — 프로젝트 주제를 표현한 자리표시자입니다. 실제 실행 화면은 추후 추가됩니다."
-            : project.imageAlt}
-        </figcaption>
+        {!project.imageIsPlaceholder && (
+          <figcaption>{project.imageAlt}</figcaption>
+        )}
       </figure>
       <div className="detail-body">
         <aside className="detail-sidebar">
@@ -67,7 +65,7 @@ export default function ProjectDetail() {
               "Challenges & Solutions",
               "Results",
               ...(project.gallery.length ? ["Gallery"] : []),
-              "GitHub Repository",
+              ...(project.repository ? ["GitHub Repository"] : []),
             ].map((title, i) => (
               <Link
                 to={`#detail-${title.toLowerCase().replaceAll(" ", "-")}`}
@@ -126,9 +124,9 @@ export default function ProjectDetail() {
               </div>
             </section>
           )}
-          <section id="detail-github-repository">
-            <h2>GitHub Repository</h2>
-            {project.repository ? (
+          {project.repository && (
+            <section id="detail-github-repository">
+              <h2>GitHub Repository</h2>
               <a
                 className="repository-link"
                 href={project.repository}
@@ -137,10 +135,8 @@ export default function ProjectDetail() {
               >
                 VIEW SOURCE CODE <ArrowUpRight size={20} aria-hidden="true" />
               </a>
-            ) : (
-              <p className="pending-copy">저장소 링크 추가 예정</p>
-            )}
-          </section>
+            </section>
+          )}
         </div>
       </div>
       <Link className="next-project" to={`/projects/${nextProject.id}`}>

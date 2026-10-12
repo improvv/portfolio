@@ -234,13 +234,14 @@ export const projects: Project[] = [
     image: "images/posture.svg",
     imageAlt: "관절 좌표와 인체 포즈를 표현한 자세 교정 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
-    repository: "https://github.com/Hanbat-Personal-Training-AI-Agent/BPT",
+    repository: null,
     overview:
       "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
     details: pendingDetails({
       "Problem & Motivation":
         "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 트레이너 없이도 스마트폰 하나로 자세를 확인하고 교정할 수 있는 앱을 목표로 했습니다.",
       "My Role": [
+        "PM — 일정·역할 분담·요구사항 정리 등 프로젝트 운영 총괄",
         "프론트엔드 담당 — 앱의 모든 화면과 사용자 흐름을 Flutter로 설계·구현",
         "Riverpod 상태 관리, go_router 선언적 라우팅과 인증 가드",
         "온보딩(성별·신체 정보·목표)과 4방향 체형 자동 촬영 플로우",
@@ -303,6 +304,7 @@ export const projects: Project[] = [
       "Problem & Motivation":
         "VR에서는 손동작 자체가 입력이 됩니다. 썰기·뒤집기·쌓기처럼 누구에게나 익숙한 요리 동작을 리듬 게임과 결합하면, 별도의 학습 없이도 몸으로 자연스럽게 즐길 수 있는 상호작용을 만들 수 있다고 보았습니다.",
       "My Role": [
+        "PM — 4주 개발 계획·역할별 주차 체크리스트·Git 규칙 수립과 주간 회의 운영",
         "Rhythm 담당 — 음악과 박자에 관한 시스템 전체",
         "곡 재생과 싱크를 맡는 Conductor, 박자에 맞춘 3·2·1·GO 카운트다운",
         "박자맵(JSON) 포맷 정의와 로더, 곡을 들으며 타이밍을 기록하는 에디터용 박자맵 제작 도구",
@@ -337,23 +339,50 @@ export const projects: Project[] = [
   {
     id: "firewall-rule-verification",
     number: "03",
-    title: "FIREWALL RULE VERIFIER",
-    subtitle: "AI가 생성한 방화벽 룰을 자동으로 검증하는 프로젝트",
-    category: "SECURITY · IN PROGRESS",
-    technologies: [],
+    title: "AI FIREWALL VALIDATION",
+    subtitle:
+      "AI가 생성한 방화벽 룰을 격리 랩에서 정적·동적으로 검증하는 파이프라인",
+    category: "SECURITY · 4인 팀",
+    technologies: ["Python", "LLM", "nftables", "Podman", "JSON Schema"],
     image: "images/firewall.svg",
     imageAlt:
       "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "컴퓨터공학 특론 전공 팀프로젝트(박재현 교수)로, 2026년 9월부터 진행 중입니다. AI가 생성한 방화벽 룰을 자동으로 검증하는 것을 목표로 합니다.",
+      "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
     details: pendingDetails({
       "Problem & Motivation":
-        "AI로 방화벽 룰을 생성하면 작성 속도는 빨라지지만, 생성된 룰이 의도대로 동작하는지 사람이 하나하나 확인하기는 어렵습니다. 생성된 룰을 자동으로 검증해, AI가 만든 보안 설정도 믿고 쓸 수 있게 하는 것이 이 프로젝트의 출발점입니다.",
+        "AI로 방화벽 룰을 만들면 작성 속도는 빨라지지만, 문법적으로 맞는 룰도 실제로는 막아야 할 트래픽을 통과시킬 수 있습니다. 정적 검증만 통과한 룰 중 실제 트래픽을 흘려 봐야만 드러나는 오류가 얼마나 되는지, 위험도 기반 적용으로 사람의 검토량을 얼마나 줄이면서 안전성을 지킬 수 있는지를 연구 질문으로 삼았습니다.",
+      "My Role": [
+        "시나리오 담당 — 스마트홈 환경의 자연어 요구사항, 정답 룰셋, 정상·공격 프로브 정의 10종 작성",
+        "오류 주입 담당 — 정답 룰셋을 일부러 망가뜨린 룰셋 15개를 11가지 유형(order·widen·port·swap·missing·action 등)으로 설계",
+        "유형별로 정적 검증에 잡히는지에 대한 가설을 세우고, 시뮬레이터로 어떤 프로브가 실패하는지 정리",
+        "오류 주입 커버리지 분석기 작성과 프로브 보강",
+        "자연어 요구사항을 룰 IR로 바꾸는 LLM 생성기 담당",
+      ],
+      Architecture: [
+        "scenario → generator(LLM) → 후보 룰셋 → validator(정적 검증·위험도 판정) → deployer(적용·감시·롤백) → eval(지표 계산)",
+        "검증 실패 룰은 적용하지 않고 기록, 고위험 룰은 사람 승인을 거쳐 적용",
+        "Podman 격리 랩 — 방화벽 컨테이너와 IoT 기기·공격자·내부 PC·서버 컨테이너로 구성된 스마트홈 네트워크",
+        "모든 모듈을 JSON 입력 → JSON 출력 CLI로 만들어, 앞 모듈이 없어도 예시 JSON으로 독립 개발",
+      ],
+      "Key Features": [
+        "스키마·포트·nft 문법 검사와 범위 기준에 따른 위험도 판정",
+        "룰 간 이상 4종 탐지 (shadowing·redundancy·correlation·generalization)",
+        "정상·공격 트래픽을 실제로 흘려 보는 능동 프로빙",
+        "적용 후 이상이 감지되면 자동 롤백",
+        "실험마다 커밋 해시·인자·결과를 남기는 재현 가능한 배치 실행",
+      ],
+      "Challenges & Solutions": [
+        "한 룰셋에 오류가 여러 개 섞이면 어떤 오류를 어느 검증이 잡았는지 가를 수 없음 → 오류 주입 파일 하나에 오류를 하나만 넣는 원칙을 세움",
+        "현재 룰 표현(IR)으로는 응답 트래픽 누락 같은 오류를 표현할 수 없음 → 막히는 이유와 두 가지 해결안을 정리해 팀 논의로 올림",
+        "구현이 진행되며 가설이 실제 검증기 동작과 어긋남 → 검증기 결과를 확인해 order 유형 가설을 correlation 기준으로 수정",
+      ],
     }),
     gallery: [],
   },
+
   {
     id: "pet-travel",
     number: "04",
@@ -369,6 +398,7 @@ export const projects: Project[] = [
     overview:
       "반려견과 함께 여행하려는 보호자를 위해, 반려견 동반 여행 코스를 추천하는 경주 여행 모바일 애플리케이션입니다.",
     details: pendingDetails({
+      "My Role": ["PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄"],
       "Problem & Motivation":
         "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 합니다. 경주 여행을 계획하는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 확인할 수 있도록 하고자 했습니다.",
     }),
@@ -389,6 +419,7 @@ export const projects: Project[] = [
     overview:
       "한밭모비 자율주행 캠프(2025.07.08–11)에서 진행한 프로젝트입니다. 라즈베리파이 피코를 탑재한 AI 자동차가 초음파 센서로 거리를 측정하고, 카메라 영상 스트림에 YOLO를 적용해 보행자(노인)를 실시간으로 인식하면 정지합니다. 캠프에서 금상을 받았습니다.",
     details: pendingDetails({
+      "My Role": ["PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄"],
       "Problem & Motivation":
         "고령 보행자는 차량을 피하는 반응이 느려 교통사고에 더 취약합니다. 자동차가 스스로 보행자를 알아보고 먼저 멈출 수 있다면 사고를 줄일 수 있다고 생각했습니다.",
       "Key Features":
@@ -412,6 +443,7 @@ export const projects: Project[] = [
     overview:
       "눈 깜빡임의 길고 짧음을 모스부호 신호로 인식해, 손을 쓰지 않고 눈으로 모스부호를 익히는 학습 프로젝트입니다. Python과 OpenCV로 구현했습니다.",
     details: pendingDetails({
+      "My Role": ["PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄"],
       "Problem & Motivation":
         "모스부호는 짧은 신호와 긴 신호만으로 의사를 전달할 수 있는 단순하고 강력한 언어입니다. 눈 깜빡임을 입력으로 삼으면 손을 쓰지 않고도 모스부호를 배우고 전달할 수 있다는 점에 주목했습니다.",
     }),
