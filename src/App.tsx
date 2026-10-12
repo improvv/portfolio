@@ -11,6 +11,7 @@ import {
   ScrollDirectionProvider,
   ScrollProgress,
   SectionIndicator,
+  slowScrollToElement,
 } from "./components/Motion";
 
 export default function App() {
@@ -37,10 +38,8 @@ export default function App() {
         if (target) {
           target.setAttribute("tabindex", "-1");
           target.focus({ preventScroll: true });
-          target.scrollIntoView({
-            behavior: reduced ? "instant" : "smooth",
-            block: "start",
-          });
+          if (reduced) target.scrollIntoView({ block: "start" });
+          else slowScrollToElement(target);
         }
       } else {
         if (location.pathname !== "/")

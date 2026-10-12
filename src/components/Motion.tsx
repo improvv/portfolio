@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import {
+  animate,
   motion,
   useAnimationFrame,
   useInView,
@@ -44,6 +45,54 @@ export function ScrollDirectionProvider({ children }: { children: ReactNode }) {
 }
 
 export const useScrollDirection = () => useContext(DirectionContext);
+
+/* ---------- Slow anchor scrolling ---------- */
+
+let activeScroll: { stop: () => void } | null = null;
+
+/**
+ * Scrolls to a position with a gentle ease. The duration grows with the
+ * distance (0.9s–2.2s) so long jumps do not flash past. Any wheel, touch or
+ * key input from the reader cancels it.
+ */
+export function slowScrollTo(top: number) {
+  activeScroll?.stop();
+  const from = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const to = Math.max(0, Math.min(top, max));
+  const distance = Math.abs(to - from);
+  if (distance < 2) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.scrollTo({ top: to, behavior: "instant" });
+    return;
+  }
+  const duration = Math.min(2.2, 0.9 + distance / 4000);
+  const cancel = () => activeScroll?.stop();
+  const events = ["wheel", "touchstart", "keydown"] as const;
+  events.forEach((e) =>
+    window.addEventListener(e, cancel, { passive: true, once: true }),
+  );
+  const controls = animate(from, to, {
+    duration,
+    ease: [0.65, 0, 0.35, 1],
+    onUpdate: (v) => window.scrollTo({ top: v, behavior: "instant" }),
+  });
+  const stop = () => {
+    controls.stop();
+    events.forEach((e) => window.removeEventListener(e, cancel));
+    if (activeScroll === handle) activeScroll = null;
+  };
+  const handle = { stop };
+  activeScroll = handle;
+  void controls.then(stop);
+}
+
+export function slowScrollToElement(el: HTMLElement) {
+  const offset = parseFloat(
+    getComputedStyle(document.documentElement).scrollPaddingTop || "0",
+  );
+  slowScrollTo(el.getBoundingClientRect().top + window.scrollY - (offset || 0));
+}
 
 /* ---------- Page chrome: progress bar, section indicator, cursor ---------- */
 

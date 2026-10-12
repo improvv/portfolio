@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import { navigation } from "../data/portfolio";
+import { slowScrollTo } from "./Motion";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -13,8 +14,7 @@ export default function Header() {
         to="/"
         onClick={() => {
           setOpen(false);
-          if (location.pathname === "/")
-            window.scrollTo({ top: 0, behavior: "smooth" });
+          if (location.pathname === "/") slowScrollTo(0);
         }}
         aria-label="Jinjeong Seo 홈"
       >
