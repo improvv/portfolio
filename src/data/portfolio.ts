@@ -314,6 +314,30 @@ export const education = {
     "Artificial Intelligence",
     "Software Development",
   ],
+  // 2026년 2학기 수강 중인 전공 과목과 연결된 연구·프로젝트
+  currentCourses: [
+    { name: "사물인터넷", en: "INTERNET OF THINGS", link: "/#research" },
+    {
+      name: "자연어처리",
+      en: "NATURAL LANGUAGE PROCESSING",
+      link: "/#research",
+    },
+    {
+      name: "컴퓨터공학 특론",
+      en: "TOPICS IN COMPUTER ENGINEERING",
+      link: "/projects/firewall-rule-verification",
+    },
+    {
+      name: "인간과 컴퓨터 상호작용",
+      en: "HUMAN-COMPUTER INTERACTION",
+      link: "/projects/rhythm-mama",
+    },
+    {
+      name: "캡스톤 디자인",
+      en: "CAPSTONE DESIGN",
+      link: "/projects/ai-posture-correction",
+    },
+  ],
   // 최신 취득순 → 전공 관련도순
   certificates: [
     "정보처리기사 (필기 합격)",

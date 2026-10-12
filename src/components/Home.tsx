@@ -8,6 +8,7 @@ import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -242,6 +243,76 @@ function Portrait({ src }: { src: string }) {
         STORY
       </span>
     </div>
+  );
+}
+
+function StudentCard() {
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(tiltY, [-0.5, 0.5], [10, -10]), {
+    stiffness: 200,
+    damping: 18,
+  });
+  const rotateY = useSpring(useTransform(tiltX, [-0.5, 0.5], [-12, 12]), {
+    stiffness: 200,
+    damping: 18,
+  });
+  const shineX = useTransform(tiltX, [-0.5, 0.5], ["0%", "100%"]);
+  return (
+    <motion.div
+      className="student-card"
+      aria-label={`${profile.koreanName} 학생증 — ${profile.university} ${profile.major}`}
+      role="img"
+      style={{ rotateX, rotateY, transformPerspective: 800 }}
+      onPointerMove={(event) => {
+        if (event.pointerType !== "mouse") return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        tiltX.set((event.clientX - rect.left) / rect.width - 0.5);
+        tiltY.set((event.clientY - rect.top) / rect.height - 0.5);
+      }}
+      onPointerLeave={() => {
+        tiltX.set(0);
+        tiltY.set(0);
+      }}
+    >
+      <div className="card-top">
+        <span>STUDENT ID</span>
+        <span>HANBAT NAT’L UNIV.</span>
+      </div>
+      <div className="card-body">
+        <div className="card-photo">
+          {profile.portrait && (
+            <img src={assetUrl(profile.portrait)} alt="" loading="lazy" />
+          )}
+        </div>
+        <dl>
+          <div>
+            <dt>NAME</dt>
+            <dd>
+              {profile.koreanName}
+              <small>{profile.name}</small>
+            </dd>
+          </div>
+          <div>
+            <dt>MAJOR</dt>
+            <dd>{profile.major}</dd>
+          </div>
+          <div>
+            <dt>CLASS OF</dt>
+            <dd className="card-year">2027</dd>
+          </div>
+        </dl>
+      </div>
+      <div className="card-bottom">
+        <div className="barcode" aria-hidden="true" />
+        <span>COMPUTER ENGINEERING</span>
+      </div>
+      <motion.span
+        className="card-shine"
+        aria-hidden="true"
+        style={{ left: shineX }}
+      />
+    </motion.div>
   );
 }
 
@@ -527,14 +598,39 @@ function Education() {
         note="FOUNDATIONS FOR WHAT’S NEXT"
       />
       <div className="education-grid">
-        <Reveal className="education-heading-block" variant="left">
-          <h2 id="education-heading" className="section-heading">
-            <SplitText text=".EDUCATION" />
-          </h2>
-          <div className="education-symbol" aria-hidden="true">
-            ↗
-          </div>
-        </Reveal>
+        <div className="education-aside">
+          <Reveal className="education-heading-block" variant="left">
+            <h2 id="education-heading" className="section-heading">
+              <SplitText text=".EDUCATION" />
+            </h2>
+            <div className="education-symbol" aria-hidden="true">
+              ↗
+            </div>
+          </Reveal>
+          <Reveal variant="left">
+            <StudentCard />
+          </Reveal>
+          <Reveal className="now-studying" variant="up">
+            <div className="now-studying-head">
+              <span className="eyebrow">NOW STUDYING</span>
+              <span className="eyebrow">2026 FALL</span>
+            </div>
+            <ul>
+              {education.currentCourses.map((course, i) => (
+                <li key={course.name}>
+                  <Link to={course.link}>
+                    <span className="course-index">0{i + 1}</span>
+                    <span className="course-name">
+                      {course.name}
+                      <small>{course.en}</small>
+                    </span>
+                    <ArrowUpRight size={16} aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
         <Reveal className="education-details" variant="right">
           <span className="eyebrow">ACADEMIC BACKGROUND</span>
           <h3>{education.institution}</h3>
