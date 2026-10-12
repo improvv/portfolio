@@ -526,6 +526,22 @@ function Experience() {
                       ))}
                     </ul>
                   )}
+                  {item.articles && (
+                    <div className="beyond-articles">
+                      <span className="eyebrow">BYLINE ARTICLES</span>
+                      {item.articles.map((article) => (
+                        <div className="article-clip" key={article.title}>
+                          <span className="article-meta">
+                            {article.section} · {article.year}
+                          </span>
+                          <strong>{article.title}</strong>
+                          <small>
+                            <Phrases text={article.summary} />
+                          </small>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </motion.article>
               </Reveal>
             );
