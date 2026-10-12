@@ -47,7 +47,7 @@ export const profile = {
     "국립 한밭대학교에서 컴퓨터공학을 전공하며 소프트웨어를 만들고 있습니다. 일상 속 문제를 발견하고, 아이디어를 실제로 작동하는 서비스로 옮기는 과정에 관심이 있습니다.",
     "모바일 앱부터 Computer Vision, AI, VR까지. 프로젝트를 기획하고 동료와 협업하며, 결과만큼 문제를 해결하는 과정과 그 안에서의 배움을 중요하게 생각합니다.",
   ],
-  keywords: ["SOFTWARE DEVELOPMENT", "COMPUTER VISION", "LEARNING BY BUILDING"],
+  keywords: ["COMPUTER VISION", "SOFTWARE DEVELOPMENT", "LEARNING BY BUILDING"],
 };
 
 export const navigation = [
@@ -181,11 +181,11 @@ export const education = {
   description: "국립 한밭대학교 · 컴퓨터공학 전공",
   period: null as string | null,
   graduation: "2027.02" as string | null, // 졸업 예정
-  gpa: "4.12" as string | null,
+  gpa: "4.12 / 4.5" as string | null,
   subjects: [
-    "Software Development",
     "Computer Vision",
     "Artificial Intelligence",
+    "Software Development",
   ],
   certificates: [] as string[],
 };

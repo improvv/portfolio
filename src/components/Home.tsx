@@ -112,8 +112,8 @@ function Hero() {
           </h1>
           <div className="cover-bottom">
             <p>
-              SOFTWARE DEVELOPMENT
-              <br />& COMPUTER VISION
+              COMPUTER VISION
+              <br />& SOFTWARE DEVELOPMENT
             </p>
             <div className="barcode" aria-hidden="true" />
             <span>NO. 001</span>
@@ -446,19 +446,13 @@ function Education() {
               {education.graduation && (
                 <div>
                   <dt>GRADUATION</dt>
-                  <dd>
-                    {education.graduation}
-                    <small>졸업 예정</small>
-                  </dd>
+                  <dd>{education.graduation} 졸업 예정</dd>
                 </div>
               )}
               {education.gpa && (
                 <div>
                   <dt>GPA</dt>
-                  <dd>
-                    {education.gpa}
-                    <small>전체 평점</small>
-                  </dd>
+                  <dd>{education.gpa}</dd>
                 </div>
               )}
             </dl>
@@ -605,7 +599,7 @@ export default function Home() {
     <>
       <Hero />
       <VelocityMarquee
-        items={["SOFTWARE DEVELOPMENT", "COMPUTER VISION", "PORTFOLIO 2026"]}
+        items={["COMPUTER VISION", "SOFTWARE DEVELOPMENT", "PORTFOLIO 2026"]}
       />
       <About />
       <Experience />
