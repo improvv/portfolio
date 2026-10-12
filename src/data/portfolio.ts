@@ -497,20 +497,50 @@ export const projects: Project[] = [
     id: "morselingo",
     number: "06",
     title: "MORSELINGO",
-    subtitle: "눈 깜빡임 인식으로 시작하는 모스부호 학습",
-    category: "COMPUTER VISION",
-    technologies: ["Python", "OpenCV", "Computer Vision"],
+    subtitle:
+      "눈 깜빡임으로 한글 모스부호를 연습하는 Computer Vision 학습 프로젝트",
+    category: "PERSONAL PROJECT · COMPUTER VISION",
+    technologies: ["Python", "OpenCV", "MediaPipe", "NumPy"],
     image: "images/morse.svg",
     imageAlt:
       "눈의 형태와 모스부호 신호를 표현한 Computer Vision 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "눈 깜빡임의 길고 짧음을 모스부호 신호로 인식해, 손을 쓰지 않고 눈으로 모스부호를 익히는 학습 프로젝트입니다. Python과 OpenCV로 구현했습니다.",
+      "MorseLingo는 웹캠으로 눈 깜빡임을 인식해, 짧게 감으면 점·길게 감으면 선으로 한글 모스부호를 입력하며 연습하는 프로젝트입니다. 장기 목표는 듀오링고처럼 단계별로 배우는 학습 서비스이며, 현재는 macOS에서 동작하는 Python 웹캠 프로토타입입니다. 2026년 10월에 혼자 기획하고 개발했습니다.",
     details: pendingDetails({
-      "My Role": ["PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄"],
       "Problem & Motivation":
-        "모스부호는 짧은 신호와 긴 신호만으로 의사를 전달할 수 있는 단순하고 강력한 언어입니다. 눈 깜빡임을 입력으로 삼으면 손을 쓰지 않고도 모스부호를 배우고 전달할 수 있다는 점에 주목했습니다.",
+        "모스부호는 짧은 신호와 긴 신호만으로 의사를 전달할 수 있는 단순하고 강력한 언어입니다. 눈 깜빡임을 입력으로 삼으면 손을 쓰지 않고도 모스부호를 배우고 전달할 수 있다는 점에 주목해, 한글 모스부호를 눈으로 연습하는 도구를 만들었습니다.",
+      "My Role": [
+        "1인 개인 프로젝트 — 기획부터 구현, 문서화까지 전 과정 담당",
+        "MediaPipe Face Landmarker 기반 눈 랜드마크 추정과 EAR(Eye Aspect Ratio) 계산",
+        "눈 감김 시작·종료 추적과 감은 시간 기반 점·선 분류",
+        "한글 문장을 초성·중성·종성으로 분해해 자모별 모스부호로 변환하는 규칙 구현",
+        "목표 부호와 실제 입력을 비교해 보여주는 고대비 화면 패널",
+      ],
+      Architecture: [
+        "웹캠 프레임 → RGB 변환 → 얼굴·눈 랜드마크 추정 → EAR 계산",
+        "→ 눈 감김 시작·종료 추적 → 감은 시간을 점·선으로 변환",
+        "→ 목표 부호열과 비교 → 화면 피드백",
+        "eye_metrics(EAR) · blink_tracker(시간 측정) · morse(변환·채점) · sentence_overlay(화면) 모듈로 분리",
+      ],
+      "Key Features": [
+        "양쪽 눈 EAR이 0.15 미만이면 감김으로 판단, 300ms 미만은 점·이상은 선으로 입력",
+        "터미널에서 입력한 한글 문장을 자모별 모스부호로 변환해 목표로 제시",
+        "목표 부호 바로 아래에 실제 입력을 정렬하고, 일치 여부를 초록·빨강으로 표시",
+        "입력 개수와 일치한 부호 수, 완료한 글자 표시, 긴 부호열은 입력 위치에 맞춰 자동 페이지 전환",
+        "삭제·초기화·제출·새 문장 입력을 키보드로 조작하는 READY → INPUT → REVIEW 상태 흐름",
+      ],
+      "Challenges & Solutions": [
+        "프레임 수로 시간을 재면 프레임 속도에 따라 점·선 판정이 흔들림 → 단조 증가 시계로 감은 시간을 측정",
+        "얼굴 추적이 끊기거나 프레임 공백이 생기면 잘못된 입력이 들어감 → 추적 유실·EAR 계산 실패·1초 초과 공백 시 진행 중인 측정을 취소",
+        "Mac 환경에서 최신 MediaPipe로 모델 초기화 시 강제 종료 발생 → 버전을 바꿔 가며 원인을 좁혀 0.10.35에서 안정 동작 확인",
+        "쌍자음·겹받침 등 부호표에 없는 자모 → 구성 자모로 나누는 확장 규칙 정의",
+      ],
+      Results: [
+        "macOS 웹캠 프로토타입 완성 — 한글 문장을 눈 깜빡임만으로 입력하고 채점",
+        "다음 단계: 자연스러운 깜빡임과 의도적 입력 구분, 사용자별 임계값 보정, 흔들림을 줄이는 디바운싱",
+      ],
     }),
     gallery: [],
   },
