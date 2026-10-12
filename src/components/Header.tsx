@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { navigation } from "../data/portfolio";
+import { contacts, navigation } from "../data/portfolio";
 import { slowScrollTo } from "./Motion";
+
+const blogUrl = contacts.find((contact) => contact.label === "Blog")?.url;
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -27,6 +29,11 @@ export default function Header() {
       </span>
       <nav className="desktop-nav" aria-label="주요 메뉴">
         <Link to="/#about">ABOUT</Link>
+        {blogUrl && (
+          <a href={blogUrl} target="_blank" rel="noopener noreferrer">
+            TECH BLOG <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        )}
         <Link to="/#works">
           WORKS <span>(04)</span>
         </Link>
@@ -63,6 +70,18 @@ export default function Header() {
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           ))}
+          {blogUrl && (
+            <a
+              href={blogUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+            >
+              <span>↗</span>
+              TECH BLOG
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          )}
         </nav>
       )}
     </header>
