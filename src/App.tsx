@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import ProjectDetail from "./components/ProjectDetail";
 import Contact from "./components/Contact";
+import SectionDrawer from "./components/SectionDrawer";
 import { projects } from "./data/portfolio";
 import {
   CustomCursor,
@@ -59,6 +60,7 @@ export default function App() {
     <ScrollDirectionProvider>
       <ScrollProgress />
       {location.pathname === "/" && <SectionIndicator />}
+      {location.pathname === "/" && <SectionDrawer />}
       <CustomCursor />
       <div className="site-shell">
         <a
