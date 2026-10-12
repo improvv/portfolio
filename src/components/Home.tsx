@@ -715,7 +715,7 @@ function Skills() {
                         rel="noopener noreferrer"
                       >
                         {skill.name}
-                        <ArrowUpRight size={14} aria-hidden="true" />
+                        <ArrowUpRight size={13} aria-hidden="true" />
                       </a>
                     ) : (
                       skill.name

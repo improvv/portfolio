@@ -2834,11 +2834,18 @@ body {
     border-top: 0;
   }
 }
-.skill-link {
-  display: inline-flex;
+.skill h4 .skill-link {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 5px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
 }
-.skill-link:hover {
+.skill h4 .skill-link:hover {
   color: var(--red);
 }
