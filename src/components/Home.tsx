@@ -183,7 +183,8 @@ function Hero() {
         </motion.aside>
       </div>
       <div className="hero-foot">
-        <p>Computer Vision과 앱 개발을 공부합니다.</p>
+        {/* Empty cell keeps the link and caption in place. */}
+        <span aria-hidden="true" />
         <Link to="/#works">
           EXPLORE THE WORK{" "}
           <ArrowDown className="scroll-arrow" size={16} aria-hidden="true" />
