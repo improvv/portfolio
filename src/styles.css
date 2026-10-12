@@ -2849,3 +2849,51 @@ body {
 .skill h4 .skill-link:hover {
   color: var(--red);
 }
+
+/* ---------- CV download ---------- */
+.cv-download {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin: 34px 0 28px;
+  padding: 18px 20px;
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+.cv-download > span:first-child {
+  font:
+    clamp(22px, 2.6vw, 34px) / 1 Anton,
+    sans-serif;
+}
+.cv-download small {
+  display: block;
+  margin-top: 6px;
+  font:
+    700 9px/1 "Noto Sans KR Variable",
+    sans-serif;
+  letter-spacing: 1px;
+  color: #676357;
+}
+.cv-download-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.cv-download:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 var(--red);
+}
+.cv-download:hover .cv-download-action {
+  background: var(--red);
+}

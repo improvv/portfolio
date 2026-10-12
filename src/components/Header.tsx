@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowUpRight, Menu, X } from "lucide-react";
-import { contacts, navigation, projects } from "../data/portfolio";
+import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import {
+  assetUrl,
+  contacts,
+  cv,
+  navigation,
+  projects,
+} from "../data/portfolio";
 import { slowScrollTo } from "./Motion";
 
 const blogUrl = contacts.find((contact) => contact.label === "Blog")?.url;
@@ -37,6 +43,9 @@ export default function Header() {
         <Link to="/#works">
           WORKS <span>({String(projects.length).padStart(2, "0")})</span>
         </Link>
+        <a href={assetUrl(cv.file)} download={cv.downloadName}>
+          CV <Download size={13} aria-hidden="true" />
+        </a>
         <Link to="/#contact">
           LET’S TALK <ArrowUpRight size={14} aria-hidden="true" />
         </Link>
@@ -70,6 +79,15 @@ export default function Header() {
               <ArrowUpRight size={18} aria-hidden="true" />
             </Link>
           ))}
+          <a
+            href={assetUrl(cv.file)}
+            download={cv.downloadName}
+            onClick={() => setOpen(false)}
+          >
+            <span>↓</span>
+            CV DOWNLOAD
+            <Download size={18} aria-hidden="true" />
+          </a>
           {blogUrl && (
             <a
               href={blogUrl}

@@ -684,6 +684,11 @@ export const contacts: { label: string; url: string | null }[] = [
   },
 ];
 
+export const cv = {
+  file: "files/jinjeong-seo-cv.pdf",
+  downloadName: "서진정_CV.pdf",
+};
+
 export function assetUrl(path: string): string {
   if (/^(https?:\/\/|data:)/.test(path)) return path;
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;

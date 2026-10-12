@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUp, ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Check, Copy, Download } from "lucide-react";
 import { Link } from "react-router-dom";
-import { contacts, profile } from "../data/portfolio";
+import { assetUrl, contacts, cv, profile } from "../data/portfolio";
 import { AnimatePresence, motion } from "motion/react";
 import { Reveal, SectionLabel } from "./Editorial";
 import { SplitText } from "./Motion";
@@ -134,6 +134,19 @@ export default function Contact() {
           ),
         )}
       </div>
+      <a
+        className="cv-download"
+        href={assetUrl(cv.file)}
+        download={cv.downloadName}
+      >
+        <span>
+          CURRICULUM VITAE
+          <small>PDF · 2 PAGES</small>
+        </span>
+        <span className="cv-download-action">
+          DOWNLOAD <Download size={18} aria-hidden="true" />
+        </span>
+      </a>
       <div className="footer-bottom">
         <span>
           © {profile.year} {profile.name}
