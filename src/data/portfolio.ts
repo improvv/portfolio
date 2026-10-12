@@ -455,25 +455,38 @@ export const projects: Project[] = [
     number: "05",
     title: "SILVER STOP",
     subtitle: "보행자(노인)를 인식하면 멈추는 AI 자율주행 자동차",
-    category: "AUTONOMOUS DRIVING · 금상",
-    technologies: ["Python", "YOLO", "Raspberry Pi Pico", "Ultrasonic Sensor"],
+    category: "AUTONOMOUS DRIVING CAMP · 금상",
+    technologies: ["Python", "YOLO", "Raspberry Pi", "LiDAR", "Camera"],
     image: "images/silverstop.svg",
     imageAlt:
       "도로 위 자동차와 보행자 인식 박스를 표현한 자율주행 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "한밭모비 자율주행 캠프(2025.07.08–11)에서 진행한 프로젝트입니다. 라즈베리파이 피코를 탑재한 AI 자동차가 초음파 센서로 거리를 측정하고, 카메라 영상 스트림에 YOLO를 적용해 보행자(노인)를 실시간으로 인식하면 정지합니다. 캠프에서 금상을 받았습니다.",
+      "한밭 자율주행 캠프에서 진행한 프로젝트입니다. 라즈베리파이를 탑재한 소형 자율주행 자동차에 카메라와 라이다를 달고, 캠프 실습 코드를 바탕으로 보행자(노인)를 실시간으로 인식하면 스스로 멈추는 기능을 구현했습니다. 캠프에서 금상을 받았습니다.",
     details: pendingDetails({
-      "My Role": ["PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄"],
       "Problem & Motivation":
         "고령 보행자는 차량을 피하는 반응이 느려 교통사고에 더 취약합니다. 자동차가 스스로 보행자를 알아보고 먼저 멈출 수 있다면 사고를 줄일 수 있다고 생각했습니다.",
-      "Key Features":
-        "카메라 영상 스트림에서 YOLO로 보행자를 실시간 인식합니다. 초음파 센서로 앞 물체와의 거리를 측정해, 보행자가 가까워지면 차량을 정지시킵니다.",
-      Results: "한밭모비 자율주행 캠프에서 금상을 받았습니다.",
+      "My Role": [
+        "PM — 아이디어 기획, 일정·역할 분담 등 팀 운영 총괄",
+        "캠프 실습 코드를 바탕으로 보행자 인식과 정지 동작을 조합해 프로젝트 주제에 맞게 구현",
+      ],
+      Architecture: [
+        "카메라 영상 → YOLO 객체 인식으로 보행자 검출",
+        "라이다로 앞 물체와의 거리 측정",
+        "보행자가 인식되고 일정 거리 안으로 들어오면 모터를 정지시키는 제어 로직",
+        "라즈베리파이에서 인식과 주행 제어를 함께 처리",
+      ],
+      "Key Features": [
+        "카메라 영상 스트림에서 YOLO로 보행자를 실시간 인식",
+        "라이다 거리 측정으로 보행자가 가까워지면 차량 정지",
+        "보행자가 사라지면 다시 주행",
+      ],
+      Results: "한밭 자율주행 캠프에서 금상을 받았습니다.",
     }),
     gallery: [],
   },
+
   {
     id: "morselingo",
     number: "06",
@@ -575,7 +588,7 @@ export const achievements: Achievement[] = [
   },
   {
     date: "2025.07",
-    event: "한밭모비 자율주행 캠프",
+    event: "한밭 자율주행 캠프",
     title: "Silver Stop",
     result: "금상",
     description: "YOLO로 보행자를 실시간 인식해 멈추는 AI 자동차",
