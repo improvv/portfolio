@@ -3,6 +3,9 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   ChevronDown,
+  CodeXml,
+  Hammer,
+  ScanEye,
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -246,6 +249,9 @@ function Portrait({ src }: { src: string }) {
   );
 }
 
+// Decorative icons for COMPUTER VISION / SOFTWARE DEVELOPMENT / LEARNING BY BUILDING.
+const keywordIcons = [ScanEye, CodeXml, Hammer];
+
 function StudentCard() {
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -370,13 +376,16 @@ function About() {
             </p>
           ))}
           <div className="about-keywords">
-            {profile.keywords.map((keyword, i) => (
-              <div key={keyword}>
-                <span>0{i + 1}</span>
-                {keyword}
-                <ArrowUpRight size={18} aria-hidden="true" />
-              </div>
-            ))}
+            {profile.keywords.map((keyword, i) => {
+              const Icon = keywordIcons[i] ?? Hammer;
+              return (
+                <div key={keyword}>
+                  <span>0{i + 1}</span>
+                  {keyword}
+                  <Icon size={18} strokeWidth={1.6} aria-hidden="true" />
+                </div>
+              );
+            })}
           </div>
         </Reveal>
         <span className="vertical-note" aria-hidden="true">
