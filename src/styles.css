@@ -2202,3 +2202,51 @@ body {
     max-width: 460px;
   }
 }
+
+/* ---------- Contact: copy email ---------- */
+.contact-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 0;
+  border-top: 1px solid #8b887f;
+  padding: 15px 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+}
+.contact-copy:hover {
+  color: var(--red);
+}
+.contact-copy-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.contact-copy-text small {
+  font-size: 10px;
+  color: #676357;
+  overflow-wrap: anywhere;
+}
+.copy-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.copy-state.copied {
+  color: var(--red);
+}
+@media (max-width: 700px) {
+  .contact-copy {
+    font-size: 14px;
+  }
+}

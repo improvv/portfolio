@@ -51,7 +51,7 @@ React / TypeScript / Vite 8 / Tailwind CSS 4 / Motion / Lucide React / React Rou
 - `education`: 재학 기간, 학습 분야, 자격증. 아직 모르는 값은 `null` 또는 빈 배열로 둡니다.
 - `skillGroups`: 기술 카테고리와 프로젝트 연결. `projects`에는 실제 사용이 확인된 프로젝트 ID만 넣습니다. 빈 배열이면 활용 기록 추가 예정으로 표시됩니다.
 - `achievements`: 빈 배열이면 중립적인 기록 준비 중 레이아웃이 표시됩니다. 확인된 내용만 추가합니다.
-- `contacts`: URL이 `null`이면 클릭되지 않는 추가 예정 상태로 표시됩니다. 이메일은 `mailto:실제주소` 형식입니다.
+- `contacts`: URL이 `null`이면 클릭되지 않는 추가 예정 상태로 표시됩니다. 이메일은 `mailto:실제주소` 형식이며, 클릭하면 주소가 클립보드에 복사됩니다.
 
 활동 데이터 예시(실제 활동 확인 후 입력):
 

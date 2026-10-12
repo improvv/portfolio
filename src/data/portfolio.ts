@@ -224,10 +224,13 @@ export const skillGroups: SkillGroup[] = [
 export const achievements: Achievement[] = [];
 
 export const contacts: { label: string; url: string | null }[] = [
-  { label: "GitHub", url: null },
-  { label: "Email", url: null }, // e.g. 'mailto:you@example.com'
-  { label: "Blog", url: null },
-  { label: "LinkedIn", url: null },
+  { label: "GitHub", url: "https://github.com/improvv" },
+  { label: "Email", url: "mailto:jinjeong619@gmail.com" },
+  { label: "Blog", url: "https://howsitgoin.tistory.com/" },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/in/jinjeong-seo-a03b06385/",
+  },
 ];
 
 export function assetUrl(path: string): string {
