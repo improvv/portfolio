@@ -1,0 +1,70 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowUpRight, Menu, X } from "lucide-react";
+import { navigation } from "../data/portfolio";
+
+export default function Header() {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+  return (
+    <header className="site-header">
+      <Link
+        className="wordmark"
+        to="/"
+        onClick={() => {
+          setOpen(false);
+          if (location.pathname === "/")
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        aria-label="Jinjeong Seo 홈"
+      >
+        JS<span>®</span>
+      </Link>
+      <span className="header-caption">
+        JINJEONG SEO
+        <br />
+        DEVELOPER PORTFOLIO
+      </span>
+      <nav className="desktop-nav" aria-label="주요 메뉴">
+        <Link to="/#about">ABOUT</Link>
+        <Link to="/#works">
+          WORKS <span>(04)</span>
+        </Link>
+        <Link to="/#contact">
+          LET’S TALK <ArrowUpRight size={14} aria-hidden="true" />
+        </Link>
+      </nav>
+      <button
+        className="menu-button"
+        onClick={() => setOpen(!open)}
+        aria-expanded={open}
+        aria-controls="mobile-navigation"
+        aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
+      >
+        {open ? <X /> : <Menu />}
+      </button>
+      {open && (
+        <nav
+          id="mobile-navigation"
+          className="mobile-nav"
+          aria-label="전체 메뉴"
+          onKeyDown={(event) => {
+            if (event.key === "Escape") setOpen(false);
+          }}
+        >
+          {navigation.map((item) => (
+            <Link
+              key={item.id}
+              to={`/#${item.id}`}
+              onClick={() => setOpen(false)}
+            >
+              <span>{item.number}</span>
+              {item.title}
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+          ))}
+        </nav>
+      )}
+    </header>
+  );
+}
