@@ -283,21 +283,57 @@ export const projects: Project[] = [
     id: "rhythm-mama",
     number: "02",
     title: "RHYTHM MAMA",
-    subtitle: "리듬에 맞춰 요리하는 VR 게임",
-    category: "HCI · VR GAME",
-    technologies: ["Unity", "C#", "Meta Quest"],
+    subtitle: "음악의 박자에 맞춰 샌드위치를 만드는 VR 요리 리듬게임",
+    category: "HCI · VR GAME · 4인 팀",
+    technologies: [
+      "Unity 6",
+      "C#",
+      "URP",
+      "Meta XR SDK",
+      "OpenXR",
+      "Meta Quest 3",
+    ],
     image: "images/rhythm.svg",
     imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "인간과 컴퓨터 상호작용 전공 수업(이정 교수)에서 2026년 9월부터 진행 중인 프로젝트입니다. 음악의 리듬에 맞춰 재료를 손질하고 요리하는 Meta Quest용 VR 게임을 Unity와 C#으로 만들고 있습니다.",
+      "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
     details: pendingDetails({
       "Problem & Motivation":
-        "VR에서는 손동작 자체가 입력이 됩니다. 요리라는 익숙한 행동과 리듬 게임을 결합해, 별도의 학습 없이도 몸으로 자연스럽게 즐길 수 있는 상호작용을 HCI 관점에서 설계해 보고자 했습니다.",
+        "VR에서는 손동작 자체가 입력이 됩니다. 썰기·뒤집기·쌓기처럼 누구에게나 익숙한 요리 동작을 리듬 게임과 결합하면, 별도의 학습 없이도 몸으로 자연스럽게 즐길 수 있는 상호작용을 만들 수 있다고 보았습니다.",
+      "My Role": [
+        "Rhythm 담당 — 음악과 박자에 관한 시스템 전체",
+        "곡 재생과 싱크를 맡는 Conductor, 박자에 맞춘 3·2·1·GO 카운트다운",
+        "박자맵(JSON) 포맷 정의와 로더, 곡을 들으며 타이밍을 기록하는 에디터용 박자맵 제작 도구",
+        "줄어드는 원(BeatTarget)의 타이밍 계산과 Perfect·Good·Bad 판정 시스템",
+        "Quest 실기기 오디오 지연 측정과 오프셋 보정",
+        "Unity VR 프로젝트 초기 설정, 개발 환경 가이드·Git 규칙·4주 개발 계획 문서 작성",
+      ],
+      Architecture: [
+        "VR Interaction — 컨트롤러 동작(썰기·뒤집기·놓기 등)이 일어난 순간을 감지해 이벤트로 알림",
+        "Rhythm — 동작 이벤트를 같은 동작·같은 타깃의 가장 가까운 박자와 비교해 판정하고 결과를 발행",
+        "Game System — 단계 상태 머신(재료 준비→썰기→굽기→데코→서빙), 작업대 전환, 점수·콤보·별점",
+        "Asset & UI — 주방 환경, 재료·도구 모델, 판정 표시와 이펙트",
+        "담당끼리는 공용 이벤트 규약으로만 연결해, 각자 Sandbox 씬에서 독립적으로 개발하고 통합 빌드에서 합치는 구조",
+      ],
+      "Key Features": [
+        "작업대 위에서 점점 작아지는 원이 타깃과 겹치는 순간이 박자 — 원 위 아이콘의 동작을 박자에 맞춰 수행",
+        "썰기·모으기·뒤집기·놓기·소스 짜기 등 요리 동작 기반 리듬 판정 (Perfect·Good·Bad)",
+        "두 컨트롤러를 함께 슬라이드해 작업대 전환",
+        "별점·점수·Max Combo를 보여주는 결과 화면",
+      ],
+      "Challenges & Solutions": [
+        "프레임 시간 기준으로 박자를 계산하면 프레임 변동에 따라 싱크가 밀림 → 오디오 DSP 시간(AudioSettings.dspTime)을 기준으로 곡 시간과 현재 박자를 계산하고, 시작 시점을 예약 재생으로 고정하는 방식으로 설계",
+        "BPM이 빠른 곡에서는 동작이 촉박해짐 → 동작별로 박 수 간격을 정해 여유 확보 (옮기기 4박, 썰기 2박, 원이 줄어드는 시간 4박)",
+        "VR 헤드셋마다 오디오 지연이 다름 → 박자에 맞춰 버튼을 눌러 평균 오차를 계산하는 오프셋 보정 기능 계획",
+      ],
+      Results:
+        "2026.10.12부터 4주간 1차 개발 진행 중입니다. 1차 범위는 샌드위치 1종, Easy 난이도, Quest 3 컨트롤러 조작이며, 이후 다른 요리와 난이도, 핸드 트래킹으로 확장할 예정입니다.",
     }),
     gallery: [],
   },
+
   {
     id: "firewall-rule-verification",
     number: "03",
