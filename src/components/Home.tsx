@@ -1,5 +1,10 @@
-import { ArrowDown, ArrowDownRight, ArrowUpRight } from "lucide-react";
-import { useRef } from "react";
+import {
+  ArrowDown,
+  ArrowDownRight,
+  ArrowUpRight,
+  ChevronDown,
+} from "lucide-react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   motion,
@@ -7,11 +12,15 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  AnimatePresence,
   type Variants,
 } from "motion/react";
 import {
   achievements,
+  archive,
   assetUrl,
+  beyondCode,
+  research,
   education,
   experiences,
   navigation,
@@ -366,6 +375,99 @@ function Experience() {
           ))}
         </div>
       </div>
+      <div className="beyond-code">
+        <Reveal className="beyond-heading">
+          <span className="eyebrow">BEYOND CODE</span>
+          <h3>
+            언어와 사람 사이에서
+            <br />
+            쌓아 온 경험.
+          </h3>
+        </Reveal>
+        <div className="beyond-list">
+          {beyondCode.map((item, index) => (
+            <Reveal key={item.title} variant={index % 2 ? "right" : "up"}>
+              <article className="beyond-item">
+                <span className="beyond-period">{item.period}</span>
+                <div>
+                  <h4>{item.title}</h4>
+                  <p className="beyond-role">{item.role}</p>
+                  {item.points.length > 0 && (
+                    <ul>
+                      {item.points.map((point) => (
+                        <li key={point}>
+                          <Phrases text={point} />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ResearchSection() {
+  return (
+    <section
+      id="research"
+      className="research section-pad"
+      aria-labelledby="research-heading"
+    >
+      <SectionLabel
+        number="04"
+        title="RESEARCH"
+        note="QUESTIONS WORTH ASKING"
+      />
+      <Reveal>
+        <h2 id="research-heading" className="section-heading">
+          <SplitText text=".RESEARCH" />{" "}
+          <SplitText text="NOTES" className="red-text" delay={0.25} />
+        </h2>
+      </Reveal>
+      <div className="research-list">
+        {research.map((item, index) => (
+          <Reveal key={item.title} variant="zoom">
+            <article className="research-paper">
+              <div className="paper-head">
+                <span>PAPER NO. 0{index + 1}</span>
+                <span>{item.period}</span>
+                {item.inProgress && (
+                  <span className="status-badge">IN PROGRESS</span>
+                )}
+              </div>
+              <h3>
+                <Phrases text={item.title} />
+              </h3>
+              <dl className="paper-meta">
+                <div>
+                  <dt>ABSTRACT</dt>
+                  <dd>
+                    <Phrases text={item.summary} />
+                  </dd>
+                </div>
+                <div>
+                  <dt>COURSE</dt>
+                  <dd>{item.course}</dd>
+                </div>
+                <div>
+                  <dt>ADVISOR</dt>
+                  <dd>{item.advisor}</dd>
+                </div>
+              </dl>
+              <div className="tags">
+                {item.tags.map((tag) => (
+                  <span key={tag}>{tag}</span>
+                ))}
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
     </section>
   );
 }
@@ -378,16 +480,16 @@ function Works() {
       aria-labelledby="works-heading"
     >
       <SectionLabel
-        number="04"
+        number="05"
         title="SELECTED WORKS"
-        note="FOUR PROJECTS. DIFFERENT PERSPECTIVES."
+        note={`${projects.length} PROJECTS. DIFFERENT PERSPECTIVES.`}
       />
       <Reveal className="works-heading-row">
         <h2 id="works-heading" className="section-heading">
           <SplitText text=".SELECTED" />
           <br />
           <SplitText text="WORKS" className="red-text" delay={0.25} />
-          <sup>(04)</sup>
+          <sup>({String(projects.length).padStart(2, "0")})</sup>
         </h2>
         <div className="works-intro">
           <ArrowDownRight size={58} strokeWidth={1.25} aria-hidden="true" />
@@ -420,7 +522,7 @@ function Education() {
       aria-labelledby="education-heading"
     >
       <SectionLabel
-        number="05"
+        number="06"
         title="EDUCATION"
         note="FOUNDATIONS FOR WHAT’S NEXT"
       />
@@ -492,7 +594,7 @@ function Skills() {
       aria-labelledby="skills-heading"
     >
       <SectionLabel
-        number="06"
+        number="07"
         title="TECHNICAL SKILLS"
         note="TOOLS TO TURN IDEAS INTO REALITY"
       />
@@ -549,9 +651,9 @@ function Activities() {
       aria-labelledby="activities-heading"
     >
       <SectionLabel
-        number="07"
-        title="ACHIEVEMENTS & ACTIVITIES"
-        note="BEYOND THE CODE"
+        number="08"
+        title="AWARDS & ARCHIVE"
+        note="BEYOND THE CLASSROOM"
       />
       <Reveal>
         <h2 id="activities-heading" className="section-heading">
@@ -560,41 +662,122 @@ function Activities() {
           <SplitText text="THE STORY." className="red-text" delay={0.25} />
         </h2>
       </Reveal>
-      {achievements.length ? (
-        <div className="activity-list">
-          {achievements.map((item) => (
-            <article key={`${item.date}-${item.title}`}>
-              <span>
-                {item.date} / {item.organization}
-              </span>
-              <h3>{item.title}</h3>
-              <p>
-                <Phrases text={item.description} />
-              </p>
-            </article>
-          ))}
-        </div>
-      ) : (
-        <Reveal className="activities-empty" variant="zoom">
-          <span className="empty-mark" aria-hidden="true">
-            [ + ]
-          </span>
-          <div>
-            <h3>THE ARCHIVE IS GROWING.</h3>
-            <p>
-              수상, 공모전, 대외활동의 기록을 정리하고 있습니다.
-              <br />
-              확인된 활동부터 차근차근 채워 나갈 공간입니다.
-            </p>
-          </div>
-          <span className="eyebrow">
-            NEXT CHAPTER
-            <br />
-            COMING SOON
-          </span>
-        </Reveal>
-      )}
+      <div className="awards">
+        <span className="eyebrow">AWARDS & RESULTS</span>
+        {achievements.map((item) => {
+          const project = item.project
+            ? projects.find((p) => p.id === item.project)
+            : undefined;
+          return (
+            <Reveal key={`${item.date}-${item.title}`} variant="up">
+              <article className="award-row">
+                <span className="award-date">{item.date}</span>
+                <div className="award-main">
+                  <span className="award-event">{item.event}</span>
+                  <h3>
+                    {project ? (
+                      <Link to={`/projects/${project.id}`}>
+                        {item.title}
+                        <ArrowUpRight size={18} aria-hidden="true" />
+                      </Link>
+                    ) : (
+                      item.title
+                    )}
+                  </h3>
+                  {item.description && (
+                    <p>
+                      <Phrases text={item.description} />
+                    </p>
+                  )}
+                </div>
+                <span className="award-result">{item.result}</span>
+              </article>
+            </Reveal>
+          );
+        })}
+      </div>
+      <Archive />
     </section>
+  );
+}
+
+const archiveTags = ["ALL", "HACKATHON", "CONTEST", "LIVING LAB", "PROJECT"];
+
+function Archive() {
+  const [open, setOpen] = useState(false);
+  const [tag, setTag] = useState("ALL");
+  const items = archive.filter((item) => tag === "ALL" || item.tag === tag);
+  const years = [...new Set(items.map((item) => item.year))];
+  return (
+    <div className="archive">
+      <button
+        type="button"
+        className="archive-toggle"
+        aria-expanded={open}
+        aria-controls="archive-panel"
+        onClick={() => setOpen(!open)}
+      >
+        <span>
+          전체 활동 기록 {open ? "접기" : "보기"}{" "}
+          <span className="archive-count">({archive.length})</span>
+        </span>
+        <motion.span animate={{ rotate: open ? 180 : 0 }}>
+          <ChevronDown aria-hidden="true" />
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            id="archive-panel"
+            className="archive-panel"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div className="archive-filters" role="group" aria-label="분류">
+              {archiveTags.map((name) => (
+                <button
+                  type="button"
+                  key={name}
+                  aria-pressed={tag === name}
+                  onClick={() => setTag(name)}
+                >
+                  {name}
+                </button>
+              ))}
+            </div>
+            {years.map((year) => (
+              <div className="archive-year" key={year}>
+                <span className="archive-year-label">{year}</span>
+                <ul>
+                  {items
+                    .filter((item) => item.year === year)
+                    .map((item) => (
+                      <motion.li
+                        layout
+                        key={item.title}
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                      >
+                        <span className="archive-date">{item.date}</span>
+                        <span className="archive-title">
+                          {item.title}
+                          {item.note && <small>{item.note}</small>}
+                        </span>
+                        <span className="archive-tag">
+                          {item.inProgress ? "IN PROGRESS · " : ""}
+                          {item.tag}
+                        </span>
+                      </motion.li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -607,6 +790,7 @@ export default function Home() {
       />
       <About />
       <Experience />
+      <ResearchSection />
       <VelocityMarquee
         tone="red"
         baseVelocity={-3}

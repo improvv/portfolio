@@ -29,10 +29,35 @@ export interface SkillGroup {
   skills: { name: string; projects: string[] }[];
 }
 export interface Achievement {
-  title: string;
   date: string;
-  organization: string;
+  event: string;
+  title: string;
+  result: string;
   description: string;
+  project?: string; // 연결된 projects id
+}
+export interface ArchiveItem {
+  year: string;
+  date: string;
+  title: string;
+  note: string;
+  tag: "HACKATHON" | "CONTEST" | "LIVING LAB" | "PROJECT";
+  inProgress?: boolean;
+}
+export interface Research {
+  title: string;
+  summary: string;
+  course: string;
+  advisor: string;
+  period: string;
+  tags: string[];
+  inProgress: boolean;
+}
+export interface BeyondCode {
+  title: string;
+  role: string;
+  period: string;
+  points: string[];
 }
 
 export const profile = {
@@ -53,11 +78,12 @@ export const profile = {
 export const navigation = [
   { id: "about", title: "ABOUT ME", number: "02" },
   { id: "experience", title: "EXPERIENCE", number: "03" },
-  { id: "works", title: "SELECTED WORKS", number: "04" },
-  { id: "education", title: "EDUCATION", number: "05" },
-  { id: "skills", title: "TECHNICAL SKILLS", number: "06" },
-  { id: "activities", title: "ACTIVITIES", number: "07" },
-  { id: "contact", title: "CONTACT", number: "08" },
+  { id: "research", title: "RESEARCH", number: "04" },
+  { id: "works", title: "SELECTED WORKS", number: "05" },
+  { id: "education", title: "EDUCATION", number: "06" },
+  { id: "skills", title: "TECHNICAL SKILLS", number: "07" },
+  { id: "activities", title: "AWARDS & ARCHIVE", number: "08" },
+  { id: "contact", title: "CONTACT", number: "09" },
 ];
 
 export const experiences: Experience[] = [
@@ -71,11 +97,76 @@ export const experiences: Experience[] = [
   },
   {
     organization: "LIKELION",
-    role: "Leadership & Development",
-    period: "활동 기간 추가 예정",
+    role: "운영진",
+    period: "2026 — 현재",
     description:
-      "동아리 운영과 프로젝트 협업을 경험했습니다. 구체적인 역할과 활동 기록은 추가 예정입니다.",
-    tags: ["LEADERSHIP", "COLLABORATION", "DEVELOPMENT"],
+      "멋쟁이사자처럼 운영진으로 활동하며, 아이디어톤·중앙해커톤·연합해커톤에 참여했습니다.",
+    tags: ["LEADERSHIP", "HACKATHON", "COLLABORATION"],
+  },
+];
+
+// 개발 외 경험: 영어 소통과 사람을 대하는 경험
+export const beyondCode: BeyondCode[] = [
+  {
+    title: "THE HERALD",
+    role: "영자신문사 기자",
+    period: "2025",
+    points: ["한·영문 기사 작성", "한·영문 기사 피드백"],
+  },
+  {
+    title: "대전광역시가족센터",
+    role: "다문화가족 자녀 맞춤형 교육지원 멘토",
+    period: "2025",
+    points: [
+      "한국어를 어려워하는 초등학생에게 영어로 한글·수학 지도",
+      "영어를 어려워하는 고등학생 영어 지도",
+    ],
+  },
+  {
+    title: "UNIVERSITY OF WOLVERHAMPTON",
+    role: "영국 어학연수",
+    period: "2025.07 — 2025.08",
+    points: ["한 달간 영어 수업 수강"],
+  },
+  {
+    title: "AUSTRALIA",
+    role: "학생 · 워킹홀리데이",
+    period: "20세부터",
+    points: [
+      "한인 치킨집에서 일하며 영어 울렁증 극복",
+      "일본 레스토랑 웨이트리스",
+      "현지 레스토랑 바텐더",
+    ],
+  },
+  {
+    title: "BLACKSTONE",
+    role: "교내 밴드 부회장 · 베이스",
+    period: "2025 — 2025.07",
+    points: [],
+  },
+];
+
+// 진행 중인 연구 프로젝트
+export const research: Research[] = [
+  {
+    title:
+      "한국어 다중턴 대화에서 화자·청자·담화 대상 전환에 따른 LLM의 생략 논항 추적 능력 분석",
+    summary:
+      "대화 속 화자·청자·담화 대상이 바뀔 때, LLM이 생략된 논항을 얼마나 정확히 추적하는지 분석합니다.",
+    course: "자연어처리 전공 팀프로젝트",
+    advisor: "박천음 교수",
+    period: "2026.09 —",
+    tags: ["NLP", "LLM", "KOREAN DIALOGUE"],
+    inProgress: true,
+  },
+  {
+    title: "AI 생성 방화벽 룰 자동 검증",
+    summary: "AI가 생성한 방화벽 룰을 자동으로 검증하는 방법을 연구합니다.",
+    course: "컴퓨터공학 특론 전공 팀프로젝트",
+    advisor: "박재현 교수",
+    period: "2026.09 —",
+    tags: ["NETWORK SECURITY", "LLM", "VERIFICATION"],
+    inProgress: true,
   },
 ];
 
@@ -111,7 +202,7 @@ export const projects: Project[] = [
     id: "ai-posture-correction",
     number: "01",
     title: "AI POSTURE CORRECTION",
-    subtitle: "Human Pose Estimation 기반 AI 자세 교정 헬스 앱",
+    subtitle: "BPT — Human Pose Estimation 기반 AI 자세 교정 헬스 앱",
     category: "CAPSTONE DESIGN",
     technologies: ["Flutter", "Backend", "AI"],
     image: "images/posture.svg",
@@ -119,30 +210,46 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "Human Pose Estimation을 활용한 AI 자세 교정 헬스 앱을 주제로 한 캡스톤 디자인 프로젝트입니다.",
+      "Human Pose Estimation을 활용한 AI 자세 교정 헬스 앱을 주제로, 2026년 1년 동안 진행하는 캡스톤 디자인 프로젝트입니다.",
     details: pendingDetails(),
     gallery: [],
   },
   {
-    id: "pet-travel",
+    id: "silver-stop",
     number: "02",
-    title: "PET TRAVEL",
-    subtitle: "반려견과 함께 떠나는 경주 여행 코스 추천 앱",
-    category: "PERSONAL PROJECT",
-    technologies: ["React Native", "Mobile Application"],
-    image: "images/travel.svg",
+    title: "SILVER STOP",
+    subtitle: "보행자(노인)를 인식하면 멈추는 AI 자율주행 자동차",
+    category: "AUTONOMOUS DRIVING · 금상",
+    technologies: ["Python", "YOLO", "Raspberry Pi Pico", "Ultrasonic Sensor"],
+    image: "images/silverstop.svg",
     imageAlt:
-      "경주의 산과 여행 경로를 추상적으로 표현한 반려견 여행 콘셉트 그래픽",
+      "도로 위 자동차와 보행자 인식 박스를 표현한 자율주행 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "반려견을 동반한 경주 여행 코스를 추천하는 모바일 애플리케이션 프로젝트입니다.",
+      "한밭모비 자율주행 캠프(2025.07.08–11)에서 진행한 프로젝트입니다. 라즈베리파이 피코를 탑재한 AI 자동차가 초음파 센서로 거리를 측정하고, 카메라 영상 스트림에 YOLO를 적용해 보행자(노인)를 실시간으로 인식하면 정지합니다. 캠프에서 금상을 받았습니다.",
+    details: pendingDetails(),
+    gallery: [],
+  },
+  {
+    id: "rhythm-mama",
+    number: "03",
+    title: "RHYTHM MAMA",
+    subtitle: "리듬에 맞춰 요리하는 VR 게임",
+    category: "HCI · VR GAME",
+    technologies: ["Unity", "C#", "Meta Quest"],
+    image: "images/rhythm.svg",
+    imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
+    imageIsPlaceholder: true,
+    repository: null,
+    overview:
+      "인간과 컴퓨터 상호작용 전공 수업(이정 교수)에서 2026년 9월부터 진행 중인 프로젝트입니다. Unity와 C#으로 Meta Quest용 VR 리듬 요리 게임을 만들고 있습니다.",
     details: pendingDetails(),
     gallery: [],
   },
   {
     id: "morselingo",
-    number: "03",
+    number: "04",
     title: "MORSELINGO",
     subtitle: "눈 깜빡임 인식으로 시작하는 모스부호 학습",
     category: "COMPUTER VISION",
@@ -158,18 +265,35 @@ export const projects: Project[] = [
     gallery: [],
   },
   {
-    id: "rhythm-mama",
-    number: "04",
-    title: "RHYTHM MAMA",
-    subtitle: "리듬에 맞춰 요리하는 VR 게임",
-    category: "VR / GAME DEVELOPMENT",
-    technologies: ["Unity", "C#", "Meta Quest"],
-    image: "images/rhythm.svg",
-    imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
+    id: "daejeon-bakery",
+    number: "05",
+    title: "DAEJEON BAKERY",
+    subtitle: "대전 빵집 앱",
+    category: "PERSONAL PROJECT · IN PROGRESS",
+    technologies: [],
+    image: "images/bakery.svg",
+    imageAlt: "빵과 지도 핀을 표현한 대전 빵집 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "Unity와 C#으로 제작한 Meta Quest용 VR 기반 리듬 요리 게임 프로젝트입니다.",
+      "백엔드 팀원 한 명과 함께 2026년부터 진행 중인 개인 프로젝트입니다.",
+    details: pendingDetails(),
+    gallery: [],
+  },
+  {
+    id: "pet-travel",
+    number: "06",
+    title: "PET TRAVEL",
+    subtitle: "반려견과 함께 떠나는 경주 여행 코스 추천 앱",
+    category: "PERSONAL PROJECT",
+    technologies: ["React Native", "Mobile Application"],
+    image: "images/travel.svg",
+    imageAlt:
+      "경주의 산과 여행 경로를 추상적으로 표현한 반려견 여행 콘셉트 그래픽",
+    imageIsPlaceholder: true,
+    repository: null,
+    overview:
+      "반려견을 동반한 경주 여행 코스를 추천하는 모바일 애플리케이션 프로젝트입니다.",
     details: pendingDetails(),
     gallery: [],
   },
@@ -216,8 +340,9 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "AI & COMPUTER VISION",
     skills: [
-      { name: "Python", projects: ["morselingo"] },
+      { name: "Python", projects: ["morselingo", "silver-stop"] },
       { name: "OpenCV", projects: ["morselingo"] },
+      { name: "YOLO", projects: ["silver-stop"] },
       { name: "PyTorch", projects: [] },
     ],
   },
@@ -231,7 +356,100 @@ export const skillGroups: SkillGroup[] = [
   },
 ];
 
-export const achievements: Achievement[] = [];
+export const achievements: Achievement[] = [
+  {
+    date: "2026.08",
+    event: "리빙랩",
+    title: "일회용컵 반환 제도",
+    result: "장려상",
+    description: "",
+  },
+  {
+    date: "2026.05",
+    event: "한국조폐공사 공공데이터 활용 공모전",
+    title: "마실 — 소상공인 커뮤니티",
+    result: "예선 통과",
+    description: "",
+  },
+  {
+    date: "2025.07",
+    event: "한밭모비 자율주행 캠프",
+    title: "Silver Stop",
+    result: "금상",
+    description: "YOLO로 보행자를 실시간 인식해 멈추는 AI 자동차",
+    project: "silver-stop",
+  },
+  {
+    date: "2025.06",
+    event: "창업캠프",
+    title: "금산삐뽀",
+    result: "장려상",
+    description:
+      "금산 시민 인터뷰와 포털 자료 조사로 지역 문제를 찾고, 웨어러블 기기와 연동해 어르신의 건강 이상 신호를 보호자와 병원에 알리는 앱을 Figma 프로토타입으로 제안했습니다.",
+  },
+];
+
+// 자잘한 활동은 연도별 아카이브로
+export const archive: ArchiveItem[] = [
+  {
+    year: "2026",
+    date: "2026.09 —",
+    title: "유성 리빙랩",
+    note: "유성 로테이션 소개팅",
+    tag: "LIVING LAB",
+    inProgress: true,
+  },
+  {
+    year: "2026",
+    date: "2026.08 —",
+    title: "소방안전 공공데이터 활용 공모전",
+    note: "",
+    tag: "CONTEST",
+    inProgress: true,
+  },
+  {
+    year: "2026",
+    date: "2026",
+    title: "멋사 해커톤",
+    note: "WHS After Mate — 클리닉 통합 관리 서비스",
+    tag: "HACKATHON",
+  },
+  {
+    year: "2026",
+    date: "2026",
+    title: "멋사 연합해커톤",
+    note: "",
+    tag: "HACKATHON",
+  },
+  {
+    year: "2026",
+    date: "2026",
+    title: "멋사 중앙해커톤",
+    note: "",
+    tag: "HACKATHON",
+  },
+  {
+    year: "2026",
+    date: "2026",
+    title: "멋사 아이디어톤",
+    note: "내가해냄",
+    tag: "HACKATHON",
+  },
+  {
+    year: "2026",
+    date: "2026.05",
+    title: "현대 배리어프리 공모전",
+    note: "",
+    tag: "CONTEST",
+  },
+  {
+    year: "2026",
+    date: "2026.04",
+    title: "Cliary",
+    note: "1인 개인 프로젝트 — 피부관리 앱",
+    tag: "PROJECT",
+  },
+];
 
 export const contacts: { label: string; url: string | null }[] = [
   { label: "GitHub", url: "https://github.com/improvv" },

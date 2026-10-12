@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { contacts, navigation } from "../data/portfolio";
+import { contacts, navigation, projects } from "../data/portfolio";
 import { slowScrollTo } from "./Motion";
 
 const blogUrl = contacts.find((contact) => contact.label === "Blog")?.url;
@@ -35,7 +35,7 @@ export default function Header() {
           </a>
         )}
         <Link to="/#works">
-          WORKS <span>(04)</span>
+          WORKS <span>({String(projects.length).padStart(2, "0")})</span>
         </Link>
         <Link to="/#contact">
           LET’S TALK <ArrowUpRight size={14} aria-hidden="true" />

@@ -92,9 +92,13 @@ export default function ProjectDetail() {
           <section id="detail-tech-stack">
             <h2>Tech Stack</h2>
             <div className="detail-tags">
-              {project.technologies.map((technology) => (
-                <span key={technology}>{technology}</span>
-              ))}
+              {project.technologies.length ? (
+                project.technologies.map((technology) => (
+                  <span key={technology}>{technology}</span>
+                ))
+              ) : (
+                <p className="pending-copy">기술 스택 추가 예정</p>
+              )}
             </div>
           </section>
           {project.details.slice(2).map((item) => (

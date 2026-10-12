@@ -38,7 +38,8 @@ export function Phrases({ text }: { text: string }) {
     <>
       {parts.map((part, i) => (
         <Fragment key={i}>
-          <span className="phrase">{part}</span>
+          {/* Word joiners keep "A·B" from breaking around the middle dot. */}
+          <span className="phrase">{part.replace(/·/g, "\u2060·\u2060")}</span>
           {i < parts.length - 1 ? " " : null}
         </Fragment>
       ))}

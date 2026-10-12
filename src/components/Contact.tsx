@@ -82,7 +82,7 @@ function CopyEmail({ label, email }: { label: string; email: string }) {
 export default function Contact() {
   return (
     <footer id="contact" className="contact section-pad">
-      <SectionLabel number="08" title="CONTACT" note="THE NEXT CHAPTER" />
+      <SectionLabel number="09" title="CONTACT" note="THE NEXT CHAPTER" />
       <Reveal variant="zoom">
         <div className="contact-intro">
           <p>
