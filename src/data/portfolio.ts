@@ -140,11 +140,7 @@ export const beyondCode: BeyondCode[] = [
     title: "AUSTRALIA",
     role: "학생 · 워킹홀리데이",
     period: "2019 — 2021",
-    points: [
-      "한인 치킨집에서 일하며 영어 울렁증 극복",
-      "일본 레스토랑 웨이트리스",
-      "현지 레스토랑 바텐더",
-    ],
+    points: [],
   },
 ];
 
