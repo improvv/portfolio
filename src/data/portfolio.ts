@@ -70,7 +70,8 @@ export const profile = {
   introduction: "문제를 발견하고, 코드로 답을 찾아갑니다.",
   paragraphs: [
     "국립 한밭대학교에서 컴퓨터공학을 전공하며 소프트웨어를 만들고 있습니다. 일상 속 문제를 발견하고, 아이디어를 실제로 작동하는 서비스로 옮기는 과정에 관심이 있습니다.",
-    "모바일 앱부터 Computer Vision, AI, VR까지. 프로젝트를 기획하고 동료와 협업하며, 결과만큼 문제를 해결하는 과정과 그 안에서의 배움을 중요하게 생각합니다.",
+    "지금 가장 깊이 파고 있는 분야는 Computer Vision입니다. 보행자를 실시간으로 인식하는 자율주행 자동차를 만들었고, 제한된 환경에서도 빠르게 동작하는 경량 딥러닝 모델을 연구하고 있습니다.",
+    "모바일 앱부터 AI, VR까지 폭넓게 만들어 왔습니다. 호주와 영국에서 생활하고 영자신문 기자로 활동하며 익힌 영어 소통 능력으로, 다양한 사람과 함께 결과를 만들어 갑니다.",
   ],
   keywords: ["COMPUTER VISION", "SOFTWARE DEVELOPMENT", "LEARNING BY BUILDING"],
 };
@@ -92,7 +93,7 @@ export const experiences: Experience[] = [
     role: "Technical Sales Intern",
     period: "2026.01 — 2026.06",
     description:
-      "데이터 분석, 매출 및 고객 분석, SAP 관련 업무를 경험했습니다.",
+      "기술 영업 인턴으로 매출·고객 데이터를 분석하고 SAP 기반 업무를 수행했습니다. 엔지니어링과 비즈니스 사이에서 기술을 고객의 언어로 전달하는 법을 배웠습니다.",
     tags: ["DATA ANALYSIS", "TECHNICAL SALES", "SAP"],
   },
   {
@@ -100,7 +101,7 @@ export const experiences: Experience[] = [
     role: "운영진",
     period: "2026 — 현재",
     description:
-      "멋쟁이사자처럼 운영진으로 활동하며, 아이디어톤과 해커톤에 참여했습니다.",
+      "멋쟁이사자처럼 운영진으로 활동하며 아이디어톤과 해커톤에 참여했습니다. 짧은 시간 안에 아이디어를 서비스로 구체화하고, 팀원들과 역할을 나눠 끝까지 완성하는 경험을 쌓고 있습니다.",
     tags: ["LEADERSHIP", "HACKATHON", "COLLABORATION"],
   },
 ];
@@ -172,7 +173,24 @@ export const research: Research[] = [
   },
 ];
 
-const pendingDetails = (): ProjectSection[] => [
+type DetailTitle =
+  | "Problem & Motivation"
+  | "My Role"
+  | "Architecture"
+  | "Key Features"
+  | "Challenges & Solutions"
+  | "Results";
+
+// 확인된 내용만 덮어쓰고, 나머지는 "추가 예정"으로 둡니다.
+const pendingDetails = (
+  known: Partial<Record<DetailTitle, string>> = {},
+): ProjectSection[] =>
+  basePendingDetails().map((section) => ({
+    ...section,
+    text: known[section.title as DetailTitle] ?? section.text,
+  }));
+
+const basePendingDetails = (): ProjectSection[] => [
   {
     title: "Problem & Motivation",
     text: "해결하려던 문제, 대상 사용자, 프로젝트를 시작하게 된 계기를 추가할 예정입니다.",
@@ -212,8 +230,11 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "Human Pose Estimation을 활용한 AI 자세 교정 헬스 앱을 주제로, 2026년 1년 동안 진행하는 캡스톤 디자인 프로젝트입니다.",
-    details: pendingDetails(),
+      "BPT는 Human Pose Estimation으로 운동 자세를 인식하고, 올바른 자세로 운동할 수 있도록 돕는 AI 헬스 앱입니다. 2026년 한 해 동안 팀으로 진행하는 캡스톤 디자인 프로젝트입니다.",
+    details: pendingDetails({
+      "Problem & Motivation":
+        "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 카메라만으로 자세를 확인할 수 있다면 트레이너 없이도 더 안전하게 운동할 수 있다고 보았습니다.",
+    }),
     gallery: [],
   },
   {
@@ -228,8 +249,11 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "인간과 컴퓨터 상호작용 전공 수업(이정 교수)에서 2026년 9월부터 진행 중인 프로젝트입니다. Unity와 C#으로 Meta Quest용 VR 리듬 요리 게임을 만들고 있습니다.",
-    details: pendingDetails(),
+      "인간과 컴퓨터 상호작용 전공 수업(이정 교수)에서 2026년 9월부터 진행 중인 프로젝트입니다. 음악의 리듬에 맞춰 재료를 손질하고 요리하는 Meta Quest용 VR 게임을 Unity와 C#으로 만들고 있습니다.",
+    details: pendingDetails({
+      "Problem & Motivation":
+        "VR에서는 손동작 자체가 입력이 됩니다. 요리라는 익숙한 행동과 리듬 게임을 결합해, 별도의 학습 없이도 몸으로 자연스럽게 즐길 수 있는 상호작용을 HCI 관점에서 설계해 보고자 했습니다.",
+    }),
     gallery: [],
   },
   {
@@ -245,8 +269,11 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "컴퓨터공학 특론 전공 팀프로젝트(박재현 교수)로, 2026년 9월부터 진행 중입니다. AI가 생성한 방화벽 룰을 자동으로 검증합니다.",
-    details: pendingDetails(),
+      "컴퓨터공학 특론 전공 팀프로젝트(박재현 교수)로, 2026년 9월부터 진행 중입니다. AI가 생성한 방화벽 룰을 자동으로 검증하는 것을 목표로 합니다.",
+    details: pendingDetails({
+      "Problem & Motivation":
+        "AI로 방화벽 룰을 생성하면 작성 속도는 빨라지지만, 생성된 룰이 의도대로 동작하는지 사람이 하나하나 확인하기는 어렵습니다. 생성된 룰을 자동으로 검증해, AI가 만든 보안 설정도 믿고 쓸 수 있게 하는 것이 이 프로젝트의 출발점입니다.",
+    }),
     gallery: [],
   },
   {
@@ -262,8 +289,11 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "반려견을 동반한 경주 여행 코스를 추천하는 모바일 애플리케이션 프로젝트입니다.",
-    details: pendingDetails(),
+      "반려견과 함께 여행하려는 보호자를 위해, 반려견 동반 여행 코스를 추천하는 경주 여행 모바일 애플리케이션입니다.",
+    details: pendingDetails({
+      "Problem & Motivation":
+        "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 합니다. 경주 여행을 계획하는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 확인할 수 있도록 하고자 했습니다.",
+    }),
     gallery: [],
   },
   {
@@ -280,7 +310,13 @@ export const projects: Project[] = [
     repository: null,
     overview:
       "한밭모비 자율주행 캠프(2025.07.08–11)에서 진행한 프로젝트입니다. 라즈베리파이 피코를 탑재한 AI 자동차가 초음파 센서로 거리를 측정하고, 카메라 영상 스트림에 YOLO를 적용해 보행자(노인)를 실시간으로 인식하면 정지합니다. 캠프에서 금상을 받았습니다.",
-    details: pendingDetails(),
+    details: pendingDetails({
+      "Problem & Motivation":
+        "고령 보행자는 차량을 피하는 반응이 느려 교통사고에 더 취약합니다. 자동차가 스스로 보행자를 알아보고 먼저 멈출 수 있다면 사고를 줄일 수 있다고 생각했습니다.",
+      "Key Features":
+        "카메라 영상 스트림에서 YOLO로 보행자를 실시간 인식합니다. 초음파 센서로 앞 물체와의 거리를 측정해, 보행자가 가까워지면 차량을 정지시킵니다.",
+      Results: "한밭모비 자율주행 캠프에서 금상을 받았습니다.",
+    }),
     gallery: [],
   },
   {
@@ -296,8 +332,11 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "눈 깜빡임 인식을 활용한 모스부호 학습 프로젝트입니다. Python과 OpenCV를 사용했습니다.",
-    details: pendingDetails(),
+      "눈 깜빡임의 길고 짧음을 모스부호 신호로 인식해, 손을 쓰지 않고 눈으로 모스부호를 익히는 학습 프로젝트입니다. Python과 OpenCV로 구현했습니다.",
+    details: pendingDetails({
+      "Problem & Motivation":
+        "모스부호는 짧은 신호와 긴 신호만으로 의사를 전달할 수 있는 단순하고 강력한 언어입니다. 눈 깜빡임을 입력으로 삼으면 손을 쓰지 않고도 모스부호를 배우고 전달할 수 있다는 점에 주목했습니다.",
+    }),
     gallery: [],
   },
 ];
@@ -305,7 +344,8 @@ export const projects: Project[] = [
 export const education = {
   institution: "HANBAT NATIONAL UNIVERSITY",
   major: "Computer Engineering",
-  description: "국립 한밭대학교 · 컴퓨터공학 전공",
+  description:
+    "국립 한밭대학교 · 컴퓨터공학 전공. Computer Vision과 AI를 중심으로 경량 딥러닝, 자연어처리, 인간과 컴퓨터 상호작용, 네트워크 보안까지 폭넓게 공부하고 있습니다.",
   period: null as string | null,
   graduation: "2027.02" as string | null, // 졸업 예정
   gpa: "4.12 / 4.5" as string | null,
@@ -313,35 +353,6 @@ export const education = {
     "Computer Vision",
     "Artificial Intelligence",
     "Software Development",
-  ],
-  // 2026년 2학기 수강 중인 전공 과목과 연결된 연구·프로젝트
-  currentCourses: [
-    { name: "컴퓨터 비전", en: "COMPUTER VISION", link: null },
-    {
-      name: "사물인터넷",
-      en: "INTERNET OF THINGS",
-      link: "/#research" as string | null,
-    },
-    {
-      name: "자연어처리",
-      en: "NATURAL LANGUAGE PROCESSING",
-      link: "/#research",
-    },
-    {
-      name: "컴퓨터공학 특론",
-      en: "TOPICS IN COMPUTER ENGINEERING",
-      link: "/projects/firewall-rule-verification",
-    },
-    {
-      name: "인간과 컴퓨터 상호작용",
-      en: "HUMAN-COMPUTER INTERACTION",
-      link: "/projects/rhythm-mama",
-    },
-    {
-      name: "캡스톤 디자인",
-      en: "CAPSTONE DESIGN",
-      link: "/projects/ai-posture-correction",
-    },
   ],
   // 최신 취득순 → 전공 관련도순
   certificates: [

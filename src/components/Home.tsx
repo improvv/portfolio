@@ -499,6 +499,10 @@ function ResearchSection() {
           <SplitText text=".RESEARCH" />{" "}
           <SplitText text="NOTES" className="red-text" delay={0.25} />
         </h2>
+        <p className="research-note">
+          지금 가장 깊이 파고 있는 질문들. 수업 팀프로젝트에서 출발해, 직접
+          실험하고 분석하며 답을 찾아가고 있습니다.
+        </p>
       </Reveal>
       <div className="research-list">
         {research.map((item, index) => (
@@ -609,36 +613,6 @@ function Education() {
           </Reveal>
           <Reveal variant="left">
             <StudentCard />
-          </Reveal>
-          <Reveal className="now-studying" variant="up">
-            <div className="now-studying-head">
-              <span className="eyebrow">NOW STUDYING</span>
-              <span className="eyebrow">2026 FALL</span>
-            </div>
-            <ul>
-              {education.currentCourses.map((course, i) => (
-                <li key={course.name}>
-                  {course.link ? (
-                    <Link to={course.link}>
-                      <span className="course-index">0{i + 1}</span>
-                      <span className="course-name">
-                        {course.name}
-                        <small>{course.en}</small>
-                      </span>
-                      <ArrowUpRight size={16} aria-hidden="true" />
-                    </Link>
-                  ) : (
-                    <div className="course-row">
-                      <span className="course-index">0{i + 1}</span>
-                      <span className="course-name">
-                        {course.name}
-                        <small>{course.en}</small>
-                      </span>
-                    </div>
-                  )}
-                </li>
-              ))}
-            </ul>
           </Reveal>
         </div>
         <Reveal className="education-details" variant="right">

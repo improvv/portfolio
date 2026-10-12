@@ -2717,54 +2717,11 @@ body {
   pointer-events: none;
 }
 
-.now-studying {
-  border-top: 2px solid var(--ink);
-  padding-top: 10px;
+.research-note {
+  margin: -14px 0 34px;
+  font-size: 12px;
+  color: #4d4b43;
 }
-.now-studying-head {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 4px;
-}
-.now-studying ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.now-studying a,
-.course-row {
-  display: grid;
-  grid-template-columns: 26px 1fr auto;
-  gap: 10px;
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  padding: 10px 0;
-  transition:
-    padding 0.25s,
-    color 0.25s;
-}
-.now-studying a:hover {
-  color: var(--red);
-  padding-left: 8px;
-}
-.course-index {
-  font-size: 9px;
-  color: var(--red);
-  font-weight: 700;
-}
-.course-name {
-  font-size: 13px;
-  font-weight: 800;
-}
-.course-name small {
-  display: block;
-  margin-top: 2px;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #676357;
-}
-
 @media (max-width: 700px) {
   .education-grid > .education-aside {
     display: flex;
