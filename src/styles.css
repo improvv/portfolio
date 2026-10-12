@@ -2795,3 +2795,18 @@ body {
   box-shadow: 6px 6px 0 var(--ink);
   transform: rotate(3deg);
 }
+.store-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ink);
+  color: var(--cream);
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+.store-badge:hover {
+  background: var(--red);
+}

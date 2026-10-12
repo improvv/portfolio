@@ -14,6 +14,7 @@ export interface Project {
   imageIsPlaceholder: boolean;
   logo?: { src: string; alt: string; appIcon?: boolean }; // 프로젝트 로고 (카드·상세 한쪽에 표시)
   repository: string | null;
+  storeLink?: { label: string; url: string }; // 앱스토어 등 배포 링크
   overview: string;
   details: ProjectSection[];
   gallery: { src: string; alt: string; caption: string }[];
@@ -410,9 +411,13 @@ export const projects: Project[] = [
       "경주의 산과 여행 경로를 추상적으로 표현한 반려견 여행 콘셉트 그래픽",
     imageIsPlaceholder: true,
     logo: { src: "images/logo-gyeonju.webp", alt: "견주여행 로고" },
+    storeLink: {
+      label: "App Store에서 보기",
+      url: "https://apps.apple.com/kr/app/%EA%B2%AC%EC%A3%BC%EC%97%AC%ED%96%89/id6802208144",
+    },
     repository: null,
     overview:
-      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스를 추천하고, 지도와 일정, 도보 경로, 관광지 도착 스탬프로 여행 전 과정을 함께합니다. 2026년 6월부터 프론트엔드를 맡아 개발했고, TestFlight로 다섯 차례 베타 배포를 진행했습니다.",
+      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스를 추천하고, 지도와 일정, 도보 경로, 관광지 도착 스탬프로 여행 전 과정을 함께합니다. 2026년 6월부터 프론트엔드를 맡아 개발했고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다.",
     details: pendingDetails({
       "Problem & Motivation":
         "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 하고, 반려견의 크기나 성향까지 고려하기는 더 어렵습니다. 경주를 찾는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 추천받고, 여행하는 동안의 기록까지 남길 수 있도록 하고자 했습니다.",
@@ -420,7 +425,7 @@ export const projects: Project[] = [
         "PM — 기획·일정·역할 분담 등 프로젝트 운영 총괄",
         "프론트엔드 단독 개발 — 앱 전체 화면과 사용자 흐름을 React Native(Expo)로 구현 (커밋 116개)",
         "백엔드 API 연동, 액세스 토큰 자동 갱신, 로그인 상태 관리",
-        "EAS 빌드와 TestFlight 베타 배포 관리, 배포 회차별 수정 사항 기록",
+        "EAS 빌드, TestFlight 베타 배포, App Store 출시까지 배포 전 과정 관리",
       ],
       Architecture: [
         "Expo Router 기반 파일 라우팅 — 홈·지도·일정·저장·마이페이지 5개 탭과 인증·온보딩 화면",
@@ -445,6 +450,7 @@ export const projects: Project[] = [
       Results: [
         "2026.08.22부터 09.09까지 TestFlight 베타 5차 배포",
         "배포 회차마다 수정 사항을 기록하며 실사용 피드백을 반영",
+        "App Store 정식 출시",
       ],
     }),
     gallery: [],

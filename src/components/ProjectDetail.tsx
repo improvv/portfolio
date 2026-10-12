@@ -48,7 +48,18 @@ export default function ProjectDetail() {
         <p>
           <Phrases text={project.subtitle} />
         </p>
-        <span>WK—{project.number} / 2026 PORTFOLIO</span>
+        {project.storeLink ? (
+          <a
+            className="store-badge"
+            href={project.storeLink.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ON THE APP STORE <ArrowUpRight size={14} aria-hidden="true" />
+          </a>
+        ) : (
+          <span>WK—{project.number} / 2026 PORTFOLIO</span>
+        )}
       </div>
       <figure className="detail-cover">
         <img
@@ -76,6 +87,7 @@ export default function ProjectDetail() {
               "Challenges & Solutions",
               "Results",
               ...(project.gallery.length ? ["Gallery"] : []),
+              ...(project.storeLink ? ["Download"] : []),
               ...(project.repository ? ["GitHub Repository"] : []),
             ].map((title, i) => (
               <Link
@@ -133,6 +145,20 @@ export default function ProjectDetail() {
                   </figure>
                 ))}
               </div>
+            </section>
+          )}
+          {project.storeLink && (
+            <section id="detail-download">
+              <h2>Download</h2>
+              <a
+                className="repository-link"
+                href={project.storeLink.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {project.storeLink.label}{" "}
+                <ArrowUpRight size={20} aria-hidden="true" />
+              </a>
             </section>
           )}
           {project.repository && (
