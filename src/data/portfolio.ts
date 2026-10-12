@@ -12,6 +12,7 @@ export interface Project {
   image: string;
   imageAlt: string;
   imageIsPlaceholder: boolean;
+  logo?: { src: string; alt: string; appIcon?: boolean }; // 프로젝트 로고 (카드·상세 한쪽에 표시)
   repository: string | null;
   overview: string;
   details: ProjectSection[];
@@ -234,6 +235,7 @@ export const projects: Project[] = [
     image: "images/posture.svg",
     imageAlt: "관절 좌표와 인체 포즈를 표현한 자세 교정 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
+    logo: { src: "images/logo-bpt.webp", alt: "BPT 로고" },
     repository: null,
     overview:
       "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
@@ -297,6 +299,11 @@ export const projects: Project[] = [
     image: "images/rhythm.svg",
     imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
     imageIsPlaceholder: true,
+    logo: {
+      src: "images/logo-rhythm.webp",
+      alt: "RhythmMaMa 로고",
+      appIcon: true,
+    },
     repository: null,
     overview:
       "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",

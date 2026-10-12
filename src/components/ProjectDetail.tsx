@@ -29,10 +29,21 @@ export default function ProjectDetail() {
         title="PROJECT FILE"
         note={project.category}
       />
-      <h1 className="detail-title" tabIndex={-1}>
-        {project.title}
-        <span className="red-text">.</span>
-      </h1>
+      <div className="detail-title-row">
+        <h1 className="detail-title" tabIndex={-1}>
+          {project.title}
+          <span className="red-text">.</span>
+        </h1>
+        {project.logo && (
+          <img
+            className={`detail-logo${project.logo.appIcon ? " app-icon" : ""}`}
+            src={assetUrl(project.logo.src)}
+            alt={project.logo.alt}
+            width="360"
+            height="360"
+          />
+        )}
+      </div>
       <div className="detail-subtitle">
         <p>
           <Phrases text={project.subtitle} />
