@@ -807,7 +807,13 @@ function Activities() {
   );
 }
 
-const archiveTags = ["ALL", "HACKATHON", "CONTEST", "LIVING LAB", "PROJECT"];
+// Only show filters that have at least one item.
+const archiveTags = [
+  "ALL",
+  ...["HACKATHON", "CONTEST", "LIVING LAB", "PROJECT"].filter((tag) =>
+    archive.some((item) => item.tag === tag),
+  ),
+];
 
 function Archive() {
   const [open, setOpen] = useState(false);
