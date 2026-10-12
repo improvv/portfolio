@@ -225,6 +225,7 @@ export const skillGroups: SkillGroup[] = [
     category: "TOOLS & INTERACTIVE",
     skills: [
       { name: "Git / GitHub", projects: [] },
+      { name: "Notion", projects: [] },
       { name: "Unity", projects: ["rhythm-mama"] },
     ],
   },
