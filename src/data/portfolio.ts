@@ -150,6 +150,16 @@ export const beyondCode: BeyondCode[] = [
 // 진행 중인 연구 프로젝트
 export const research: Research[] = [
   {
+    title: "Lightweight Deep Learning for Resource-Constrained Environments",
+    summary:
+      "Pruning·Quantization·Knowledge Distillation 등 경량화 기법을 학습합니다. EfficientSAM(CVPR 2024)과 공식 구현을 분석하고, 모델 크기·추론 속도·분할 성능을 비교하는 실험을 설계하고 있습니다.",
+    course: "사물인터넷 전공 팀프로젝트",
+    advisor: "우성필 교수",
+    period: "2026.09 —",
+    tags: ["COMPUTER VISION", "MODEL COMPRESSION", "EFFICIENTSAM"],
+    inProgress: true,
+  },
+  {
     title:
       "한국어 다중턴 대화에서 화자·청자·담화 대상 전환에 따른 LLM의 생략 논항 추적 능력 분석",
     summary:
@@ -158,15 +168,6 @@ export const research: Research[] = [
     advisor: "박천음 교수",
     period: "2026.09 —",
     tags: ["NLP", "LLM", "KOREAN DIALOGUE"],
-    inProgress: true,
-  },
-  {
-    title: "AI 생성 방화벽 룰 자동 검증",
-    summary: "AI가 생성한 방화벽 룰을 자동으로 검증하는 방법을 연구합니다.",
-    course: "컴퓨터공학 특론 전공 팀프로젝트",
-    advisor: "박재현 교수",
-    period: "2026.09 —",
-    tags: ["NETWORK SECURITY", "LLM", "VERIFICATION"],
     inProgress: true,
   },
 ];
@@ -266,21 +267,23 @@ export const projects: Project[] = [
     gallery: [],
   },
   {
-    id: "daejeon-bakery",
+    id: "firewall-rule-verification",
     number: "05",
-    title: "DAEJEON BAKERY",
-    subtitle: "대전 빵집 앱",
-    category: "PERSONAL PROJECT · IN PROGRESS",
+    title: "FIREWALL RULE VERIFIER",
+    subtitle: "AI가 생성한 방화벽 룰을 자동으로 검증하는 프로젝트",
+    category: "SECURITY · IN PROGRESS",
     technologies: [],
-    image: "images/bakery.svg",
-    imageAlt: "빵과 지도 핀을 표현한 대전 빵집 프로젝트 콘셉트 그래픽",
+    image: "images/firewall.svg",
+    imageAlt:
+      "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
     overview:
-      "백엔드 팀원 한 명과 함께 2026년부터 진행 중인 개인 프로젝트입니다.",
+      "컴퓨터공학 특론 전공 팀프로젝트(박재현 교수)로, 2026년 9월부터 진행 중입니다. AI가 생성한 방화벽 룰을 자동으로 검증합니다.",
     details: pendingDetails(),
     gallery: [],
   },
+
   {
     id: "pet-travel",
     number: "06",
@@ -442,6 +445,14 @@ export const archive: ArchiveItem[] = [
     title: "현대 배리어프리 공모전",
     note: "",
     tag: "CONTEST",
+  },
+  {
+    year: "2026",
+    date: "2026 —",
+    title: "대전 빵집",
+    note: "백엔드 팀원 1명과 진행 중인 개인 프로젝트",
+    tag: "PROJECT",
+    inProgress: true,
   },
   {
     year: "2026",
