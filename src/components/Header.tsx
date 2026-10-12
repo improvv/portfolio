@@ -35,20 +35,15 @@ export default function Header() {
       </span>
       <nav className="desktop-nav" aria-label="주요 메뉴">
         <Link to="/#about">ABOUT</Link>
+        <Link to="/#works">
+          WORKS <span>({String(projects.length).padStart(2, "0")})</span>
+        </Link>
         {blogUrl && (
           <a href={blogUrl} target="_blank" rel="noopener noreferrer">
             TECH BLOG <ArrowUpRight size={14} aria-hidden="true" />
           </a>
         )}
-        <Link to="/#works">
-          WORKS <span>({String(projects.length).padStart(2, "0")})</span>
-        </Link>
-        <a href={assetUrl(cv.file)} download={cv.downloadName}>
-          CV <Download size={13} aria-hidden="true" />
-        </a>
-        <Link to="/#contact">
-          LET’S TALK <ArrowUpRight size={14} aria-hidden="true" />
-        </Link>
+        <Link to="/#contact">CONTACT</Link>
       </nav>
       <button
         className="menu-button"
