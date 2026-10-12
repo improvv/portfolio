@@ -49,7 +49,7 @@ React / TypeScript / Vite 8 / Tailwind CSS 4 / Motion / Lucide React / React Rou
 - `experiences`: 기간, 조직, 역할, 활동, 태그. LIKELION 활동 기간은 미입력 상태입니다.
 - `projects`: 프로젝트명, 설명, 기술, 대표 이미지, 상세 내용, 갤러리, 저장소 URL.
 - `education`: 재학 기간, 학습 분야, 자격증. 아직 모르는 값은 `null` 또는 빈 배열로 둡니다.
-- `skillGroups`: 기술 카테고리와 프로젝트 연결. `projects`에는 실제 사용이 확인된 프로젝트 ID만 넣습니다. 빈 배열이면 활용 기록 추가 예정으로 표시됩니다.
+- `skillGroups`: 기술 카테고리와 프로젝트 연결. `projects`에는 실제 사용이 확인된 프로젝트 ID만 넣습니다. 빈 배열이면 기술 이름만 표시됩니다.
 - `research`: 연구·논문 프로젝트. `inProgress: true`이면 IN PROGRESS 배지가 표시됩니다.
 - `achievements`: 수상·결과가 있는 활동(날짜, 행사명, 제목, 결과, 설명). `project`에 프로젝트 ID를 넣으면 상세 페이지로 연결됩니다.
 - `archive`: 참가·진행 중·소규모 활동. 연도별로 묶이고 `tag`(HACKATHON / CONTEST / LIVING LAB / PROJECT)로 필터링됩니다. 결과가 나오면 `achievements`로, 규모가 커지면 `projects`로 옮깁니다.

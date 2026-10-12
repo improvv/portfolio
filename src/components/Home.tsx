@@ -698,9 +698,9 @@ function Skills() {
               {group.skills.map((skill) => (
                 <div className="skill" key={skill.name}>
                   <h4>{skill.name}</h4>
-                  <div>
-                    {skill.projects.length ? (
-                      skill.projects.map((id) => {
+                  {skill.projects.length > 0 && (
+                    <div>
+                      {skill.projects.map((id) => {
                         const project = projects.find((item) => item.id === id);
                         return project ? (
                           <Link key={id} to={`/projects/${id}`}>
@@ -708,11 +708,9 @@ function Skills() {
                             <ArrowUpRight size={13} aria-hidden="true" />
                           </Link>
                         ) : null;
-                      })
-                    ) : (
-                      <span className="skill-pending">활용 기록 추가 예정</span>
-                    )}
-                  </div>
+                      })}
+                    </div>
+                  )}
                 </div>
               ))}
             </article>
