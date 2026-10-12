@@ -125,11 +125,6 @@ export function ProjectCard({
             height="900"
           />
           <span className="project-index">{project.number}</span>
-          <span className="image-caption">
-            {project.imageIsPlaceholder
-              ? "CONCEPT ART / 콘셉트 이미지"
-              : "PROJECT SCREENSHOT"}
-          </span>
           <span className="project-arrow">
             <ArrowUpRight aria-hidden="true" />
           </span>
