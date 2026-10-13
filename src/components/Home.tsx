@@ -996,44 +996,53 @@ function Skills() {
       </Reveal>
       <div className="skills-grid">
         {skillGroups.map((group, index) => (
-          <Reveal key={group.category} variant={index === 1 ? "up" : "zoom"}>
+          <Reveal key={group.category} variant="up">
             <article className="skill-group">
               <div className="skill-group-heading">
                 <span className="skill-number">0{index + 1}</span>
                 <h3>{group.category}</h3>
               </div>
-              {group.skills.map((skill) => (
-                <div className="skill" key={skill.name}>
-                  <h4>
-                    {skill.url ? (
-                      <a
-                        className="skill-link"
-                        href={skill.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {skill.name}
-                        <ArrowUpRight size={13} aria-hidden="true" />
-                      </a>
-                    ) : (
-                      skill.name
+              <div className="skill-list">
+                {group.skills.map((skill) => (
+                  <div className="skill" key={skill.name}>
+                    <h4>
+                      {skill.url ? (
+                        <a
+                          className="skill-link"
+                          href={skill.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {skill.name}
+                          <ArrowUpRight size={16} aria-hidden="true" />
+                        </a>
+                      ) : (
+                        skill.name
+                      )}
+                    </h4>
+                    {skill.projects.length > 0 && (
+                      <div className="skill-projects">
+                        {skill.projects.map((id) => {
+                          const project = projects.find(
+                            (item) => item.id === id,
+                          );
+                          return project ? (
+                            <Link
+                              key={id}
+                              className="skill-chip"
+                              to={`/projects/${id}`}
+                            >
+                              <span>{project.number}</span>
+                              {project.title}
+                              <ArrowUpRight size={12} aria-hidden="true" />
+                            </Link>
+                          ) : null;
+                        })}
+                      </div>
                     )}
-                  </h4>
-                  {skill.projects.length > 0 && (
-                    <div>
-                      {skill.projects.map((id) => {
-                        const project = projects.find((item) => item.id === id);
-                        return project ? (
-                          <Link key={id} to={`/projects/${id}`}>
-                            WK—{project.number} / {project.title}
-                            <ArrowUpRight size={13} aria-hidden="true" />
-                          </Link>
-                        ) : null;
-                      })}
-                    </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
             </article>
           </Reveal>
         ))}
@@ -1063,15 +1072,18 @@ function Activities() {
       </Reveal>
       <div className="awards">
         <span className="eyebrow">AWARDS & RESULTS</span>
-        {achievements.map((item) => {
-          const project = item.project
-            ? projects.find((p) => p.id === item.project)
-            : undefined;
-          return (
-            <Reveal key={`${item.date}-${item.title}`} variant="up">
-              <article className="award-row">
-                <span className="award-date">{item.date}</span>
-                <div className="award-main">
+        <div className="awards-grid">
+          {achievements.map((item) => {
+            const project = item.project
+              ? projects.find((p) => p.id === item.project)
+              : undefined;
+            return (
+              <Reveal key={`${item.date}-${item.title}`} variant="up">
+                <article className="award-card">
+                  <div className="award-top">
+                    <span className="award-date">{item.date}</span>
+                    <span className="award-result">{item.result}</span>
+                  </div>
                   <span className="award-event">{item.event}</span>
                   <h3>
                     {project ? (
@@ -1088,12 +1100,11 @@ function Activities() {
                       <Phrases text={item.description} />
                     </p>
                   )}
-                </div>
-                <span className="award-result">{item.result}</span>
-              </article>
-            </Reveal>
-          );
-        })}
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
       <Archive />
     </section>
