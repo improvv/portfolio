@@ -794,9 +794,9 @@ function Works() {
         <div className="works-intro">
           <ArrowDownRight size={58} strokeWidth={1.25} aria-hidden="true" />
           <p>
-            직접 만들고, 다듬어 온 두 개의 앱.
+            From training models to designing screens —
             <br />
-            완성한 작업부터 진행 중인 프로젝트까지.
+            ideas carried all the way into working products.
           </p>
           <span>2026 PORTFOLIO / PROJECT ARCHIVE</span>
         </div>
