@@ -759,6 +759,19 @@ function ResearchSection() {
   );
 }
 
+const inProgressWorkIds = new Set([
+  "ai-posture-correction",
+  "rhythm-mama",
+  "firewall-rule-verification",
+]);
+const featuredWorkIds = ["ai-posture-correction", "pet-travel"];
+const featuredWorks = featuredWorkIds.flatMap((id) =>
+  projects.filter((project) => project.id === id),
+);
+const otherWorks = projects.filter(
+  (project) => !featuredWorkIds.includes(project.id),
+);
+
 function Works() {
   return (
     <section
@@ -781,17 +794,89 @@ function Works() {
         <div className="works-intro">
           <ArrowDownRight size={58} strokeWidth={1.25} aria-hidden="true" />
           <p>
-            캡스톤, 수업, 개인 프로젝트로
+            직접 만들고, 다듬어 온 두 개의 앱.
             <br />
-            만든 작업물입니다.
+            완성한 작업부터 진행 중인 프로젝트까지.
           </p>
           <span>2026 PORTFOLIO / PROJECT ARCHIVE</span>
         </div>
       </Reveal>
-      <div className="works-grid">
-        {projects.map((project, index) => (
-          <ProjectCard key={project.id} project={project} index={index} />
+      <div className="works-group-label">
+        <span>01 / FEATURED PROJECTS</span>
+        <span>
+          대표 프로젝트 · {String(featuredWorks.length).padStart(2, "0")}
+        </span>
+      </div>
+      <div className="works-grid works-featured">
+        {featuredWorks.map((project, index) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            index={index}
+            status={
+              project.id === "ai-posture-correction"
+                ? "주요 기능 구현 완료 · 고도화 중"
+                : "App Store 출시"
+            }
+          />
         ))}
+      </div>
+      <div className="works-archive">
+        <Reveal className="works-archive-heading">
+          <div>
+            <span className="works-eyebrow">02 / MORE WORK</span>
+            <h3>
+              MORE WORK<span className="red-text">.</span>
+            </h3>
+          </div>
+          <p>
+            다른 프로젝트{" "}
+            <span>({String(otherWorks.length).padStart(2, "0")})</span>
+          </p>
+        </Reveal>
+        <ul className="work-list">
+          {otherWorks.map((project) => (
+            <li key={project.id}>
+              <Reveal>
+                <Link
+                  className="work-row"
+                  to={`/projects/${project.id}`}
+                  aria-label={`${project.title} — 프로젝트 상세 보기`}
+                >
+                  <span className="work-row-number">{project.number}</span>
+                  <div className="work-row-image">
+                    <img
+                      src={assetUrl(project.image)}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      width="160"
+                      height="120"
+                    />
+                  </div>
+                  <div className="work-row-copy">
+                    <span className="work-row-category">
+                      {project.category}
+                    </span>
+                    <h4>{project.title}</h4>
+                    <p>{project.subtitle}</p>
+                  </div>
+                  <span
+                    className={`work-row-status${inProgressWorkIds.has(project.id) ? "" : " is-complete"}`}
+                  >
+                    <span aria-hidden="true" />
+                    {inProgressWorkIds.has(project.id) ? "진행 중" : "완료"}
+                  </span>
+                  <ArrowUpRight
+                    className="work-row-arrow"
+                    size={24}
+                    aria-hidden="true"
+                  />
+                </Link>
+              </Reveal>
+            </li>
+          ))}
+        </ul>
       </div>
       <div className="works-end">
         <span>FROM PROJECTS TO PRACTICE</span>

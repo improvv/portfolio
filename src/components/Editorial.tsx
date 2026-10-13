@@ -73,10 +73,13 @@ export function SectionHeading({ children }: { children: ReactNode }) {
 export function ProjectCard({
   project,
   index,
+  status,
 }: {
   project: Project;
   index: number;
+  status?: string;
 }) {
+  const reduced = useReducedMotion();
   const { ref, y } = useParallax(40);
   const tiltX = useMotionValue(0);
   const tiltY = useMotionValue(0);
@@ -89,7 +92,7 @@ export function ProjectCard({
     damping: 20,
   });
   const onMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse") return;
+    if (reduced || event.pointerType !== "mouse") return;
     const rect = event.currentTarget.getBoundingClientRect();
     tiltX.set((event.clientX - rect.left) / rect.width - 0.5);
     tiltY.set((event.clientY - rect.top) / rect.height - 0.5);
@@ -111,12 +114,16 @@ export function ProjectCard({
         <motion.div
           ref={ref}
           className="project-image"
-          style={{ rotateX, rotateY, transformPerspective: 900 }}
+          style={
+            reduced
+              ? undefined
+              : { rotateX, rotateY, transformPerspective: 900 }
+          }
           onPointerMove={onMove}
           onPointerLeave={onLeave}
         >
           <motion.img
-            style={{ y, scale: 1.18 }}
+            style={reduced ? undefined : { y, scale: 1.18 }}
             src={assetUrl(project.image)}
             alt={project.imageAlt}
             loading="lazy"
@@ -130,7 +137,7 @@ export function ProjectCard({
           </span>
         </motion.div>
         <div className="project-meta">
-          <span>WK—{project.number}</span>
+          <span>{status ?? `WK—${project.number}`}</span>
           <span>{project.category}</span>
         </div>
         <h3>{project.title}</h3>
@@ -138,7 +145,7 @@ export function ProjectCard({
           <Phrases text={project.subtitle} />
         </p>
         <div className="project-bottom">
-          <span>{project.technologies.join(" / ")}</span>
+          <span>{project.technologies.slice(0, 3).join(" / ")}</span>
           <span className="view-link">
             VIEW PROJECT <ArrowUpRight size={14} aria-hidden="true" />
           </span>

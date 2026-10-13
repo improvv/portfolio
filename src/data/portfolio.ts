@@ -302,120 +302,8 @@ export const projects: Project[] = [
   },
 
   {
-    id: "rhythm-mama",
-    number: "02",
-    title: "RHYTHM MAMA",
-    subtitle: "음악의 박자에 맞춰 샌드위치를 만드는 VR 요리 리듬게임",
-    category: "HCI · VR GAME · 4인 팀",
-    technologies: [
-      "Unity 6",
-      "C#",
-      "URP",
-      "Meta XR SDK",
-      "OpenXR",
-      "Meta Quest 3",
-    ],
-    image: "images/rhythm.svg",
-    imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
-    imageIsPlaceholder: true,
-    logo: {
-      src: "images/logo-rhythm.webp",
-      alt: "RhythmMaMa 로고",
-      appIcon: true,
-    },
-    repository: null,
-    overview:
-      "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
-    details: projectDetails({
-      "Problem & Motivation":
-        "VR에서는 손동작이 곧 입력입니다. 썰기·뒤집기·쌓기 같은 익숙한 요리 동작을 리듬 게임의 입력으로 쓰면, 따로 조작법을 배우지 않아도 플레이할 수 있다고 봤습니다.",
-      "My Role": [
-        "PM — 4주 개발 계획·역할별 주차 체크리스트·Git 규칙 수립과 주간 회의 운영",
-        "Rhythm 담당 — 음악과 박자에 관한 시스템 전체",
-        "곡 재생과 싱크를 맡는 Conductor, 박자에 맞춘 3·2·1·GO 카운트다운",
-        "박자맵(JSON) 포맷 정의와 로더, 곡을 들으며 타이밍을 기록하는 에디터용 박자맵 제작 도구",
-        "줄어드는 원(BeatTarget)의 타이밍 계산과 Perfect·Good·Bad 판정 시스템",
-        "Quest 실기기 오디오 지연 측정과 오프셋 보정",
-        "Unity VR 프로젝트 초기 설정, 개발 환경 가이드·Git 규칙·4주 개발 계획 문서 작성",
-      ],
-      Architecture: [
-        "VR Interaction — 컨트롤러 동작(썰기·뒤집기·놓기 등)이 일어난 순간을 감지해 이벤트로 알림",
-        "Rhythm — 동작 이벤트를 같은 동작·같은 타깃의 가장 가까운 박자와 비교해 판정하고 결과를 발행",
-        "Game System — 단계 상태 머신(재료 준비→썰기→굽기→데코→서빙), 작업대 전환, 점수·콤보·별점",
-        "Asset & UI — 주방 환경, 재료·도구 모델, 판정 표시와 이펙트",
-        "담당끼리는 공용 이벤트 규약으로만 연결해, 각자 Sandbox 씬에서 독립적으로 개발하고 통합 빌드에서 합치는 구조",
-      ],
-      "Key Features": [
-        "작업대 위에서 점점 작아지는 원이 타깃과 겹치는 순간이 박자 — 원 위 아이콘의 동작을 박자에 맞춰 수행",
-        "썰기·모으기·뒤집기·놓기·소스 짜기 등 요리 동작 기반 리듬 판정 (Perfect·Good·Bad)",
-        "두 컨트롤러를 함께 슬라이드해 작업대 전환",
-        "별점·점수·Max Combo를 보여주는 결과 화면",
-      ],
-      "Challenges & Solutions": [
-        "프레임 시간 기준으로 박자를 계산하면 프레임 변동에 따라 싱크가 밀림 → 오디오 DSP 시간(AudioSettings.dspTime)을 기준으로 곡 시간과 현재 박자를 계산하고, 시작 시점을 예약 재생으로 고정하는 방식으로 설계",
-        "BPM이 빠른 곡에서는 동작이 촉박해짐 → 동작별로 박 수 간격을 정해 여유 확보 (옮기기 4박, 썰기 2박, 원이 줄어드는 시간 4박)",
-        "VR 헤드셋마다 오디오 지연이 다름 → 박자에 맞춰 버튼을 눌러 평균 오차를 계산하는 오프셋 보정 기능 계획",
-      ],
-      Results:
-        "2026.10.12부터 4주간 1차 개발 진행 중입니다. 1차 범위는 샌드위치 1종, Easy 난이도, Quest 3 컨트롤러 조작이며, 이후 다른 요리와 난이도, 핸드 트래킹으로 확장할 예정입니다.",
-    }),
-    gallery: [],
-  },
-
-  {
-    id: "firewall-rule-verification",
-    number: "03",
-    title: "AI FIREWALL VALIDATION",
-    subtitle:
-      "AI가 생성한 방화벽 룰을 격리 랩에서 정적·동적으로 검증하는 파이프라인",
-    category: "SECURITY · 4인 팀",
-    technologies: ["Python", "LLM", "nftables", "Podman", "JSON Schema"],
-    image: "images/firewall.svg",
-    imageAlt:
-      "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
-    imageIsPlaceholder: true,
-    repository: null,
-    overview:
-      "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
-    details: projectDetails({
-      "Problem & Motivation":
-        "AI로 방화벽 룰을 만들면 작성 속도는 빨라지지만, 문법적으로 맞는 룰도 실제로는 막아야 할 트래픽을 통과시킬 수 있습니다. 정적 검증만 통과한 룰 중 실제 트래픽을 흘려 봐야만 드러나는 오류가 얼마나 되는지, 위험도 기반 적용으로 사람의 검토량을 얼마나 줄이면서 안전성을 지킬 수 있는지를 연구 질문으로 삼았습니다.",
-      "My Role": [
-        "시나리오 담당 — 스마트홈 환경의 자연어 요구사항, 정답 룰셋, 정상·공격 프로브 정의 10종 작성",
-        "오류 주입 담당 — 정답 룰셋을 일부러 망가뜨린 룰셋 15개를 11가지 유형(order·widen·port·swap·missing·action 등)으로 설계",
-        "유형별로 정적 검증에 잡히는지에 대한 가설을 세우고, 시뮬레이터로 어떤 프로브가 실패하는지 정리",
-        "오류 주입 커버리지 분석기 작성과 프로브 보강",
-        "자연어 요구사항을 룰 IR로 바꾸는 LLM 생성기 담당",
-      ],
-      Architecture: [
-        "scenario → generator(LLM) → 후보 룰셋 → validator(정적 검증·위험도 판정) → deployer(적용·감시·롤백) → eval(지표 계산)",
-        "검증 실패 룰은 적용하지 않고 기록, 고위험 룰은 사람 승인을 거쳐 적용",
-        "Podman 격리 랩 — 방화벽 컨테이너와 IoT 기기·공격자·내부 PC·서버 컨테이너로 구성된 스마트홈 네트워크",
-        "모든 모듈을 JSON 입력 → JSON 출력 CLI로 만들어, 앞 모듈이 없어도 예시 JSON으로 독립 개발",
-      ],
-      "Key Features": [
-        "스키마·포트·nft 문법 검사와 범위 기준에 따른 위험도 판정",
-        "룰 간 이상 4종 탐지 (shadowing·redundancy·correlation·generalization)",
-        "정상·공격 트래픽을 실제로 흘려 보는 능동 프로빙",
-        "적용 후 이상이 감지되면 자동 롤백",
-        "실험마다 커밋 해시·인자·결과를 남기는 재현 가능한 배치 실행",
-      ],
-      "Challenges & Solutions": [
-        "한 룰셋에 오류가 여러 개 섞이면 어떤 오류를 어느 검증이 잡았는지 가를 수 없음 → 오류 주입 파일 하나에 오류를 하나만 넣는 원칙을 세움",
-        "현재 룰 표현(IR)으로는 응답 트래픽 누락 같은 오류를 표현할 수 없음 → 막히는 이유와 두 가지 해결안을 정리해 팀 논의로 올림",
-        "구현이 진행되며 가설이 실제 검증기 동작과 어긋남 → 검증기 결과를 확인해 order 유형 가설을 correlation 기준으로 수정",
-      ],
-      Results: [
-        "스마트홈 시나리오 10종과 11개 유형의 오류 주입 룰셋 15개로 검증 실험용 데이터셋 구축",
-        "시뮬레이터 분석 결과, 포트 오기·범위 경계·출발지와 목적지 뒤바뀜·룰 누락·범위 축소 오류는 정적 검증에서 저위험으로 통과하지만 프로브에서는 실패 — 동적 검증이 필요한 이유를 확인",
-      ],
-    }),
-    gallery: [],
-  },
-
-  {
     id: "pet-travel",
-    number: "04",
+    number: "02",
     title: "GYEONJU TRAVEL",
     subtitle: "견주여행 — 반려견과 함께 떠나는 경주 여행 코스 추천 앱",
     category: "TEAM PROJECT · PM & FRONTEND",
@@ -481,8 +369,180 @@ export const projects: Project[] = [
   },
 
   {
-    id: "silver-stop",
+    id: "rhythm-mama",
+    number: "03",
+    title: "RHYTHM MAMA",
+    subtitle: "음악의 박자에 맞춰 샌드위치를 만드는 VR 요리 리듬게임",
+    category: "HCI · VR GAME · 4인 팀",
+    technologies: [
+      "Unity 6",
+      "C#",
+      "URP",
+      "Meta XR SDK",
+      "OpenXR",
+      "Meta Quest 3",
+    ],
+    image: "images/rhythm.svg",
+    imageAlt: "음반과 리듬 파형을 표현한 VR 리듬 요리 게임 콘셉트 그래픽",
+    imageIsPlaceholder: true,
+    logo: {
+      src: "images/logo-rhythm.webp",
+      alt: "RhythmMaMa 로고",
+      appIcon: true,
+    },
+    repository: null,
+    overview:
+      "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
+    details: projectDetails({
+      "Problem & Motivation":
+        "VR에서는 손동작이 곧 입력입니다. 썰기·뒤집기·쌓기 같은 익숙한 요리 동작을 리듬 게임의 입력으로 쓰면, 따로 조작법을 배우지 않아도 플레이할 수 있다고 봤습니다.",
+      "My Role": [
+        "PM — 4주 개발 계획·역할별 주차 체크리스트·Git 규칙 수립과 주간 회의 운영",
+        "Rhythm 담당 — 음악과 박자에 관한 시스템 전체",
+        "곡 재생과 싱크를 맡는 Conductor, 박자에 맞춘 3·2·1·GO 카운트다운",
+        "박자맵(JSON) 포맷 정의와 로더, 곡을 들으며 타이밍을 기록하는 에디터용 박자맵 제작 도구",
+        "줄어드는 원(BeatTarget)의 타이밍 계산과 Perfect·Good·Bad 판정 시스템",
+        "Quest 실기기 오디오 지연 측정과 오프셋 보정",
+        "Unity VR 프로젝트 초기 설정, 개발 환경 가이드·Git 규칙·4주 개발 계획 문서 작성",
+      ],
+      Architecture: [
+        "VR Interaction — 컨트롤러 동작(썰기·뒤집기·놓기 등)이 일어난 순간을 감지해 이벤트로 알림",
+        "Rhythm — 동작 이벤트를 같은 동작·같은 타깃의 가장 가까운 박자와 비교해 판정하고 결과를 발행",
+        "Game System — 단계 상태 머신(재료 준비→썰기→굽기→데코→서빙), 작업대 전환, 점수·콤보·별점",
+        "Asset & UI — 주방 환경, 재료·도구 모델, 판정 표시와 이펙트",
+        "담당끼리는 공용 이벤트 규약으로만 연결해, 각자 Sandbox 씬에서 독립적으로 개발하고 통합 빌드에서 합치는 구조",
+      ],
+      "Key Features": [
+        "작업대 위에서 점점 작아지는 원이 타깃과 겹치는 순간이 박자 — 원 위 아이콘의 동작을 박자에 맞춰 수행",
+        "썰기·모으기·뒤집기·놓기·소스 짜기 등 요리 동작 기반 리듬 판정 (Perfect·Good·Bad)",
+        "두 컨트롤러를 함께 슬라이드해 작업대 전환",
+        "별점·점수·Max Combo를 보여주는 결과 화면",
+      ],
+      "Challenges & Solutions": [
+        "프레임 시간 기준으로 박자를 계산하면 프레임 변동에 따라 싱크가 밀림 → 오디오 DSP 시간(AudioSettings.dspTime)을 기준으로 곡 시간과 현재 박자를 계산하고, 시작 시점을 예약 재생으로 고정하는 방식으로 설계",
+        "BPM이 빠른 곡에서는 동작이 촉박해짐 → 동작별로 박 수 간격을 정해 여유 확보 (옮기기 4박, 썰기 2박, 원이 줄어드는 시간 4박)",
+        "VR 헤드셋마다 오디오 지연이 다름 → 박자에 맞춰 버튼을 눌러 평균 오차를 계산하는 오프셋 보정 기능 계획",
+      ],
+      Results:
+        "2026.10.12부터 4주간 1차 개발 진행 중입니다. 1차 범위는 샌드위치 1종, Easy 난이도, Quest 3 컨트롤러 조작이며, 이후 다른 요리와 난이도, 핸드 트래킹으로 확장할 예정입니다.",
+    }),
+    gallery: [],
+  },
+
+  {
+    id: "firewall-rule-verification",
+    number: "04",
+    title: "AI FIREWALL VALIDATION",
+    subtitle:
+      "AI가 생성한 방화벽 룰을 격리 랩에서 정적·동적으로 검증하는 파이프라인",
+    category: "SECURITY · 4인 팀",
+    technologies: ["Python", "LLM", "nftables", "Podman", "JSON Schema"],
+    image: "images/firewall.svg",
+    imageAlt:
+      "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
+    imageIsPlaceholder: true,
+    repository: null,
+    overview:
+      "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
+    details: projectDetails({
+      "Problem & Motivation":
+        "AI로 방화벽 룰을 만들면 작성 속도는 빨라지지만, 문법적으로 맞는 룰도 실제로는 막아야 할 트래픽을 통과시킬 수 있습니다. 정적 검증만 통과한 룰 중 실제 트래픽을 흘려 봐야만 드러나는 오류가 얼마나 되는지, 위험도 기반 적용으로 사람의 검토량을 얼마나 줄이면서 안전성을 지킬 수 있는지를 연구 질문으로 삼았습니다.",
+      "My Role": [
+        "시나리오 담당 — 스마트홈 환경의 자연어 요구사항, 정답 룰셋, 정상·공격 프로브 정의 10종 작성",
+        "오류 주입 담당 — 정답 룰셋을 일부러 망가뜨린 룰셋 15개를 11가지 유형(order·widen·port·swap·missing·action 등)으로 설계",
+        "유형별로 정적 검증에 잡히는지에 대한 가설을 세우고, 시뮬레이터로 어떤 프로브가 실패하는지 정리",
+        "오류 주입 커버리지 분석기 작성과 프로브 보강",
+        "자연어 요구사항을 룰 IR로 바꾸는 LLM 생성기 담당",
+      ],
+      Architecture: [
+        "scenario → generator(LLM) → 후보 룰셋 → validator(정적 검증·위험도 판정) → deployer(적용·감시·롤백) → eval(지표 계산)",
+        "검증 실패 룰은 적용하지 않고 기록, 고위험 룰은 사람 승인을 거쳐 적용",
+        "Podman 격리 랩 — 방화벽 컨테이너와 IoT 기기·공격자·내부 PC·서버 컨테이너로 구성된 스마트홈 네트워크",
+        "모든 모듈을 JSON 입력 → JSON 출력 CLI로 만들어, 앞 모듈이 없어도 예시 JSON으로 독립 개발",
+      ],
+      "Key Features": [
+        "스키마·포트·nft 문법 검사와 범위 기준에 따른 위험도 판정",
+        "룰 간 이상 4종 탐지 (shadowing·redundancy·correlation·generalization)",
+        "정상·공격 트래픽을 실제로 흘려 보는 능동 프로빙",
+        "적용 후 이상이 감지되면 자동 롤백",
+        "실험마다 커밋 해시·인자·결과를 남기는 재현 가능한 배치 실행",
+      ],
+      "Challenges & Solutions": [
+        "한 룰셋에 오류가 여러 개 섞이면 어떤 오류를 어느 검증이 잡았는지 가를 수 없음 → 오류 주입 파일 하나에 오류를 하나만 넣는 원칙을 세움",
+        "현재 룰 표현(IR)으로는 응답 트래픽 누락 같은 오류를 표현할 수 없음 → 막히는 이유와 두 가지 해결안을 정리해 팀 논의로 올림",
+        "구현이 진행되며 가설이 실제 검증기 동작과 어긋남 → 검증기 결과를 확인해 order 유형 가설을 correlation 기준으로 수정",
+      ],
+      Results: [
+        "스마트홈 시나리오 10종과 11개 유형의 오류 주입 룰셋 15개로 검증 실험용 데이터셋 구축",
+        "시뮬레이터 분석 결과, 포트 오기·범위 경계·출발지와 목적지 뒤바뀜·룰 누락·범위 축소 오류는 정적 검증에서 저위험으로 통과하지만 프로브에서는 실패 — 동적 검증이 필요한 이유를 확인",
+      ],
+    }),
+    gallery: [],
+  },
+
+  {
+    id: "etf-chatbot",
     number: "05",
+    title: "CONNECT TO ETF",
+    subtitle: "ETF 상품설명서를 근거로 답하는 RAG 기반 질의응답 챗봇",
+    category: "COMENTO 현직자 멘토링 · 개인 프로젝트",
+    technologies: [
+      "Python",
+      "LangChain",
+      "FAISS",
+      "OpenAI GPT-4o",
+      "Streamlit",
+      "PyMuPDF",
+      "yfinance",
+    ],
+    image: "images/etf.svg",
+    imageAlt:
+      "문서 검색 결과와 ETF 비교 막대 차트를 표현한 RAG 챗봇 콘셉트 그래픽",
+    imageIsPlaceholder: true,
+    repository: "https://github.com/improvv/connect-to-etf",
+    overview:
+      "한국투자신탁운용의 「LLM을 활용한 ETF 질의응답 챗봇 구축」 RFP를 바탕으로 만든 챗봇 PoC입니다. ACE ETF 5종의 공개 간이투자설명서와 상품 정형 데이터를 근거로 질문에 답하고, 출처를 함께 보여 줍니다. 2026년 8월 한 달 동안 코멘토에서 현직 실무자에게 멘토링을 받으며 혼자 개발했고, 두 차례 코드 리뷰를 받아 개선했습니다.",
+    details: projectDetails({
+      "Problem & Motivation":
+        "금융 상품 챗봇은 틀린 수치를 말하거나 투자를 권유하면 안 됩니다. 그런데 PDF에서 뽑은 표는 컬럼이 밀리거나 깨지기 쉽고, 프롬프트 지시만으로는 완곡한 권유 표현까지 막기 어렵습니다. 수치는 검증된 데이터로, 설명은 문서 검색으로 나누고 답변을 사후 검증하는 구조로 이 문제를 풀고자 했습니다.",
+      "My Role": [
+        "1인 프로젝트 — RFP 분석부터 RAG 파이프라인, Streamlit UI, 문서화까지 전 과정 담당",
+        "현직 멘토의 1·2차 코드 리뷰를 받고 지적 사항을 반영",
+      ],
+      Architecture: [
+        "PDF 로드(PyMuPDF) → 400자 청크 분할 → OpenAI 임베딩 → FAISS 벡터 DB → 검색 → 프롬프트 → GPT-4o → 출처를 붙여 출력",
+        "수치 질문은 정형 데이터(etf_data.json)를 우선 근거로, 서술형 질문은 문서 검색 결과로 답하도록 역할 분리",
+        "기본 5종 벡터 DB는 서버 프로세스당 한 번만 불러와 모든 세션이 공유하고, 사용자가 올린 PDF는 세션별 저장소에 따로 담아 다른 사용자와 섞이지 않게 함",
+        "기본 DB와 업로드 DB를 각각 검색한 뒤 L2 거리 기준으로 합쳐 정렬",
+        "ETF 비교 화면은 LLM 없이 정형 데이터로 표와 Altair 차트를 직접 렌더링",
+      ],
+      "Key Features": [
+        "모든 답변에 문서명·페이지 또는 정형 데이터 기준일 출처 표시",
+        "정규식 + 저비용 LLM(gpt-4o-mini) 이중 판정으로 매수·매도 권유와 가격 예측 표현 차단",
+        "ETF 7개 지표 비교표와 차트",
+        "멀티턴 대화 — 지시 표현이 있는 후속 질문을 독립 질문으로 바꿔 검색",
+        "초보자·경험자 모드, 한국어·영어 전환 (답변과 컴플라이언스 검증까지 언어별로 분리)",
+        "추적 지수 관련 최신 뉴스 요약(yfinance), 후속 질문 3개 추천, ETF PDF 추가 업로드",
+      ],
+      "Challenges & Solutions": [
+        "서버가 재시작될 때마다 PDF 5종을 다시 임베딩함 → PDF 파일명·수정 시각·크기 해시로 인덱스를 디스크에 캐싱해, PDF가 바뀌지 않으면 재임베딩 없이 로드",
+        "정규식은 \"장기 보유 관점에서 매력적인 선택지\" 같은 완곡한 권유를 놓침 → 정규식이 아무것도 못 잡았을 때만 작은 모델로 한 번 더 판정해 비용을 아끼면서 보완",
+        "후속 질문이 이전 대화와 무관하게 검색됨 → 대화 이력으로 질문을 재작성해 검색하고, 답변 생성에도 대화 이력을 전달",
+        "\"이거 총보수 얼마야?\"처럼 ETF명이 없는 질문에는 정형 데이터가 빠짐 → 검색된 문서 청크의 ETF 메타데이터도 함께 보고 정형 데이터를 포함",
+        "선택한 ETF 문서에 결과가 없으면 조용히 전체 검색으로 넘어감 → 전체 문서에서 검색했다는 안내를 화면에 표시",
+        "임베딩 요청이 분당 토큰 한도를 넘으면 앱이 멈춤 → PDF 단위로 나눠 요청하고 RateLimitError 발생 시 지수 백오프로 재시도",
+      ],
+      Results: [
+        "1차 코드 리뷰의 개선점 중 디스크 캐싱, 컴플라이언스 이중화, 멀티턴 검색, 정형 데이터 판단, 폴백 안내 5가지를 2차에서 반영",
+        "다음 과제: LLM 컴플라이언스 판정이 실패했을 때 그냥 통과시키지 않고 안내하기, 언어별 리소스를 한 곳으로 모으기",
+      ],
+    }),
+    gallery: [],
+  },
+
+  {
+    id: "silver-stop",
+    number: "06",
     title: "SILVER STOP",
     subtitle: "보행자(노인)를 인식하면 멈추는 AI 자율주행 자동차",
     category: "AUTONOMOUS DRIVING CAMP · 금상",
@@ -530,7 +590,7 @@ export const projects: Project[] = [
 
   {
     id: "morselingo",
-    number: "06",
+    number: "07",
     title: "MORSELINGO",
     subtitle:
       "눈 깜빡임으로 한글 모스부호를 연습하는 Computer Vision 학습 프로젝트",
@@ -620,7 +680,8 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "AI & COMPUTER VISION",
     skills: [
-      { name: "Python", projects: ["morselingo", "silver-stop"] },
+      { name: "Python", projects: ["etf-chatbot", "morselingo", "silver-stop"] },
+      { name: "LangChain", projects: ["etf-chatbot"] },
       { name: "OpenCV", projects: ["morselingo"] },
       { name: "YOLO", projects: ["silver-stop"] },
       { name: "PyTorch", projects: [] },
