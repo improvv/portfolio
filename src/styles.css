@@ -1217,9 +1217,10 @@ h1:focus {
   margin-bottom: 20px;
 }
 .detail-content p {
-  font-size: 13px;
-  line-height: 2;
-  color: #575348;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: #38352e;
 }
 .detail-tags {
   display: flex;
@@ -1866,7 +1867,7 @@ h1:focus {
     font-size: 30px;
   }
   .detail-content p {
-    font-size: 12px;
+    font-size: 14px;
   }
   .next-project > span:last-child {
     font-size: 35px;
@@ -2822,9 +2823,10 @@ body {
   position: relative;
   padding: 9px 0 9px 22px;
   border-top: 1px solid var(--line);
-  font-size: 13px;
-  line-height: 1.85;
-  color: #575348;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: #38352e;
 }
 .detail-list li:first-child {
   border-top: 0;
@@ -2888,7 +2890,6 @@ body {
   outline: 2px solid var(--red);
   outline-offset: 3px;
 }
-
 
 /* ---------- CV download ---------- */
 .cv-download {
@@ -3594,4 +3595,104 @@ body {
 .work-row-status.is-complete > span {
   background: currentColor;
   opacity: 0.5;
+}
+
+/* A quiet Korean signature inside the editorial cover. */
+.cover-bottom .cover-motto {
+  max-width: 20em;
+  font-family: "Noto Sans KR Variable", sans-serif;
+  font-size: clamp(17px, 1.8vw, 24px);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 1.65;
+  word-break: keep-all;
+  text-wrap: balance;
+}
+.cover-motto-sentence {
+  display: inline-block;
+  white-space: pre;
+}
+.cover-bottom:has(.cover-motto) {
+  padding-block: 19px;
+  gap: 20px;
+}
+.cover-bottom .barcode {
+  flex-shrink: 0;
+}
+.project-summary {
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1.6fr 1fr;
+  margin: 0 0 30px;
+  border-top: 2px solid var(--ink);
+}
+.project-summary-item {
+  min-width: 0;
+  padding: 20px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.project-summary-item + .project-summary-item {
+  border-left: 1px solid var(--line);
+}
+.project-summary dt {
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #655f53;
+}
+.project-summary dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+.project-summary-outcome {
+  grid-column: 1 / -1;
+  padding: 18px;
+  border-bottom: 1px solid var(--ink);
+  background: color-mix(in srgb, var(--red) 6%, transparent);
+}
+.project-summary-outcome dt {
+  color: var(--red);
+}
+.project-summary-outcome dd {
+  font-size: 16px;
+  font-weight: 700;
+}
+@media (max-width: 760px) {
+  .cover-bottom .cover-motto {
+    max-width: 12em;
+    font-size: 18px;
+    letter-spacing: -0.04em;
+  }
+  .cover-bottom:has(.cover-motto) {
+    gap: 12px;
+    padding-block: 15px;
+  }
+  .cover-bottom .barcode {
+    width: 52px;
+    height: 28px;
+  }
+  .cover-bottom > span {
+    display: none;
+  }
+  .project-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .project-summary-item {
+    padding: 16px 12px;
+  }
+  .project-summary-item:nth-child(3) {
+    border-left: 0;
+  }
+  .project-summary-outcome {
+    padding: 16px 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .detail-list li {
+    font-size: 14px;
+  }
 }

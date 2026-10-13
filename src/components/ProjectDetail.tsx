@@ -69,6 +69,25 @@ export default function ProjectDetail() {
           <span>WK—{project.number} / 2026 PORTFOLIO</span>
         )}
       </div>
+      <dl className="project-summary" aria-label="프로젝트 핵심 정보">
+        {[
+          ["기간", project.summary.period],
+          ["팀 규모", project.summary.team],
+          ["담당 역할", project.summary.role],
+          ["진행 상태", project.summary.status],
+        ].map(([label, value]) => (
+          <div className="project-summary-item" key={label}>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+        <div className="project-summary-outcome">
+          <dt>핵심 성과</dt>
+          <dd>
+            <Phrases text={project.summary.outcome} />
+          </dd>
+        </div>
+      </dl>
       <figure className="detail-cover">
         <img
           src={assetUrl(project.image)}

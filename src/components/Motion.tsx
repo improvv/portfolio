@@ -52,7 +52,7 @@ let activeScroll: { stop: () => void } | null = null;
 
 /**
  * Scrolls to a position with a gentle ease. The duration grows with the
- * distance (0.9s–2.2s) so long jumps do not flash past. Any wheel, touch or
+ * distance (0.7s–1.7s) so long jumps do not flash past. Any wheel, touch or
  * key input from the reader cancels it.
  */
 export function slowScrollTo(top: number) {
@@ -66,7 +66,7 @@ export function slowScrollTo(top: number) {
     window.scrollTo({ top: to, behavior: "instant" });
     return;
   }
-  const duration = Math.min(2.2, 0.9 + distance / 4000);
+  const duration = Math.min(1.7, 0.7 + distance / 5200);
   const startedAt = performance.now();
   const cancel = (event: Event) => {
     // Trackpad momentum keeps firing small wheel events after the reader

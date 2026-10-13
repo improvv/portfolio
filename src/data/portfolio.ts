@@ -15,6 +15,13 @@ export interface Project {
   logo?: { src: string; alt: string; appIcon?: boolean }; // 프로젝트 로고 (카드·상세 한쪽에 표시)
   repository: string | null;
   storeLink?: { label: string; url: string }; // 앱스토어 등 배포 링크
+  summary: {
+    period: string;
+    team: string;
+    role: string;
+    status: string;
+    outcome: string;
+  };
   overview: string;
   details: ProjectSection[];
   gallery: { src: string; alt: string; caption: string }[];
@@ -78,6 +85,7 @@ export const profile = {
   university: "국립 한밭대학교",
   major: "컴퓨터공학",
   portrait: "images/profile.webp" as string | null,
+  headline: "상상은 자유롭게. 구현은 집요하게.",
   introduction: "완벽한 시작보다, 꾸준한 개선을 믿습니다.",
   paragraphs: [
     "완벽하게 준비될 때까지 기다리기보다, 먼저 만들어 보고 부족한 부분을 채워 가는 편입니다. 견주여행도 여러 차례 베타 테스트를 거치며 고쳐 나간 끝에 App Store에 출시했습니다.",
@@ -89,9 +97,9 @@ export const profile = {
 
 export const navigation = [
   { id: "about", title: "ABOUT ME", number: "02" },
-  { id: "experience", title: "EXPERIENCE", number: "03" },
-  { id: "research", title: "RESEARCH", number: "04" },
-  { id: "works", title: "SELECTED WORKS", number: "05" },
+  { id: "works", title: "SELECTED WORKS", number: "03" },
+  { id: "experience", title: "EXPERIENCE", number: "04" },
+  { id: "research", title: "RESEARCH", number: "05" },
   { id: "education", title: "EDUCATION", number: "06" },
   { id: "skills", title: "TECHNICAL SKILLS", number: "07" },
   { id: "activities", title: "AWARDS & ARCHIVE", number: "08" },
@@ -255,6 +263,13 @@ export const projects: Project[] = [
     imageIsPlaceholder: true,
     logo: { src: "images/logo-bpt.webp", alt: "BPT 로고" },
     repository: null,
+    summary: {
+      period: "2026 — 현재",
+      team: "3인 팀",
+      role: "PM · UI/UX · Flutter 프론트엔드",
+      status: "고도화 진행 중",
+      outcome: "앱 전체 화면과 운동 흐름 구현 · 캡스톤 I 완료",
+    },
     overview:
       "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
     details: projectDetails({
@@ -327,6 +342,13 @@ export const projects: Project[] = [
       url: "https://apps.apple.com/kr/app/%EA%B2%AC%EC%A3%BC%EC%97%AC%ED%96%89/id6802208144",
     },
     repository: null,
+    summary: {
+      period: "2026.06 — 현재",
+      team: "팀 프로젝트",
+      role: "PM · React Native 프론트엔드 · 배포",
+      status: "App Store 출시",
+      outcome: "TestFlight 베타 5차 배포를 거쳐 정식 출시",
+    },
     overview:
       "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스 추천, 지도, 일정, 도보 경로, 관광지 도착 스탬프 기능이 있습니다. 팀 프로젝트로 2026년 6월부터 PM과 프론트엔드를 맡았고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다. 한국관광공사 공모전에도 출품해 진행 중입니다.",
     details: projectDetails({
@@ -391,6 +413,13 @@ export const projects: Project[] = [
       appIcon: true,
     },
     repository: null,
+    summary: {
+      period: "2026.09 — 현재",
+      team: "4인 팀",
+      role: "PM · 리듬 시스템",
+      status: "1차 개발 진행 중",
+      outcome: "4주 개발 계획과 공용 이벤트 규약 수립 · 리듬 시스템 설계",
+    },
     overview:
       "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
     details: projectDetails({
@@ -442,6 +471,13 @@ export const projects: Project[] = [
       "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
+    summary: {
+      period: "2026.09 — 현재",
+      team: "4인 팀",
+      role: "시나리오 · 오류 주입 · LLM 생성기",
+      status: "개발·검증 진행 중",
+      outcome: "시나리오 10종 · 오류 주입 룰셋 15개 구축",
+    },
     overview:
       "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
     details: projectDetails({
@@ -500,6 +536,13 @@ export const projects: Project[] = [
       "문서 검색 결과와 ETF 비교 막대 차트를 표현한 RAG 챗봇 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: "https://github.com/improvv/connect-to-etf",
+    summary: {
+      period: "2026.08",
+      team: "개인 프로젝트",
+      role: "기획 · RAG 파이프라인 · UI · 문서화",
+      status: "PoC 구현 완료",
+      outcome: "멘토 코드 리뷰 2회 · 주요 개선점 5가지 반영",
+    },
     overview:
       "한국투자신탁운용의 「LLM을 활용한 ETF 질의응답 챗봇 구축」 RFP를 바탕으로 만든 챗봇 PoC입니다. ACE ETF 5종의 공개 간이투자설명서와 상품 정형 데이터를 근거로 질문에 답하고, 출처를 함께 보여 줍니다. 2026년 8월 한 달 동안 코멘토에서 현직 실무자에게 멘토링을 받으며 혼자 개발했고, 두 차례 코드 리뷰를 받아 개선했습니다.",
     details: projectDetails({
@@ -526,9 +569,9 @@ export const projects: Project[] = [
       ],
       "Challenges & Solutions": [
         "서버가 재시작될 때마다 PDF 5종을 다시 임베딩함 → PDF 파일명·수정 시각·크기 해시로 인덱스를 디스크에 캐싱해, PDF가 바뀌지 않으면 재임베딩 없이 로드",
-        "정규식은 \"장기 보유 관점에서 매력적인 선택지\" 같은 완곡한 권유를 놓침 → 정규식이 아무것도 못 잡았을 때만 작은 모델로 한 번 더 판정해 비용을 아끼면서 보완",
+        '정규식은 "장기 보유 관점에서 매력적인 선택지" 같은 완곡한 권유를 놓침 → 정규식이 아무것도 못 잡았을 때만 작은 모델로 한 번 더 판정해 비용을 아끼면서 보완',
         "후속 질문이 이전 대화와 무관하게 검색됨 → 대화 이력으로 질문을 재작성해 검색하고, 답변 생성에도 대화 이력을 전달",
-        "\"이거 총보수 얼마야?\"처럼 ETF명이 없는 질문에는 정형 데이터가 빠짐 → 검색된 문서 청크의 ETF 메타데이터도 함께 보고 정형 데이터를 포함",
+        '"이거 총보수 얼마야?"처럼 ETF명이 없는 질문에는 정형 데이터가 빠짐 → 검색된 문서 청크의 ETF 메타데이터도 함께 보고 정형 데이터를 포함',
         "선택한 ETF 문서에 결과가 없으면 조용히 전체 검색으로 넘어감 → 전체 문서에서 검색했다는 안내를 화면에 표시",
         "임베딩 요청이 분당 토큰 한도를 넘으면 앱이 멈춤 → PDF 단위로 나눠 요청하고 RateLimitError 발생 시 지수 백오프로 재시도",
       ],
@@ -558,6 +601,13 @@ export const projects: Project[] = [
       "도로 위 자동차와 보행자 인식 박스를 표현한 자율주행 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
+    summary: {
+      period: "2025.07",
+      team: "팀 프로젝트",
+      role: "PM · 보행자 인식 및 정지 제어",
+      status: "캠프 프로젝트 완료",
+      outcome: "한밭 MOBI 자율주행 캠프 금상",
+    },
     overview:
       "한밭 MOBI 자율주행 캠프에서 진행한 팀 프로젝트입니다. 라즈베리파이를 탑재한 소형 자율주행 자동차에서 캠프가 제공한 YOLO 예제를 활용해 보행자(노인)를 인식하고, 카메라 실시간 영상과 초음파 거리 측정을 결합해 자동으로 멈추게 했습니다. 캠프에서 금상을 받았습니다.",
     details: projectDetails({
@@ -601,6 +651,13 @@ export const projects: Project[] = [
       "눈의 형태와 모스부호 신호를 표현한 Computer Vision 콘셉트 그래픽",
     imageIsPlaceholder: true,
     repository: null,
+    summary: {
+      period: "2026.10",
+      team: "개인 프로젝트",
+      role: "기획 · Computer Vision · 구현 · 문서화",
+      status: "프로토타입 완성",
+      outcome: "macOS 웹캠 기반 한글 모스부호 입력·채점 구현",
+    },
     overview:
       "MorseLingo는 웹캠으로 눈 깜빡임을 인식해, 짧게 감으면 점·길게 감으면 선으로 한글 모스부호를 입력하며 연습하는 프로젝트입니다. 장기 목표는 듀오링고처럼 단계별로 배우는 학습 서비스이며, 현재는 macOS에서 동작하는 Python 웹캠 프로토타입입니다. 2026년 10월에 혼자 기획하고 개발했습니다.",
     details: projectDetails({
@@ -682,7 +739,10 @@ export const skillGroups: SkillGroup[] = [
   {
     category: "AI & COMPUTER VISION",
     skills: [
-      { name: "Python", projects: ["etf-chatbot", "morselingo", "silver-stop"] },
+      {
+        name: "Python",
+        projects: ["etf-chatbot", "morselingo", "silver-stop"],
+      },
       { name: "LangChain", projects: ["etf-chatbot"] },
       { name: "OpenCV", projects: ["morselingo"] },
       { name: "YOLO", projects: ["silver-stop"] },

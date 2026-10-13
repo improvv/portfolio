@@ -130,10 +130,31 @@ function Hero() {
             </motion.span>
           </h1>
           <div className="cover-bottom">
-            <p>
-              COMPUTER VISION
-              <br />& SOFTWARE DEVELOPMENT
-            </p>
+            <motion.p
+              className="cover-motto"
+              initial={reduced ? false : "hidden"}
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.6 }}
+              variants={{
+                visible: {
+                  transition: { staggerChildren: reduced ? 0 : 0.15 },
+                },
+              }}
+            >
+              {profile.headline.split(/(?<=[.!?])\s+/).map((sentence) => (
+                <motion.span
+                  className="cover-motto-sentence"
+                  key={sentence}
+                  variants={{
+                    hidden: { opacity: 0, y: 8 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: reduced ? 0 : 0.4, ease: "easeOut" }}
+                >
+                  {sentence}{" "}
+                </motion.span>
+              ))}
+            </motion.p>
             <div className="barcode" aria-hidden="true" />
             <span>NO. 001</span>
           </div>
@@ -420,7 +441,7 @@ function Experience() {
       aria-labelledby="experience-heading"
     >
       <SectionLabel
-        number="03"
+        number="04"
         title="EXPERIENCE"
         note="LEARNING IN THE REAL WORLD"
       />
@@ -703,7 +724,7 @@ function ResearchSection() {
       aria-labelledby="research-heading"
     >
       <SectionLabel
-        number="04"
+        number="05"
         title="RESEARCH"
         note="QUESTIONS WORTH ASKING"
       />
@@ -780,7 +801,7 @@ function Works() {
       aria-labelledby="works-heading"
     >
       <SectionLabel
-        number="05"
+        number="03"
         title="SELECTED WORKS"
         note={`${projects.length} PROJECTS. DIFFERENT PERSPECTIVES.`}
       />
@@ -1205,8 +1226,6 @@ export default function Home() {
         items={["COMPUTER VISION", "SOFTWARE DEVELOPMENT", "PORTFOLIO 2026"]}
       />
       <About />
-      <Experience />
-      <ResearchSection />
       <VelocityMarquee
         tone="red"
         baseVelocity={-3}
@@ -1217,6 +1236,8 @@ export default function Home() {
         ]}
       />
       <Works />
+      <Experience />
+      <ResearchSection />
       <Education />
       <Skills />
       <Activities />
