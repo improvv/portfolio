@@ -1018,8 +1018,8 @@ function Activities() {
 // Only show filters that have at least one item.
 const archiveTags = [
   "ALL",
-  ...["HACKATHON", "CONTEST", "LIVING LAB", "PROJECT"].filter((tag) =>
-    archive.some((item) => item.tag === tag),
+  ...["HACKATHON", "CONTEST", "LIVING LAB", "PROJECT", "EDUCATION"].filter(
+    (tag) => archive.some((item) => item.tag === tag),
   ),
 ];
 

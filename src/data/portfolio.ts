@@ -43,7 +43,7 @@ export interface ArchiveItem {
   date: string;
   title: string;
   note: string;
-  tag: "HACKATHON" | "CONTEST" | "LIVING LAB" | "PROJECT";
+  tag: "HACKATHON" | "CONTEST" | "LIVING LAB" | "PROJECT" | "EDUCATION";
   inProgress?: boolean;
 }
 export interface Research {
@@ -712,6 +712,20 @@ export const archive: ArchiveItem[] = [
     title: "Cliary",
     note: "피부 상태를 기록하고 관리 루틴을 돕는 1인 개발 피부관리 앱",
     tag: "PROJECT",
+  },
+  {
+    year: "2025",
+    date: "2025.10",
+    title: "소중한 SW특강: 네이버 클라우드 실무 2기",
+    note: "네이버 클라우드 플랫폼 기반 클라우드 실무 교육 수료",
+    tag: "EDUCATION",
+  },
+  {
+    year: "2025",
+    date: "2025.09",
+    title: "AWS Cloud Practitioner Essentials",
+    note: "AWS 클라우드 개념과 핵심 서비스 기초 교육 수료",
+    tag: "EDUCATION",
   },
   {
     year: "2025",
