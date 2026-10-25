@@ -24,7 +24,12 @@ export interface Project {
   };
   overview: string;
   details: ProjectSection[];
-  gallery: { src: string; alt: string; caption: string; layout?: "phone" }[];
+  gallery: {
+    src: string;
+    alt: string;
+    caption: string;
+    layout?: "phone" | "store";
+  }[];
 }
 export interface Experience {
   organization: string;
@@ -401,7 +406,38 @@ export const projects: Project[] = [
         "App Store 정식 출시",
       ],
     }),
-    gallery: [],
+    gallery: [
+      {
+        src: "images/gyeonju-appstore-1.webp",
+        alt: "견주여행 App Store 스크린샷 — 홈 화면",
+        caption: "반려견 프로필과 추천 경로, 방문 스탬프를 확인하는 홈",
+        layout: "store",
+      },
+      {
+        src: "images/gyeonju-appstore-2.webp",
+        alt: "견주여행 App Store 스크린샷 — 동반 가능 장소 지도",
+        caption: "관광지·카페·식당을 지도에서 탐색",
+        layout: "store",
+      },
+      {
+        src: "images/gyeonju-appstore-3.webp",
+        alt: "견주여행 App Store 스크린샷 — 장소 상세 정보",
+        caption: "반려견 동반 조건과 방문 전 안내 사항 확인",
+        layout: "store",
+      },
+      {
+        src: "images/gyeonju-appstore-4.webp",
+        alt: "견주여행 App Store 스크린샷 — 장소 저장 목록",
+        caption: "가고 싶은 장소를 카테고리별로 모아 관리",
+        layout: "store",
+      },
+      {
+        src: "images/gyeonju-appstore-5.webp",
+        alt: "견주여행 App Store 스크린샷 — 여행 일정",
+        caption: "저장한 장소를 연결해 날짜별 여행 코스 구성",
+        layout: "store",
+      },
+    ],
   },
 
   {

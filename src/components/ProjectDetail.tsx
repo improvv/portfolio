@@ -1,11 +1,25 @@
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { assetUrl, projects } from "../data/portfolio";
 import { Phrases, Reveal, SectionLabel } from "./Editorial";
 
 export default function ProjectDetail() {
+  const galleryRef = useRef<HTMLDivElement>(null);
   const { slug } = useParams();
   const project = projects.find((item) => item.id === slug);
+  const isSlider = project?.gallery.some((item) => item.layout === "store");
+  const slideGallery = (direction: number) => {
+    const gallery = galleryRef.current;
+    const card = gallery?.querySelector("figure");
+    if (!gallery || !card) return;
+    gallery.scrollBy({
+      left: direction * (card.getBoundingClientRect().width + 24),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  };
   if (!project)
     return (
       <section className="not-found section-pad">
@@ -149,27 +163,74 @@ export default function ProjectDetail() {
           {project.gallery.length > 0 && (
             <section id="detail-gallery">
               <h2>Gallery</h2>
-              <div className="gallery">
-                {project.gallery.map((item) => (
-                  <figure
-                    key={item.src}
-                    className={
-                      item.layout === "phone" ? "gallery-phone" : undefined
-                    }
-                  >
-                    <img
-                      src={assetUrl(item.src)}
-                      alt={item.alt}
-                      loading="lazy"
-                      decoding="async"
-                      width={item.layout === "phone" ? 1206 : 1200}
-                      height={item.layout === "phone" ? 2622 : 800}
-                    />
-                    <figcaption>
-                      <Phrases text={item.caption} />
-                    </figcaption>
-                  </figure>
-                ))}
+              <div className={isSlider ? "gallery-slider-frame" : undefined}>
+                {isSlider && (
+                  <div className="gallery-slider-controls">
+                    <button
+                      type="button"
+                      aria-label="이전 이미지"
+                      aria-controls="project-gallery"
+                      onClick={() => slideGallery(-1)}
+                    >
+                      <ArrowLeft size={18} aria-hidden="true" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="다음 이미지"
+                      aria-controls="project-gallery"
+                      onClick={() => slideGallery(1)}
+                    >
+                      <ArrowRight size={18} aria-hidden="true" />
+                    </button>
+                  </div>
+                )}
+                <div
+                  ref={galleryRef}
+                  id="project-gallery"
+                  className={`gallery${isSlider ? " gallery-slider" : ""}`}
+                  role={isSlider ? "region" : undefined}
+                  aria-label={
+                    isSlider ? "프로젝트 스크린샷 슬라이드" : undefined
+                  }
+                  tabIndex={isSlider ? 0 : undefined}
+                >
+                  {project.gallery.map((item) => (
+                    <figure
+                      key={item.src}
+                      className={
+                        item.layout === "phone"
+                          ? "gallery-phone"
+                          : item.layout === "store"
+                            ? "gallery-store"
+                            : undefined
+                      }
+                    >
+                      <img
+                        src={assetUrl(item.src)}
+                        alt={item.alt}
+                        loading="lazy"
+                        decoding="async"
+                        width={
+                          item.layout === "phone"
+                            ? 1206
+                            : item.layout === "store"
+                              ? 600
+                              : 1200
+                        }
+                        height={
+                          item.layout === "phone"
+                            ? 2622
+                            : item.layout === "store"
+                              ? 1300
+                              : 800
+                        }
+                      />
+                      <figcaption>
+                        <Phrases text={item.caption} />
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
               </div>
             </section>
           )}

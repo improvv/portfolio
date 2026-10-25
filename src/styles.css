@@ -3726,3 +3726,65 @@ body {
   padding: 22px 0 0;
   line-height: 1.8;
 }
+.gallery-slider {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--red) transparent;
+}
+.gallery-slider > figure {
+  flex: 0 0 min(80%, 320px);
+  scroll-snap-align: start;
+}
+.gallery-slider-frame {
+  position: relative;
+  container-type: inline-size;
+}
+.gallery-slider-controls {
+  position: absolute;
+  top: calc(min(80cqw, 320px) * 1300 / 600 / 2);
+  inset-inline: 12px;
+  display: flex;
+  justify-content: space-between;
+  height: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.gallery-slider-controls button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  height: 44px;
+  border: 1px solid #17171720;
+  border-radius: 50%;
+  background: #fffaf0f2;
+  color: var(--ink);
+  box-shadow: 0 3px 14px #17171720;
+  transform: translateY(-50%);
+  cursor: pointer;
+  pointer-events: auto;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.gallery-slider-controls button:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+.gallery-store {
+  min-width: 0;
+}
+.gallery-store img {
+  display: block;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.gallery-store figcaption {
+  padding: 12px 0 0;
+  line-height: 1.8;
+}
