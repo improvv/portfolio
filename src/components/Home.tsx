@@ -525,10 +525,10 @@ function Experience() {
                   <h4>{item.title}</h4>
                   <p className="beyond-role">{item.role}</p>
                   {item.points.length > 0 && (
-                    <ul>
+                    <ul className="beyond-points">
                       {item.points.map((point) => (
                         <li key={point}>
-                          <Phrases text={point} />
+                          {point}
                         </li>
                       ))}
                     </ul>
@@ -766,6 +766,22 @@ function ResearchSection() {
                   <dt>ADVISOR</dt>
                   <dd>{item.advisor}</dd>
                 </div>
+                {item.repository && (
+                  <div>
+                    <dt>GITHUB</dt>
+                    <dd>
+                      <a
+                        className="text-link"
+                        href={item.repository}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        NLP-Cactus / KoImplicit{" "}
+                        <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    </dd>
+                  </div>
+                )}
               </dl>
               <div className="tags">
                 {item.tags.map((tag) => (
@@ -834,11 +850,7 @@ function Works() {
             key={project.id}
             project={project}
             index={index}
-            status={
-              project.id === "ai-posture-correction"
-                ? "주요 기능 구현 완료 · 고도화 중"
-                : "App Store 출시"
-            }
+            status={project.summary.status}
           />
         ))}
       </div>

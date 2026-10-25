@@ -151,14 +151,19 @@ export default function ProjectDetail() {
               <h2>Gallery</h2>
               <div className="gallery">
                 {project.gallery.map((item) => (
-                  <figure key={item.src}>
+                  <figure
+                    key={item.src}
+                    className={
+                      item.layout === "phone" ? "gallery-phone" : undefined
+                    }
+                  >
                     <img
                       src={assetUrl(item.src)}
                       alt={item.alt}
                       loading="lazy"
                       decoding="async"
-                      width="1200"
-                      height="800"
+                      width={item.layout === "phone" ? 1206 : 1200}
+                      height={item.layout === "phone" ? 2622 : 800}
                     />
                     <figcaption>
                       <Phrases text={item.caption} />

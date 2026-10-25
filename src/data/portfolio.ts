@@ -24,7 +24,7 @@ export interface Project {
   };
   overview: string;
   details: ProjectSection[];
-  gallery: { src: string; alt: string; caption: string }[];
+  gallery: { src: string; alt: string; caption: string; layout?: "phone" }[];
 }
 export interface Experience {
   organization: string;
@@ -54,6 +54,7 @@ export interface ArchiveItem {
   inProgress?: boolean;
 }
 export interface Research {
+  repository?: string;
   title: string;
   summary: string;
   course: string;
@@ -203,10 +204,10 @@ export const research: Research[] = [
     inProgress: true,
   },
   {
-    title:
-      "한국어 다중턴 대화에서 화자·청자·담화 대상 전환에 따른 LLM의 생략 논항 추적 능력 분석",
+    repository: "https://github.com/NLP-Cactus/KoImplicit",
+    title: "KoImplicit — 한국어 다중턴 대화에서 LLM의 생략 주어 추적 능력 분석",
     summary:
-      "대화 속 화자·청자·담화 대상이 바뀔 때, LLM이 생략된 논항을 얼마나 정확히 추적하는지 분석합니다.",
+      "화자·청자·담화 대상이 바뀌는 한국어 대화를 직접 설계하고, 생략 주어 추적 능력을 평가하는 파이프라인을 구축했습니다. 2인 검수·조정을 거친 파일럿에서 17개 표본을 채택하고 CLI 모델 점검 결과를 기록했습니다. 다음 배치 후보 100개와 모델 검수 자료를 작성했으며, 조정·동결과 정식 API 평가는 아직 진행 전입니다.",
     course: "자연어처리 전공 팀프로젝트",
     advisor: "박천음 교수",
     period: "2026.09 —",
@@ -254,24 +255,25 @@ export const projects: Project[] = [
       "go_router",
       "Swift",
       "CoreML",
-      "RTMPose-s",
+      "RTMPose",
       "MotionAGFormer-XS",
-      "Firebase",
+      "Spring Boot",
+      "PostgreSQL",
     ],
     image: "images/posture.svg",
     imageAlt: "관절 좌표와 인체 포즈를 표현한 자세 교정 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
     logo: { src: "images/logo-bpt.webp", alt: "BPT 로고" },
-    repository: null,
+    repository: "https://github.com/Hanbat-Personal-Training-AI-Agent/BPT",
     summary: {
       period: "2026 — 현재",
       team: "3인 팀",
       role: "PM · UI/UX · Flutter 프론트엔드",
-      status: "고도화 진행 중",
-      outcome: "앱 전체 화면과 운동 흐름 구현 · 캡스톤 I 완료",
+      status: "iOS 운동 흐름 구현 · 통합 고도화 중",
+      outcome: "실시간 운동 UI·백엔드 연동·계정별 오프라인 기록 동기화 구현",
     },
     overview:
-      "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 카메라 프레임은 서버로 보내지 않고 iPhone 안에서 바로 처리합니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
+      "BPT는 스마트폰 카메라만으로 운동 자세를 실시간 분석해 반복 횟수·세트 진행·자세 상태를 알려주는 AI 트레이닝 앱입니다. 실시간 운동 카메라 프레임은 iPhone 안에서 처리하며, 운동 기록은 Spring Boot 백엔드와 연동합니다. 체형 캘리브레이션용 사진 4장은 별도 분석 서버로 전송하며, 분석 결과를 앱 화면에 연결하는 작업은 남아 있습니다. 한밭대학교 캡스톤 디자인 3인 팀 프로젝트로, 2026년 한 해 동안 진행하고 있습니다.",
     details: projectDetails({
       "Problem & Motivation":
         "혼자 운동할 때는 자세가 잘못되어도 스스로 알아차리기 어렵고, 잘못된 자세는 운동 효과를 떨어뜨리고 부상으로 이어질 수 있습니다. 트레이너 없이도 스마트폰 하나로 자세를 확인하고 교정할 수 있는 앱을 목표로 했습니다.",
@@ -284,21 +286,23 @@ export const projects: Project[] = [
         "운동 설정·카메라 배치 안내·카운트다운·실시간 HUD·결과 화면으로 이어지는 운동 흐름",
         "리포트(운동량·분석 탭), 운동 기록 캘린더, 내정보·계정 관리 화면",
         "회원가입·로그인·계정 찾기 등 백엔드 API 연동과 토큰 갱신",
-        "저장소 전체 커밋 126개 중 71개 작성 (2026.10 기준)",
+        "계정별 캐시와 전송 대기열을 이용한 오프라인 운동 기록 동기화",
+        "푸쉬업 가로 화면 전환, 운동 중 화면 자동 잠금 방지, 코리 음소거·음성 간격 개선",
       ],
       Architecture: [
         "Flutter UI — 운동 선택, 목표 설정, 운동 진행 화면, 반복 수·세트 HUD, 리포트",
-        "iOS 네이티브(Swift/CoreML) — 카메라 프레임 수집, RTMPose-s 2D 관절 추정, 운동별 평가기",
+        "iOS 네이티브(Swift/CoreML) — 카메라 프레임 수집, 운동 카메라 RTMPose-m·체형 촬영 RTMPose-s 기반 2D 관절 추정과 운동별 평가기",
         "연결 — PlatformView로 네이티브 카메라 화면을 임베드하고, MethodChannel로 추론 결과(status·rep·done)를 Flutter에 전달",
-        "데이터 — Firebase 인증, 운동 기록 저장·조회와 기간별 통계 집계",
+        "데이터 — Spring Boot REST API·JWT 인증·PostgreSQL 운동 기록 저장과 홈·캘린더·리포트 집계",
+        "오프라인 — SharedPreferences 계정별 캐시와 전송 대기열로 기록을 보관하고 서버에 재전송",
         "Feature-First 폴더 구조에 Riverpod 단방향 상태 관리를 적용해, UI 위젯이 데이터 로직을 직접 호출하지 않고 Provider로 필요한 상태만 받도록 분리",
       ],
       "Key Features": [
-        "스쿼트·벤치프레스·데드리프트·바벨로우·푸쉬업·랫풀다운 6종 운동의 실시간 자세 분석",
+        "스쿼트·벤치프레스·데드리프트·바벨로우·푸쉬업 5종 운동 평가기와 실시간 자세·반복 수 표시",
         "반복 횟수와 세트 진행률을 보여주는 운동 HUD",
-        "가이드 조건을 만족하면 정면·양쪽 사선·뒷면 4장을 자동으로 찍는 체형 촬영",
+        "가이드 조건을 만족하면 정면·왼쪽·뒷면·오른쪽 4장을 자동으로 찍는 체형 촬영",
         "운동 전 종목별 카메라 배치 안내와 3·2·1 카운트다운",
-        "캐릭터 ‘코리’의 실시간 음성 피드백 (ElevenLabs TTS)",
+        "캐릭터 ‘코리’의 말풍선·음성 피드백과 음소거 — ElevenLabs 실패 시 iOS 기본 음성 사용",
         "운동량·자주 나온 실수를 집계하는 리포트와 운동 기록 캘린더",
       ],
       "Challenges & Solutions": [
@@ -306,14 +310,24 @@ export const projects: Project[] = [
         "로그인 상태에서 액세스 토큰이 만료되면 요청이 실패함 → 만료 시 리프레시 토큰으로 자동 갱신한 뒤 실패한 요청을 다시 보내도록 처리",
         "체형 촬영 중 코리 음성이 같은 안내를 쉬지 않고 반복함 → 안내 반복 조건을 조정해 필요한 순간에만 말하도록 수정",
         "체형 촬영 후 전송 대기 페이지에서 흐름이 끊김 → 대기 페이지를 없애고 로딩 화면에서 자동 전송하도록 단순화",
+        "네트워크가 끊긴 상태에서 끝낸 운동 기록이 유실될 수 있음 → 계정별 전송 대기열에 보관하고 연결되면 해당 계정으로 재전송",
       ],
       Results: [
         "캡스톤 디자인 I을 1차 마일스톤으로 마치고, 캡스톤 디자인 II에서 고도화 진행 중",
         "macOS 프로토타입 기준 추론·후처리 평균 12.73ms (RTMPose-s 2.56ms, MotionAGFormer-XS 7.93ms) — 팀 AI 파이프라인 측정값",
-        "다음 단계: MotionAGFormer-XS 3D 자세 추정의 iOS 연결, Android 실시간 추론 지원",
+        "다음 단계: 체형 분석 서버 결과 표시, MotionAGFormer-XS 3D 자세 추정의 iOS 연결, Android 실시간 추론 지원",
+        "현재 한계: 운동 다시보기는 데모 영상이며, 푸쉬업 가로 화면의 네이티브 카메라·AI 입력 방향 정렬과 자세 경고 기준값 검증이 남아 있음",
       ],
     }),
-    gallery: [],
+    gallery: [
+      {
+        src: "images/bpt-workout.webp",
+        alt: "BPT 바벨로우 실행 화면 — 관절 오버레이와 반복 횟수·세트 HUD, 코리 피드백",
+        caption:
+          "바벨로우 운동 실행 화면. 관절 오버레이와 반복 횟수·세트 진행을 표시하고, 코리가 자세 안내를 제공합니다.",
+        layout: "phone",
+      },
+    ],
   },
 
   {
@@ -341,7 +355,7 @@ export const projects: Project[] = [
       label: "App Store에서 보기",
       url: "https://apps.apple.com/kr/app/%EA%B2%AC%EC%A3%BC%EC%97%AC%ED%96%89/id6802208144",
     },
-    repository: null,
+    repository: "https://github.com/Gyeonju-Travel/FE",
     summary: {
       period: "2026.06 — 현재",
       team: "팀 프로젝트",
@@ -417,8 +431,8 @@ export const projects: Project[] = [
       period: "2026.09 — 현재",
       team: "4인 팀",
       role: "PM · 리듬 시스템",
-      status: "1차 개발 진행 중",
-      outcome: "4주 개발 계획과 공용 이벤트 규약 수립 · 리듬 시스템 설계",
+      status: "리듬 코어 구현 · VR 통합 진행 중",
+      outcome: "68동작 박자맵·DSP 카운트다운·박자 판정·키보드 테스트 입력 구현",
     },
     overview:
       "RhythmMaMa는 Meta Quest 3에서 플레이하는 요리 리듬게임입니다. 음악의 박자에 맞춰 재료를 썰고, 굽고, 쌓아서 샌드위치를 완성한 뒤 손님에게 서빙합니다. 동작한 타이밍이 박자와 얼마나 맞았는지에 따라 Perfect·Good·Bad로 판정합니다. 국립한밭대학교 인간과 컴퓨터 상호작용 수업(이정 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
@@ -428,32 +442,37 @@ export const projects: Project[] = [
       "My Role": [
         "PM — 4주 개발 계획·역할별 주차 체크리스트·Git 규칙 수립과 주간 회의 운영",
         "Rhythm 담당 — 음악과 박자에 관한 시스템 전체",
-        "곡 재생과 싱크를 맡는 Conductor, 박자에 맞춘 3·2·1·GO 카운트다운",
-        "박자맵(JSON) 포맷 정의와 로더, 곡을 들으며 타이밍을 기록하는 에디터용 박자맵 제작 도구",
-        "줄어드는 원(BeatTarget)의 타이밍 계산과 Perfect·Good·Bad 판정 시스템",
-        "Quest 실기기 오디오 지연 측정과 오프셋 보정",
+        "DSP 시간 기반 Conductor와 예약 재생, 박자에 맞춘 3·2·1·GO 카운트다운 구현",
+        "JSON 박자맵 포맷과 검증 로더 구현, Audacity 라벨을 보정해 샌드위치 Easy 68동작 박자맵 제작",
+        "줄어드는 원(BeatTarget)의 진행값, Perfect·Good·Bad 판정과 놓친 박자 처리 구현",
+        "키보드 테스트 입력과 디버그 HUD로 VR 동작 연동 전 리듬 코어를 점검",
+        "Quest 실기기 오디오 지연 측정과 오프셋 보정은 후속 검증 과제로 관리",
         "Unity VR 프로젝트 초기 설정, 개발 환경 가이드·Git 규칙·4주 개발 계획 문서 작성",
       ],
       Architecture: [
         "VR Interaction — 컨트롤러 동작(썰기·뒤집기·놓기 등)이 일어난 순간을 감지해 이벤트로 알림",
-        "Rhythm — 동작 이벤트를 같은 동작·같은 타깃의 가장 가까운 박자와 비교해 판정하고 결과를 발행",
+        "Rhythm — 같은 동작의 가장 가까운 미판정 박자와 비교하고, 대상 불일치·입력 누락을 포함해 판정 결과를 발행",
         "Game System — 단계 상태 머신(재료 준비→썰기→굽기→데코→서빙), 작업대 전환, 점수·콤보·별점",
         "Asset & UI — 주방 환경, 재료·도구 모델, 판정 표시와 이펙트",
         "담당끼리는 공용 이벤트 규약으로만 연결해, 각자 Sandbox 씬에서 독립적으로 개발하고 통합 빌드에서 합치는 구조",
       ],
       "Key Features": [
         "작업대 위에서 점점 작아지는 원이 타깃과 겹치는 순간이 박자 — 원 위 아이콘의 동작을 박자에 맞춰 수행",
-        "썰기·모으기·뒤집기·놓기·소스 짜기 등 요리 동작 기반 리듬 판정 (Perfect·Good·Bad)",
+        "68개 동작이 담긴 샌드위치 Easy 박자맵, Perfect·Good·Bad 판정과 미입력 처리",
+        "키보드 테스트 입력으로 리듬 판정과 원 진행값 점검 — 실제 요리 동작 감지와의 통합은 진행 중",
         "두 컨트롤러를 함께 슬라이드해 작업대 전환",
         "별점·점수·Max Combo를 보여주는 결과 화면",
       ],
       "Challenges & Solutions": [
-        "프레임 시간 기준으로 박자를 계산하면 프레임 변동에 따라 싱크가 밀림 → 오디오 DSP 시간(AudioSettings.dspTime)을 기준으로 곡 시간과 현재 박자를 계산하고, 시작 시점을 예약 재생으로 고정하는 방식으로 설계",
+        "프레임 시간 기준으로 박자를 계산하면 프레임 변동에 따라 싱크가 밀림 → 오디오 DSP 시간(AudioSettings.dspTime)을 기준으로 곡 시간과 현재 박자를 계산하고, 시작 시점을 예약 재생으로 고정하도록 구현",
         "BPM이 빠른 곡에서는 동작이 촉박해짐 → 동작별로 박 수 간격을 정해 여유 확보 (옮기기 4박, 썰기 2박, 원이 줄어드는 시간 4박)",
         "VR 헤드셋마다 오디오 지연이 다름 → 박자에 맞춰 버튼을 눌러 평균 오차를 계산하는 오프셋 보정 기능 계획",
       ],
-      Results:
-        "2026.10.12부터 4주간 1차 개발 진행 중입니다. 1차 범위는 샌드위치 1종, Easy 난이도, Quest 3 컨트롤러 조작이며, 이후 다른 요리와 난이도, 핸드 트래킹으로 확장할 예정입니다.",
+      Results: [
+        "샌드위치 Easy 박자맵 68동작, DSP 카운트다운·로더·판정 시스템과 키보드 테스트 입력 구현",
+        "게임 매니저·공용 타입·메인 씬과 작업대·UI 시연 구성을 통합하며 1차 개발 진행 중 (2026.10.12 — 11.08)",
+        "다음 단계: VR 동작 감지·점수·UI 통합, Quest 3 실기기 싱크 확인과 오디오 지연 보정",
+      ],
     }),
     gallery: [],
   },
@@ -465,18 +484,25 @@ export const projects: Project[] = [
     subtitle:
       "AI가 생성한 방화벽 룰을 격리 랩에서 정적·동적으로 검증하는 파이프라인",
     category: "SECURITY · 4인 팀",
-    technologies: ["Python", "LLM", "nftables", "Podman", "JSON Schema"],
+    technologies: [
+      "Python",
+      "Ollama",
+      "Qwen2.5",
+      "nftables",
+      "Podman",
+      "JSON Schema",
+    ],
     image: "images/firewall.svg",
     imageAlt:
       "방화벽 벽돌과 검증 체크 표시를 표현한 방화벽 룰 검증 프로젝트 콘셉트 그래픽",
     imageIsPlaceholder: true,
-    repository: null,
+    repository: "https://github.com/fire-balll/ai-firewall-validation",
     summary: {
       period: "2026.09 — 현재",
       team: "4인 팀",
       role: "시나리오 · 오류 주입 · LLM 생성기",
       status: "개발·검증 진행 중",
-      outcome: "시나리오 10종 · 오류 주입 룰셋 15개 구축",
+      outcome: "시나리오 10종 · 오류 주입 25개 · Qwen2.5 생성 후보 30개 구축",
     },
     overview:
       "자연어 요구사항으로 AI가 생성한 방화벽 룰을 격리된 컨테이너 랩에서 정적·동적으로 검증하고, 위험도에 따라 선별 적용하며, 이상이 생기면 자동으로 롤백하는 파이프라인입니다. 컴퓨터공학 특론 수업(박재현 교수)의 4인 팀 프로젝트로, 2026년 9월부터 진행하고 있습니다.",
@@ -485,10 +511,11 @@ export const projects: Project[] = [
         "AI로 방화벽 룰을 만들면 작성 속도는 빨라지지만, 문법적으로 맞는 룰도 실제로는 막아야 할 트래픽을 통과시킬 수 있습니다. 정적 검증만 통과한 룰 중 실제 트래픽을 흘려 봐야만 드러나는 오류가 얼마나 되는지, 위험도 기반 적용으로 사람의 검토량을 얼마나 줄이면서 안전성을 지킬 수 있는지를 연구 질문으로 삼았습니다.",
       "My Role": [
         "시나리오 담당 — 스마트홈 환경의 자연어 요구사항, 정답 룰셋, 정상·공격 프로브 정의 10종 작성",
-        "오류 주입 담당 — 정답 룰셋을 일부러 망가뜨린 룰셋 15개를 11가지 유형(order·widen·port·swap·missing·action 등)으로 설계",
+        "오류 주입 담당 — 기존 11개 유형 15개에 응답 트래픽 누락(state) 10개를 더해, 12개 유형·25개 룰셋 구축",
         "유형별로 정적 검증에 잡히는지에 대한 가설을 세우고, 시뮬레이터로 어떤 프로브가 실패하는지 정리",
         "오류 주입 커버리지 분석기 작성과 프로브 보강",
-        "자연어 요구사항을 룰 IR로 바꾸는 LLM 생성기 담당",
+        "Ollama 구조화 출력 기반 LLM 생성기를 구현하고, 자연어 요구사항을 JSON 룰 IR로 변환",
+        "Qwen2.5:14b로 시나리오 10종 × seed 3개의 후보 30개를 생성하고 모델·프롬프트·실행 조건을 기록",
       ],
       Architecture: [
         "scenario → generator(LLM) → 후보 룰셋 → validator(정적 검증·위험도 판정) → deployer(적용·감시·롤백) → eval(지표 계산)",
@@ -505,11 +532,13 @@ export const projects: Project[] = [
       ],
       "Challenges & Solutions": [
         "한 룰셋에 오류가 여러 개 섞이면 어떤 오류를 어느 검증이 잡았는지 가를 수 없음 → 오류 주입 파일 하나에 오류를 하나만 넣는 원칙을 세움",
-        "현재 룰 표현(IR)으로는 응답 트래픽 누락 같은 오류를 표현할 수 없음 → 막히는 이유와 두 가지 해결안을 정리해 팀 논의로 올림",
+        "IR로 응답 트래픽 누락을 표현할 수 없음 → state 오류 주입 파일에 한해 변환기에서 상태 추적 룰을 제외하는 옵션을 연결하고, 시뮬레이터로 검출할 수 없는 유형을 별도 관리",
         "구현이 진행되며 가설이 실제 검증기 동작과 어긋남 → 검증기 결과를 확인해 order 유형 가설을 correlation 기준으로 수정",
       ],
       Results: [
-        "스마트홈 시나리오 10종과 11개 유형의 오류 주입 룰셋 15개로 검증 실험용 데이터셋 구축",
+        "스마트홈 시나리오 10종, 12개 유형의 오류 주입 룰셋 25개와 Qwen2.5:14b 생성 후보 30개 구축",
+        "게스트 망과 두 번째 PC를 추가한 격리 랩, curl·nmap 프로브로 검증 범위를 확대",
+        "생성 후보는 검증 실험의 입력이며, 전체 랩 실험의 정량 성과는 아직 집계 전",
         "시뮬레이터 분석 결과, 포트 오기·범위 경계·출발지와 목적지 뒤바뀜·룰 누락·범위 축소 오류는 정적 검증에서 저위험으로 통과하지만 프로브에서는 실패 — 동적 검증이 필요한 이유를 확인",
       ],
     }),
@@ -650,7 +679,7 @@ export const projects: Project[] = [
     imageAlt:
       "눈의 형태와 모스부호 신호를 표현한 Computer Vision 콘셉트 그래픽",
     imageIsPlaceholder: true,
-    repository: null,
+    repository: "https://github.com/improvv/MorseLingo",
     summary: {
       period: "2026.10",
       team: "개인 프로젝트",
