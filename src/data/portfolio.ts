@@ -326,11 +326,18 @@ export const projects: Project[] = [
     }),
     gallery: [
       {
+        src: "images/bpt-workout-setup.webp",
+        alt: "BPT 운동 설정 화면 — 운동 종목, 세트 수, 반복 횟수, 무게와 쉬는 시간 설정",
+        caption:
+          "운동 종목과 세트 수, 반복 횟수·무게·쉬는 시간을 설정하고 운동을 시작합니다.",
+        layout: "store",
+      },
+      {
         src: "images/bpt-workout.webp",
         alt: "BPT 바벨로우 실행 화면 — 관절 오버레이와 반복 횟수·세트 HUD, 코리 피드백",
         caption:
           "바벨로우 운동 실행 화면. 관절 오버레이와 반복 횟수·세트 진행을 표시하고, 코리가 자세 안내를 제공합니다.",
-        layout: "phone",
+        layout: "store",
       },
     ],
   },
