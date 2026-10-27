@@ -199,13 +199,14 @@ export const beyondCode: BeyondCode[] = [
 // 진행 중인 연구 프로젝트
 export const research: Research[] = [
   {
-    title: "Lightweight Deep Learning for Resource-Constrained Environments",
+    repository: "https://github.com/IoT-Kimjangs/har-quantization",
+    title: "HAR Quantization — IoT 센서 기반 행동 인식 모델의 양자화 효율 분석",
     summary:
-      "Pruning·Quantization·Knowledge Distillation 등 경량화 기법을 학습합니다. EfficientSAM(CVPR 2024)과 공식 구현을 분석하고, 모델 크기·추론 속도·분할 성능을 비교하는 실험을 설계하고 있습니다.",
+      "웨어러블 센서 행동 인식(HAR) Transformer를 WISDM·PAMAP2에서 재현하고, Keras·TFLite FP32·FP16·INT8 등 6가지 실행 방식의 크기·지연시간·메모리·정확도를 비교합니다. 런타임 변경 효과와 양자화 효과를 나눠 측정하며, Mac(ARM) 실행 환경 구성·재현·측정을 맡았습니다. 현재 실험 규약과 협업 체계를 마련했고, 측정은 진행 전입니다.",
     course: "사물인터넷 전공 팀프로젝트",
     advisor: "우성필 교수",
     period: "2026.09 —",
-    tags: ["COMPUTER VISION", "MODEL COMPRESSION", "EFFICIENTSAM"],
+    tags: ["ON-DEVICE AI", "QUANTIZATION", "TFLITE"],
     inProgress: true,
   },
   {
