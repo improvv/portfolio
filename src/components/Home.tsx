@@ -776,7 +776,10 @@ function ResearchSection() {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        NLP-Cactus / KoImplicit{" "}
+                        {item.repository
+                          .replace("https://github.com/", "")
+                          .split("/")
+                          .join(" / ")}{" "}
                         <ArrowUpRight size={14} aria-hidden="true" />
                       </a>
                     </dd>
