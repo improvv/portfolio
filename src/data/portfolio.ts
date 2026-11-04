@@ -789,9 +789,9 @@ export const education = {
   ],
   // 최신 취득순 → 전공 관련도순
   certificates: [
+    "정보처리기사",
     "NAVER Cloud Platform Certified Associate (NCA)",
     "AWS Certified Cloud Practitioner",
-    "정보처리기사 (필기 합격)",
     "리눅스마스터 2급",
     "네트워크관리사 2급",
     "컴퓨터활용능력 1급",
