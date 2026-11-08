@@ -364,20 +364,16 @@ export const projects: Project[] = [
       "경주의 산과 여행 경로를 추상적으로 표현한 반려견 여행 콘셉트 그래픽",
     imageIsPlaceholder: true,
     logo: { src: "images/logo-gyeonju.webp", alt: "견주여행 로고" },
-    storeLink: {
-      label: "App Store에서 보기",
-      url: "https://apps.apple.com/kr/app/%EA%B2%AC%EC%A3%BC%EC%97%AC%ED%96%89/id6802208144",
-    },
     repository: "https://github.com/Gyeonju-Travel/FE",
     summary: {
-      period: "2026.06 — 현재",
+      period: "2026.06 시작 · 서비스 종료",
       team: "팀 프로젝트",
       role: "PM · React Native 프론트엔드 · 배포",
-      status: "App Store 출시",
+      status: "서비스 종료 · App Store 출시 이력",
       outcome: "TestFlight 베타 5차 배포를 거쳐 정식 출시",
     },
     overview:
-      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스 추천, 지도, 일정, 도보 경로, 관광지 도착 스탬프 기능이 있습니다. 팀 프로젝트로 2026년 6월부터 PM과 프론트엔드를 맡았고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다. 한국관광공사 공모전에도 출품해 진행 중입니다.",
+      "견주여행은 반려견과 함께 경주를 여행하는 보호자를 위해 개발한 모바일 앱입니다. 반려견 정보에 맞춘 여행 코스 추천, 지도, 일정, 도보 경로, 관광지 도착 스탬프 기능을 구현했습니다. 팀 프로젝트로 2026년 6월부터 PM과 프론트엔드를 맡았고, TestFlight 베타 테스트를 거쳐 App Store에 출시했습니다. 한국관광공사 공모전에도 출품했습니다. 현재는 서비스가 종료되어 App Store에서 다운로드할 수 없습니다. 아래 갤러리에서 출시 당시 앱 화면을 확인할 수 있습니다.",
     details: projectDetails({
       "Problem & Motivation":
         "반려견과 여행을 떠나려면 동반 가능한 장소를 일일이 찾아봐야 하고, 반려견의 크기나 성향까지 고려하기는 더 어렵습니다. 경주를 찾는 보호자가 반려견과 함께 갈 수 있는 코스를 한 번에 추천받고, 여행하는 동안의 기록까지 남길 수 있도록 하고자 했습니다.",
@@ -412,6 +408,7 @@ export const projects: Project[] = [
         "2026.08.22부터 09.09까지 TestFlight 베타 5차 배포",
         "배포 회차마다 수정 사항을 기록하며 실사용 피드백을 반영",
         "App Store 정식 출시",
+        "서비스 종료 — 출시 당시 앱 화면과 개발 기록을 포트폴리오에 보존",
       ],
     }),
     gallery: [
